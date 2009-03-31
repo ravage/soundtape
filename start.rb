@@ -9,8 +9,8 @@ DB.loggers << Logger.new($stdout)
 $LOAD_PATH.unshift(__DIR__)
 
 # Initialize controllers and models
-Ramaze::acquire 'controller/*'
-require 'model/User.rb'
+require 'controller/init'
+require 'model/User'
 Ramaze::acquire 'model/*'
 
 Ramaze.start :adapter => :webrick, :port => 7000

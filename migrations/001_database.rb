@@ -100,7 +100,7 @@ class CreateTables < Sequel::Migration
       primary_key :id
       foreign_key :mailing_list_id, :mailing_lists, :key => :id
       foreign_key :profile_id, :profiles, :key => :id
-      varchar :email, :size => 100
+      varchar :email, :size => 100, :unique => true
       varchar :password, :size => 128
       foreign_key :agenda_id, :agenda, :key => :id
     end

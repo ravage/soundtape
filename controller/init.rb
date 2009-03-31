@@ -2,10 +2,11 @@
 # controllers
 
 class Controller < Ramaze::Controller
-  layout '/page'
+  layout '/master'
   helper :xhtml
-  engine :Ezamar
+  engine :Erubis
 end
 
 # Here go your requires for subclasses of Controller:
 require 'controller/main'
+require 'controller/user'
