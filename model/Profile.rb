@@ -1,2 +1,2 @@
-class Profile < Sequel::Model
+class Profile < Sequel::Model(:profiles)
 end

@@ -1,2 +1,2 @@
-class Country < Sequel::Model
+class Country < Sequel::Model(:countries)
 end

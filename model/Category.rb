@@ -1,2 +1,2 @@
-class Category < Sequel::Model
+class Category < Sequel::Model(:categories)
 end

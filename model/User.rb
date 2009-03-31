@@ -1,4 +1,4 @@
-class User < Sequel::Model
+class User < Sequel::Model(:users)
   one_to_many   :agendas, :one_to_one => true
   one_to_many   :profiles, :one_to_one => true
   one_to_many   :albuns

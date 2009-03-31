@@ -1,4 +1,4 @@
-class Event < Sequel::Model
+class Event < Sequel::Model(:events)
   one_to_many :map_points, :one_to_one => true
   one_to_many :comments
 end

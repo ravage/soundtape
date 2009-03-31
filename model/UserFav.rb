@@ -1,2 +1,2 @@
-class UserFav < Sequel::Model
+class UserFav < Sequel::Model(:user_favs)
 end
