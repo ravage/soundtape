@@ -1,0 +1,17 @@
+body {
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+	background-color: #181818;
+	color: #ccc;
+	text-decoration: none;
+	word-spacing: 0.15em;
+	text-align: left;
+	letter-spacing: 0;
+	line-height: 1.2em;
+	font-size: 0.7em;
+}
+
+#wrapper {
+	width: 800px;
+	padding: 10px;
+	border: 1px solid #999;
+}
