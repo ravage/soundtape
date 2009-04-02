@@ -38,42 +38,71 @@ label {
 	background-image: url(../imgs/banner.png);
 }
 
+/* @top_menu begin */
 #top_menu {
-	background-color: #111111;
-	margin:0;
+	overflow: auto;
+	background-color: #101010;
 }
-
-#top_menu ul li {
-	display: inline;
-	list-style-position: outside; 
-	list-style: none;
-}
-#top_menu li {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-right: 1px;
-	padding-left: 1px;
-	border-right: 1px solid #1f1f1f;
-}
-
-#top_menu ul li a {
-	padding: 20px 19px 20px 19px;
+#top_menu a {
+	color: #e64b1b;
+	/*background: url(../imgs/menu_round_left.png) left top no-repeat;*/
 	text-decoration: none;
-	color: #e94d1b;
+	padding-left: 10px;
+	/*background-color: #282828;*/
 }
 
-#top_menu li a:hover {
-	background-image: url(../imgs/hover.png);
-	background-repeat: no-repeat;
-	background-position: bottom center;
-	background-color: #1a1a1a;
-	padding: 10px 19px 20px 19px;
-	/*border-top: 5px solid #444;*/
+#top_menu a span {
+	color: #e64b1b;
+	/*background: url(../imgs/menu_round_right.png) right top no-repeat;*/
+	text-decoration: none;
+	padding-right: 10px;
+	padding-top: 8px;
+	padding-bottom: 10px;
+	/*background-color: #282828;*/
 }
-#top_menu ul {
-	padding: 20px 0 20px 0;
-	text-align: center;
+
+#top_menu a:hover {
+	color: #e64b1b;
+	background: url(../imgs/menu_round_left.png) left top no-repeat;
+	text-decoration: none;
+	padding-left: 10px;
+	background-color: #282828;
 }
+
+#top_menu a:hover span {
+	color: #e64b1b;
+	background: url(../imgs/menu_round_right.png) right top no-repeat;
+	text-decoration: none;
+	padding-right: 10px;
+	padding-top: 8px;
+	padding-bottom: 10px;
+	background-color: #282828;
+}
+
+#top_menu a, #top_menu a span
+{
+	display: block;
+	float: left;
+}
+
+#top_menu ul
+{
+	list-style: none;
+	margin: 0;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-top: 5px;	
+}
+
+#top_menu li
+{
+	margin: 0;
+	float: left;
+	padding-right: 5px;
+	padding-left: 5px;
+	background: url(../imgs/menu_sep.png) no-repeat right;
+}
+/* @top_menu end */
 
 /* @content begin */
 #content {
