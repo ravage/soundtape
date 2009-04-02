@@ -45,25 +45,21 @@ label {
 }
 #top_menu a {
 	color: #e64b1b;
-	/*background: url(../imgs/menu_round_left.png) left top no-repeat;*/
 	text-decoration: none;
 	padding-left: 10px;
-	/*background-color: #282828;*/
 }
 
 #top_menu a span {
 	color: #e64b1b;
-	/*background: url(../imgs/menu_round_right.png) right top no-repeat;*/
 	text-decoration: none;
 	padding-right: 10px;
 	padding-top: 8px;
 	padding-bottom: 10px;
-	/*background-color: #282828;*/
 }
 
 #top_menu a:hover {
 	color: #e64b1b;
-	background: url(../imgs/menu_round_left.png) left top no-repeat;
+	background: url(../imgs/menu_round.png) 0 0px no-repeat;
 	text-decoration: none;
 	padding-left: 10px;
 	background-color: #282828;
@@ -71,7 +67,7 @@ label {
 
 #top_menu a:hover span {
 	color: #e64b1b;
-	background: url(../imgs/menu_round_right.png) right top no-repeat;
+	background: url(../imgs/menu_round.png) 100% 0px no-repeat;
 	text-decoration: none;
 	padding-right: 10px;
 	padding-top: 8px;
