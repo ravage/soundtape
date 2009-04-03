@@ -1,5 +1,6 @@
 Sequel::MySQL.default_engine = 'InnoDB'
 class CreateTables < Sequel::Migration
+  
   def up
     create_table(:agenda) do
       primary_key :id
@@ -23,11 +24,59 @@ class CreateTables < Sequel::Migration
       varchar     :description, :size => 20, :null => false
     end
     
+    create_table(:mailing_lists) do
+       primary_key :id
+
+       TrueClass   :state, :default => false
+     end
+     
+     create_table(:map_points) do
+       primary_key :id
+
+       Float     :latitude, :null => false
+       Float     :longitude, :null => false
+       varchar   :name, :size => 80, :null => false
+       longtext  :description
+     end
+     
+     create_table(:countries) do
+       primary_key :id
+
+       varchar     :abbr, :size => 3, :null => false
+       varchar     :country, :size => 30, :null => false
+     end
+     
+     create_table(:profiles) do
+       primary_key :id
+
+       String      :address, :null => true
+       varchar     :province, :size => 30, :null => true
+       varchar     :zip_code, :size => 10, :null => true
+       varchar     :city, :size => 30, :null => true
+       String      :real_name, :null => false, :null => false
+       varchar     :photo_path, :size => 60, :null => false
+       text        :preferences, :null => true
+
+       foreign_key :country_id, :table => :countries, :key => :id, :on_delete => :cascade 
+       foreign_key :map_point_id, :table => :map_points, :key => :id, :on_delete => :cascade
+     end
+    
+    create_table(:users) do
+       primary_key :id
+
+       varchar     :email, :size => 100, :unique => true, :null => false
+       varchar     :password, :size => 128, :null => false
+
+       foreign_key :agenda_id, :table => :agenda, :key => :id, :on_delete => :cascade 
+       foreign_key :mailing_list_id, :table => :mailing_lists, :key => :id, :on_delete => :cascade 
+       foreign_key :profile_id, :table => :profiles, :key => :id, :on_delete => :cascade 
+     end
+    
     create_table(:comments) do
       primary_key :id
       
       longtext    :content, :null => false
-      timestamp   :created_at, :default => :CURRENT_TIMESTAMP
+      timestamp   :created_at, :default => 'CURRENT_TIMESTAMP'.lit
       
       foreign_key :parent, :table => :comments, :key => :id, :on_delete => :cascade 
       foreign_key :user_id, :table => :users, :key => :id, :on_delete => :cascade 
@@ -59,28 +108,13 @@ class CreateTables < Sequel::Migration
       foreign_key :agenda_id, :table => :agenda, :key => :id, :on_delete => :cascade
     end
     
-    create_table(:map_points) do
-      primary_key :id
-     
-      Float     :latitude, :null => false
-      Float     :longitude, :null => false
-      varchar   :name, :size => 80, :null => false
-      longtext  :description
-    end
-    
     create_table(:mailing_list_messages) do
       primary_key :id
       
-      timestamp    :created_at, :default => :CURRENT_TIMESTAMP
+      timestamp   :created_at, :default => 'CURRENT_TIMESTAMP'.lit
       longtext    :content, :null => false
       
-      foreign_key :mailing_list_id, :table => :mailing_list, :key => :id, :on_delete => :cascade 
-    end
-    
-    create_table(:mailing_list) do
-      primary_key :id
-      
-      TrueClass   :state, :default => false
+      foreign_key :mailing_list_id, :table => :mailing_lists, :key => :id, :on_delete => :cascade 
     end
     
     create_table(:tracks) do
@@ -92,39 +126,6 @@ class CreateTables < Sequel::Migration
       varchar     :path, :size => 60, :null => false
       
       foreign_key :album_id, :table => :albums, :key => :id, :on_delete => :cascade 
-    end
-    
-    create_table(:countries) do
-      primary_key :id
-    
-      varchar     :abbr, :size => 3, :null => false
-      varchar     :country, :size => 30, :null => false
-    end
-    
-    create_table(:profiles) do
-      primary_key :id
-     
-      String      :address, :null => true
-      varchar     :province, :size => 30, :null => true
-      varchar     :zip_code, :size => 10, :null => true
-      varchar     :city, :size => 30, :null => true
-      String      :real_name, :null => false, :null => false
-      varchar     :photo_path, :size => 60, :null => false
-      text        :preferences, :null => true
-      
-      foreign_key :country_id, :table => :countries, :key => :id, :on_delete => :cascade 
-      foreign_key :map_point_id, :table => :map_points, :key => :id, :on_delete => :cascade
-    end
-    
-    create_table(:users) do
-      primary_key :id
-  
-      varchar     :email, :size => 100, :unique => true, :null => false
-      varchar     :password, :size => 128, :null => false
-      
-      foreign_key :agenda_id, :table => :agenda, :key => :id, :on_delete => :cascade 
-      foreign_key :mailing_list_id, :table => :mailing_lists, :key => :id, :on_delete => :cascade 
-      foreign_key :profile_id, :table => :profiles, :key => :id, :on_delete => :cascade 
     end
     
     create_table(:users_favs) do
