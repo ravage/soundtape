@@ -2,7 +2,9 @@ require 'rubygems'
 require 'ramaze'
 require 'sequel'
 require 'logger'
-DB = Sequel.sqlite('soundtape.db')
+#DB = Sequel.sqlite('soundtape.db')
+
+DB = Sequel.mysql('soundtape', :user => 'root', :password => 'root', :host => 'localhost')
 DB.loggers << Logger.new($stdout)
 
 require 'data/countries'  
