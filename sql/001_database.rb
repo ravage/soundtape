@@ -53,7 +53,7 @@ class CreateTables < Sequel::Migration
        varchar     :province, :size => 30, :null => true
        varchar     :zip_code, :size => 10, :null => true
        varchar     :city, :size => 30, :null => true
-       String      :real_name, :null => false, :null => false
+       String      :real_name, :null => false
        varchar     :photo_path, :size => 60, :null => false
        text        :preferences, :null => true
 
