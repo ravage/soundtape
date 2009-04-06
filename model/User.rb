@@ -12,7 +12,7 @@ class User < Sequel::Model(:users)
     confirmation_of :password
   end
   
-  attr_accessor :password_confirmation, :password
+  attr_accessor :password_confirmation
   
   def self.prepare(values)
     user = User.new(

@@ -5,3 +5,4 @@
 	<input type="password" name="password" value="" />
 	<input type="submit" value="<%= _('Continue') %> &rarr;">
 </form>
+<%= _('Forgot your password?') %> <a href="<%= R(UserController, :reset) %>"><%= _('Reset it')%></a>

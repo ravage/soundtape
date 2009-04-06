@@ -1,9 +1,8 @@
 <%= render_template('../partials/form_login_user') %>
 
-<% if flash[:login_failed] %>
+<% if flash[:error] %>
 <ul>
 <li><%= _('Check your login and user name') %></li>
 <li><%= _('Is your account activated?') %></li>
-<li><%= _('Forgot your password?') %><a href="<%= R(UserController, :reset) %>"><%= _('Reset it')%></a></li>
 </ul>
 <% end %>

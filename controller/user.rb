@@ -15,6 +15,7 @@ class UserController < Controller
           flash[:exception] = true
           redirect '/oops'
         end
+        send_activation_mail(userds)
         flash[:success] = _('successfully created account')
       else
         flash[:email] = request[:email]
@@ -26,13 +27,16 @@ class UserController < Controller
   
   def login
     if request.post?
-      user_login(request.params)
-      flash[:login_failed] = true;
+      if !user_login(request.params)
+        flash[:error] = true;
+      else
+        redirect Rs :/
+      end
     end
   end
   
   def index
-    send_activation_mail(User[:email => 'ravage@fragmentized.net'])
+    
   end
   
   def activate(key = nil)
@@ -49,7 +53,13 @@ class UserController < Controller
   def send_activation_mail(userds)
     msg = _('Please activate your account')
     msg += "\nhttp://localhost:7000#{Rs(:activate)}/#{userds.activation_key}"
-    ret = Thread.new { Ramaze::EmailHelper.send('ravage@fragmentized.net', _('Account Activation'), msg) }
+    ret = Thread.new do
+      begin
+        Ramaze::EmailHelper.send(userds.email, _('Account Activation'), msg)
+      rescue Exception => e
+        oops('user/send_activation_mail', e)
+      end
+    end
   end
   
   before(:activate, :login, :register) {redirect Rs :/ if logged_in?}
