@@ -1,0 +1,65 @@
+<% @user.profiles.each do |profile| %>
+	<%= _('Address') %>
+	<%== profile.address %>
+
+	<%= _('Province') %>
+	<%== profile.province %>
+
+	<%= _('City') %>
+	<%== profile.city %>
+
+	<%= _('Zip Code') %>
+	<%== profile.zip_code %>
+
+	<%= _('Name') %>
+	<%== profile.real_name %>
+
+	<%= _('Photo') %>
+	<%== profile.photo_path %>
+
+	<%= _('Preferences') %>
+	<%== profile.preferences %>
+
+	<%= _('Country') %>
+	<%== profile.country %>
+	<%= _('E-Mail') %>
+	<%== @user.email %>
+	<%= _('Map') %>
+	<%== profile.map_point_id %>
+<% end %>
+
+<% @user.agendas.each do |agenda| %>
+	<%= _('Agenda') %>
+	<%== agenda.description %>
+	
+	<%= _('Events') %>
+	<% agenda.events.each do |event| %>
+		<%== event.name %>
+		<%== event.description %>
+	<% end %>
+<% end %>
+<!--
+	name			VARCHAR(100) NOT NULL,
+	description		LONGTEXT NOT NULL,
+	map_point_id	INT UNSIGNED NOT NULL,
+	agenda_id		INT UNSIGNED NOT NULL,	
+
+id				INT UNSIGNED AUTO_INCREMENT,
+address			VARCHAR(255) NULL,
+province		VARCHAR(20) NULL,
+zip_code		VARCHAR(10) NULL,
+city			VARCHAR(30) NULL,
+real_name		VARCHAR(100) NOT NULL,
+photo_path		VARCHAR(60) NULL,
+preferences		TEXT NULL,
+country_id		INT UNSIGNED NULL,
+map_point_id	INT UNSIGNED NULL,
+user_id			INT	UNSIGNED UNIQUE NOT NULL,
+
+PRIMARY KEY		(id),
+INDEX			(country_id),
+INDEX			(map_point_id),
+FOREIGN KEY		(country_id) REFERENCES countries(id) ON DELETE CASCADE,
+FOREIGN KEY		(map_point_id) REFERENCES map_marquers(id) ON DELETE CASCADE,
+FOREIGN KEY 	(user_id) REFERENCES users(id) ON DELETE CASCADE
+-->

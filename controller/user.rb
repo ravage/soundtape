@@ -6,8 +6,8 @@ class UserController < Controller
     if request.post?
 
       userds = User.prepare(request.params)
-
-      if userds.valid?
+      
+      if userds.valid? && !request[:real_name].empty?
         begin
           userds.save
         rescue Sequel::Error => e
@@ -15,10 +15,12 @@ class UserController < Controller
           flash[:exception] = true
           redirect '/oops'
         end
+        userds.profiles_dataset.update(:real_name => h(request[:real_name]))
         send_activation_mail(userds)
         flash[:success] = _('successfully created account')
       else
-        flash[:email] = request[:email]
+        flash[:email]     = request[:email]
+        flash[:real_name] = request[:real_name]
       end
       
       pp userds.errors
@@ -30,14 +32,20 @@ class UserController < Controller
       if !user_login(request.params)
         flash[:error] = true;
       else
-        redirect Rs :/
+        redirect Rs(:/)
       end
     end
   end
   
   def index
+    redirect Rs(:login) unless logged_in?
+    
+    @user = user
     
   end
+  
+ 
+  
   
   def activate(key = nil)
     redirect :/ if key.nil? || key.empty?
@@ -62,5 +70,5 @@ class UserController < Controller
     end
   end
   
-  before(:activate, :login, :register) {redirect Rs :/ if logged_in?}
+  before(:activate, :login, :register) {redirect Rs(:/) if logged_in?}
 end

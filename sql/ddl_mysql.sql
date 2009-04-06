@@ -75,6 +75,7 @@ CREATE TABLE profiles (
 	country_id		INT UNSIGNED NULL,
 	map_point_id	INT UNSIGNED NULL,
 	user_id			INT	UNSIGNED UNIQUE NOT NULL,
+	bio				TEXT NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(country_id),

@@ -1,6 +1,7 @@
 class User < Sequel::Model(:users)
   
-  one_to_many :profiles, :unique => true, :join_table => :profiles
+  one_to_many :profiles, :unique => true, :join_table => :profiles, :class => :Profile
+  one_to_many :agendas, :unique => true, :join_table => :agendas, :class => :Agenda
   
   User.raise_on_save_failure = false
   
