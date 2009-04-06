@@ -1,7 +1,0 @@
-:adapter: mysql
-:database: soundtape 
-:username: root
-:password: root
-:host: localhost
-:socket: /Applications/MAMP/tmp/mysql/mysql.sock
-:encoding: utf8
