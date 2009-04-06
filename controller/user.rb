@@ -32,7 +32,7 @@ class UserController < Controller
   end
   
   def index
-    pp user
+    send_activation_mail(User[:email => 'ravage@fragmentized.net'])
   end
   
   def activate(key = nil)
@@ -46,7 +46,10 @@ class UserController < Controller
   
   private
   
-  def send_activation_mail
+  def send_activation_mail(userds)
+    msg = _('Please activate your account')
+    msg += "\nhttp://localhost:7000#{Rs(:activate)}/#{userds.activation_key}"
+    ret = Thread.new { Ramaze::EmailHelper.send('ravage@fragmentized.net', _('Account Activation'), msg) }
   end
   
   before(:activate, :login, :register) {redirect Rs :/ if logged_in?}

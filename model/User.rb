@@ -41,6 +41,7 @@ class User < Sequel::Model(:users)
   end
   
   def self.activate(key)
-    return self.filter(:activation_key => key).update(:active => true) == 1
+    return self.filter(:activation_key => key, :active => false).update(:active => true) == 1
   end
+
 end

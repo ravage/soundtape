@@ -4,10 +4,21 @@ require 'sequel'
 require 'logger'
 require 'gettext/cgi'
 require 'digest/sha1'
+require 'ramaze/contrib/email'
+
 include GetText
 set_output_charset("UTF-8")
+
+Ramaze::EmailHelper.trait(
+  :smtp_server      => 'mail.git.fragmentized.net',
+  :smtp_helo_domain => "git.fragmentized.net",
+  :smtp_username    => 'ravage@git.fragmentized.net',
+  :smtp_password    => 'teste00',
+  :sender_address   => 'ravage@fragmentized.net',
+  :sender_full      => "#{_('SoundTape Staff')} <no-reply@soundtape.net>",
+  :subject_prefix   => "[SoundTape]"
+)
 #DB = Sequel.sqlite('soundtape.db')
-puts _('aaaaa')
 DB = Sequel.mysql('soundtape', 
   :user => 'root', 
   :password => 'root', 
