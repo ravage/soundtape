@@ -1,2 +1,2 @@
-class MapPoint < Sequel::Model(:map_points)
+class MapMarker < Sequel::Model(:map_markers)
 end

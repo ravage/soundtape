@@ -1,17 +1,27 @@
 class User < Sequel::Model(:users)
-  one_to_many   :agendas, :one_to_one => true
-  one_to_many   :profiles, :one_to_one => true
-  one_to_many   :albuns
-  one_to_many   :map_points, :one_to_one => true
-  one_to_many   :comments
-  one_to_many   :profiles, :one_to_one => true
-  one_to_many   :user_favs
-  one_to_many   :mailing_lists
+  one_to_many :profiles, :unique => true, :join_table => :profiles
   
-  #email
-  #password
+  User.raise_on_save_failure = false
   
-  def register
-    
+  validations.clear
+  validates do
+    uniqueness_of   :email
+    presence_of     :email, :password
+    format_of       :email, :with => /^[a-zA-Z]([.]?([[:alnum:]_-]+)*)?@([[:alnum:]\-_]+\.)+[a-zA-Z]{2,4}$/
+    confirmation_of :password
   end
+  
+  attr_accessor :password_confirmation
+  
+  def self.prepare(values)
+    user = User.new(
+      {
+        :email                  => values['email'],
+        :password               => values['password'],
+        :password_confirmation  => values['password_confirmation']
+      }
+    )
+    return user
+  end
+  
 end

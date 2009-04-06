@@ -1,4 +1,4 @@
-Sequel::MySQL.default_engine = 'InnoDB'
+#Sequel::MySQL.default_engine = 'InnoDB'
 class CreateTables < Sequel::Migration
   
   def up

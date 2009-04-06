@@ -3,7 +3,7 @@ CREATE TABLE agendas (
 	description	varchar(255) NOT NULL,
 	
 	PRIMARY KEY	(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE blocks (
 	id			INT UNSIGNED AUTO_INCREMENT,
@@ -14,23 +14,23 @@ CREATE TABLE blocks (
 	PRIMARY KEY	(id),
 	INDEX		(parent),
 	FOREIGN KEY (parent) REFERENCES blocks(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE categories (
 	id			INT UNSIGNED AUTO_INCREMENT,
 	description	VARCHAR(20) NOT NULL,
 	
 	PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE mailing_lists (
 	id			INT UNSIGNED AUTO_INCREMENT,
 	state		BOOLEAN DEFAULT FALSE,
 	
 	PRIMARY KEY	(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
-CREATE TABLE map_points (
+CREATE TABLE map_marquers (
 	id			INT UNSIGNED AUTO_INCREMENT,
 	latitude	FLOAT NOT NULL,
 	longitude	FLOAT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE map_points (
 	description	LONGTEXT,
 	
 	PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE countries (
 	id			INT UNSIGNED	AUTO_INCREMENT,
@@ -46,7 +46,7 @@ CREATE TABLE countries (
 	country		VARCHAR(30) NOT NULL,
 	
 	PRIMARY KEY	(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE profiles (
 	id				INT UNSIGNED AUTO_INCREMENT,
@@ -58,14 +58,14 @@ CREATE TABLE profiles (
 	photo_path		VARCHAR(60) DEFAULT NULL,
 	preferences		TEXT DEFAULT NULL,
 	country_id		INT UNSIGNED NOT NULL,
-	map_point_id	INT UNSIGNED NOT NULL,
+	map_point_id	INT UNSIGNED NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(country_id),
 	INDEX			(map_point_id),
 	FOREIGN KEY		(country_id) REFERENCES countries(id),
-	FOREIGN KEY		(map_point_id) REFERENCES map_points(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	FOREIGN KEY		(map_point_id) REFERENCES map_marquers(id)
+);
 
 CREATE TABLE users (
 	id				INT UNSIGNED AUTO_INCREMENT,
@@ -82,7 +82,7 @@ CREATE TABLE users (
 	FOREIGN KEY		(agenda_id) REFERENCES agendas(id),
 	FOREIGN KEY		(mailing_list_id) REFERENCES mailing_lists(id),
 	FOREIGN	KEY		(profile_id) REFERENCES	profiles(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE comments (
 	id			INT UNSIGNED AUTO_INCREMENT,
@@ -97,7 +97,7 @@ CREATE TABLE comments (
 	INDEX		(user_id),
 	FOREIGN KEY	(parent) REFERENCES comments(id),
 	FOREIGN KEY (user_id) REFERENCES users(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE albums (
 	id			INT UNSIGNED AUTO_INCREMENT,
@@ -110,7 +110,7 @@ CREATE TABLE albums (
 	INDEX		(category_id),
 	FOREIGN KEY	(user_id) REFERENCES users(id),
 	FOREIGN KEY (category_id) REFERENCES categories(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE band_elements (
 	user_id		INT UNSIGNED NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE band_elements (
 	PRIMARY KEY	(user_id, element_id),
 	FOREIGN	KEY	(user_id) REFERENCES users(id),
 	FOREIGN KEY (element_id) REFERENCES users(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE events (
 	id				INT UNSIGNED AUTO_INCREMENT,
@@ -131,9 +131,9 @@ CREATE TABLE events (
 	PRIMARY KEY		(id),
 	INDEX			(map_point_id),
 	INDEX			(agenda_id),
-	FOREIGN KEY		(map_point_id) REFERENCES map_points(id),
+	FOREIGN KEY		(map_point_id) REFERENCES map_marquers(id),
 	FOREIGN KEY		(agenda_id)	REFERENCES agendas(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE mailing_list_messages (
 	id				INT UNSIGNED AUTO_INCREMENT,
@@ -144,7 +144,7 @@ CREATE TABLE mailing_list_messages (
 	PRIMARY KEY		(id),
 	INDEX			(mailing_list_id),
 	FOREIGN KEY		(mailing_list_id) REFERENCES mailing_lists(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE tracks (
 	id			INT UNSIGNED AUTO_INCREMENT,
@@ -156,7 +156,7 @@ CREATE TABLE tracks (
 	PRIMARY KEY	(id),
 	INDEX		(album_id),
 	FOREIGN KEY	(album_id) REFERENCES albums(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE user_favs (
 	user_id		INT UNSIGNED NOT NULL,
@@ -165,7 +165,7 @@ CREATE TABLE user_favs (
 	PRIMARY KEY	(user_id, band_id),
 	FOREIGN KEY (user_id) REFERENCES users(id),
 	FOREIGN KEY (band_id) REFERENCES users(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 CREATE TABLE users_mailing_lists (
 	user_id			INT UNSIGNED NOT NULL,
@@ -174,4 +174,4 @@ CREATE TABLE users_mailing_lists (
 	PRIMARY KEY	(user_id, mailing_list_id),
 	FOREIGN KEY (user_id) REFERENCES users(id),
 	FOREIGN KEY (mailing_list_id) REFERENCES mailing_lists(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);

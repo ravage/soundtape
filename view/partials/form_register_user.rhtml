@@ -1,0 +1,19 @@
+<form action="/user/register" method="post" accept-charset="utf-8">
+	<label for="email"><%= _('E-Mail') %></label>
+	<input type="text" name="email" value="<%= flash[:email] %>" id="email" />
+	<label for="password"><%= _('Password') %></label>
+	<input type="password" name="password" value="" id="password" />
+	<label for="password_confirmation"><%= _('Password') %></label>
+	<input type="password" name="password_confirmation" value="" id="password" />
+	<select name="country" id="country">
+	<% Country.each do |country| %>
+		<%= @country.class %>
+		<% if country.id == @country.to_i %>
+			<option value="<%= country.id %>" selected><%= country.country %></option>
+		<% else %>
+			<option value="<%= country.id %>"><%= country.country %></option>
+		<% end %>
+	<% end %>
+	</select>
+	<input type="submit" value="<%= _('Continue') %> &rarr;">
+</form>
