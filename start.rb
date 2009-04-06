@@ -3,6 +3,7 @@ require 'ramaze'
 require 'sequel'
 require 'logger'
 require 'gettext/cgi'
+require 'digest/sha1'
 include GetText
 set_output_charset("UTF-8")
 #DB = Sequel.sqlite('soundtape.db')

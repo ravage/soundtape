@@ -1,7 +1,10 @@
 CREATE TABLE users (
 	id				INT UNSIGNED AUTO_INCREMENT,
 	email			VARCHAR(100) UNIQUE NOT NULL,
-	password		VARCHAR(512) NOT NULL,
+	password		VARCHAR(128) NOT NULL,
+	active			BOOLEAN	DEFAULT FALSE,
+	created_at		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	activation_key	VARCHAR(64) NOT NULL,
 	
 	PRIMARY KEY		(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -184,4 +187,3 @@ CREATE TRIGGER user_tables AFTER INSERT ON users
 		INSERT INTO mailing_lists(user_id, state) VALUES(lastid, FALSE);
 		INSERT INTO profiles(user_id, email) VALUES(lastid, NEW.email);
 	END;
-	

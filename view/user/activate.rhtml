@@ -1,0 +1,5 @@
+<% if(!flash[:active]) %>
+	<%= _('Invalid account activation key!') %>
+<% else %>
+	<%= _('Activation successfull, ') %><a href="<%= Rs(:login) %>"><%= _('Login') %></a>?
+<% end %>
