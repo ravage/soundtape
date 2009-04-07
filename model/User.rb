@@ -44,5 +44,16 @@ class User < Sequel::Model(:users)
   def self.activate(key)
     return self.filter(:activation_key => key, :active => false).update(:active => true) == 1
   end
-
+  
+  def self.by_id_or_alias(value
+    if Profile.filter(:user_alias => value).count == 1
+      user_id = Profile.select(:user_id).where(:user_alias => value)
+      return User[:id => user_id]
+    elsif User.filter(:id => value).count == 1
+      return User[:id => value]
+    else
+      return nil
+    end
+  end
+  
 end

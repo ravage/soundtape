@@ -2,21 +2,12 @@ class ProfileController < Controller
   helper :user, :utils
   
   def view(userid = nil)
-    
     redirect :/ if userid.nil?
     
     #FIXME better redirect on id or alias
-    user_by_id = User[:id => userid.to_i]
-    user_by_alias = Profile[:user_alias => userid.to_i] if user_by_id.nil?
+    @user = User.by_id_or_alias(userid)
     
-    redirect :/ if user_by_alias.nil? && user_by_id.nil?
-    
-    if !user_by_id.nil?
-      @user = user_by_id
-    else
-      @user = User[:id => user_by_alias.user_id]
-    end
-
+    redirect :/ if @user.nil?
   end
   
   def edit(userid = nil)
