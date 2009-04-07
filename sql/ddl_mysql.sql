@@ -69,13 +69,13 @@ CREATE TABLE profiles (
 	province		VARCHAR(20) NULL,
 	zip_code		VARCHAR(10) NULL,
 	city			VARCHAR(30) NULL,
-	real_name		VARCHAR(100) NOT NULL,
 	photo_path		VARCHAR(60) NULL,
 	preferences		TEXT NULL,
 	country_id		INT UNSIGNED NULL,
 	map_point_id	INT UNSIGNED NULL,
 	user_id			INT	UNSIGNED UNIQUE NOT NULL,
 	bio				TEXT NULL,
+	user_alias		VARCHAR(100) UNIQUE NOT NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(country_id),
@@ -183,8 +183,8 @@ DROP TRIGGER IF EXISTS user_tables $$
 CREATE TRIGGER user_tables AFTER INSERT ON users
 	FOR EACH ROW BEGIN
 		DECLARE lastid INT;
-		SET lastid = LAST_INSERT_ID();
+		SET lastid 	= LAST_INSERT_ID();
 		INSERT INTO agendas(user_id) VALUES(lastid);
 		INSERT INTO mailing_lists(user_id, state) VALUES(lastid, FALSE);
-		INSERT INTO profiles(user_id, email) VALUES(lastid, NEW.email);
+		INSERT INTO profiles(user_id, real_name, user_alias) VALUES(lastid, NEW.email, lastid + '');
 	END;

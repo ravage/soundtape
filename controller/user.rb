@@ -6,8 +6,8 @@ class UserController < Controller
     if request.post?
 
       userds = User.prepare(request.params)
-      
-      if userds.valid? && !request[:real_name].empty?
+      request[:real_name].strip!
+      if userds.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
         begin
           userds.save
         rescue Sequel::Error => e
@@ -15,7 +15,7 @@ class UserController < Controller
           flash[:exception] = true
           redirect '/oops'
         end
-        userds.profiles_dataset.update(:real_name => h(request[:real_name]))
+        Profile[:user_id => userds.id].update(:real_name => request[:real_name])
         send_activation_mail(userds)
         flash[:success] = _('successfully created account')
       else

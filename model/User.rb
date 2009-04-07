@@ -21,7 +21,7 @@ class User < Sequel::Model(:users)
         :email                  => values['email'],
         :password               => encrypt(values['password']),
         :password_confirmation  => encrypt(values['password_confirmation']),
-        :activation_key         => encrypt(values['email']).slice(1..64)
+        :activation_key         => encrypt(values['email']).slice(1..64),
       }
     )
     return user

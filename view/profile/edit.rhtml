@@ -1,3 +1,4 @@
+<div id="profile_edit">
 <% @user.profiles.each do |profile| %>
 	<form action="<%= Rs(:save) %>" method="post" accept-charset="utf-8">
 		<label for="address"><%= _('Address') %></label>
@@ -13,7 +14,7 @@
 		<input type="text" name="zip_code" value="<%== profile.zip_code %>"  />
 		
 		<label for="real_name"><%= _('Name') %></label>
-		<input type="text" name="real_name" value="<%== profile.real_name %>"  />
+		<input type="text" name="real_name" value="<%== flash[:real_name] || profile.real_name %>"  />
 		
 		<label for="photo_path"><%= _('Photo') %></label>
 		<input type="text" name="photo_path" value="<%== profile.photo_path %>"  />
@@ -32,9 +33,9 @@
 		<label for="email"><%= _('E-Mail') %></label>
 		<input type="text" name="email" value="<%== @user.email %>"  />
 		
-		
-		<input type="submit" value="Continue &rarr;" />
+		<label for="submit"></label>
+		<input type="submit" name="submit" value="Continue &rarr;" />
 	</form>
 <% end %>
-
+</div>
 <!-- Missing: map; agenda; events -->
