@@ -1,42 +1,47 @@
 <div id="profile_view">
 <% @user.profiles.each do |profile| %>
-	<%= _('Address') %>
-	<%== profile.address %>
+	<p><%= _('Address') %>
+	<%== profile.address %></p>
 
-	<%= _('Province') %>
-	<%== profile.province %>
+	<p><%= _('Province') %>
+	<%== profile.province %></p>
 
-	<%= _('City') %>
-	<%== profile.city %>
+	<p><%= _('City') %>
+	<%== profile.city %></p>
 
-	<%= _('Zip Code') %>
-	<%== profile.zip_code %>
+	<p><%= _('Zip Code') %>
+	<%== profile.zip_code %></p>
 
-	<%= _('Name') %>
-	<%== profile.real_name %>
+	<p><%= _('Name') %>
+	<%== profile.real_name %></p>
 
-	<%= _('Photo') %>
-	<%== profile.photo_path %>
+	<p><%= _('Photo') %>
+	<%== profile.photo_path %></p>
 
-	<%= _('Preferences') %>
-	<%== profile.preferences %>
+	<p><%= _('Preferences') %>
+	<%== profile.preferences %></p>
 
-	<%= _('Country') %>
-	<%== profile.country %>
-	<%= _('E-Mail') %>
-	<%== @user.email %>
-	<%= _('Map') %>
-	<%== profile.map_point_id %>
+	<p><%= _('Country') %>
+	<%== profile.country %></p>
+
+	<p><%= _('E-Mail') %>
+	<%== @user.email %></p>
+	
+	<p><%= _('Bio') %>
+	<%== profile.bio %></p>
+	
+	<p><%= _('Map') %>
+	<%== profile.map_point_id %></p>
 <% end %>
 
 <% @user.agendas.each do |agenda| %>
-	<%= _('Agenda') %>
-	<%== agenda.description %>
+	<p><%= _('Agenda') %>
+	<%== agenda.description %></p>
 	
 	<%= _('Events') %>
 	<% agenda.events.each do |event| %>
-		<%== event.name %>
-		<%== event.description %>
+		<p><%== event.name %>
+		<%== event.description %></p>
 	<% end %>
 <% end %>
 </div>

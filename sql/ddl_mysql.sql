@@ -76,6 +76,7 @@ CREATE TABLE profiles (
 	user_id			INT	UNSIGNED UNIQUE NOT NULL,
 	bio				TEXT NULL,
 	user_alias		VARCHAR(100) UNIQUE NOT NULL,
+	real_name		VARCHAR(100) NOT NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(country_id),

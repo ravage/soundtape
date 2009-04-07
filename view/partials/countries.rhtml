@@ -1,5 +1,7 @@
-<select name="country" id="country">
+<select name="country_id" id="country">
 <% @countries.each do |country| %>
+	<%= country.id.class %>
+	<%= @country_id.class %>
 	<% if country.id == @country_id %>
 		<option value="<%= country.id %>" selected><%= country.country %></option>
 	<% else %>

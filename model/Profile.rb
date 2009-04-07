@@ -1,4 +1,5 @@
 class Profile < Sequel::Model(:profiles)
+  Profile.raise_on_save_failure = false
   many_to_one :country, :join_table => :countries, :class => :Country
   
   validations.clear

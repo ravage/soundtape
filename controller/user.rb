@@ -10,12 +10,10 @@ class UserController < Controller
       if userds.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
         begin
           userds.save
-        rescue Sequel::Error => e
+          Profile[:user_id => userds.id].update(:real_name => request[:real_name])
+        rescue Sequel::DatabaseError => e
           oops('user/register', e)
-          flash[:exception] = true
-          redirect '/oops'
         end
-        Profile[:user_id => userds.id].update(:real_name => request[:real_name])
         send_activation_mail(userds)
         flash[:success] = _('successfully created account')
       else

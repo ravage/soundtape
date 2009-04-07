@@ -4,6 +4,8 @@ module Ramaze
       def oops(sender, exception)
         #TODO log into file and notify by mail
         Ramaze::Log.error "Exception: #{sender} => #{exception}"
+        flash[:exception] = true
+        redirect '/oops'
       end
     end
   end
