@@ -1,26 +1,24 @@
 <div id="profile_edit">
 <% @user.profiles.each do |profile| %>
 	<form action="<%= Rs(:update) %>" method="post" accept-charset="utf-8">
-		<label for="address"><%= _('Address') %></label>
-		<textarea name="address" rows="8" cols="40"><%= flash[:error] ? flash[:address] : profile.address %></textarea>
-	
-		<label for="province"><%= _('Province') %></label>
-		<input type="text" name="province" value="<%== flash[:error] ? flash[:province] : profile.province %>" />
-	
-		<label for="city"><%= _('City') %></label>
-		<input type="text" name="city" value="<%== flash[:error] ? flash[:city] : profile.city %>" />
-		
-		<label for="zip_code"><%= _('Zip Code') %></label>
-		<input type="text" name="zip_code" value="<%== flash[:error] ? flash[:zip_code] : profile.zip_code %>" />
-		
+		<fieldset></fieldset>
 		<label for="real_name"><%= _('Name') %> <%= flash[:error_real_name] %></label>
 		<input type="text" name="real_name" value="<%== flash[:error] ? flash[:real_name] : profile.real_name %>" />
 		
+		<label for="email"><%= _('E-Mail') %></label>
+		<input type="text" name="email" value="<%== @user.email %>"  />
+		
+		<label for="user_alias"><%= _('Alias') %> <%= flash[:error_user_alias] %></label>
+		<input type="text" name="user_alias" value="<%== profile.user_alias %>"  />
+		
+		<label for="homepage"><%= _('Homepage') %></label>
+		<input type="text" name="homepage" value="<%== flash[:error] ? flash[:homepage] : profile.homepage %>" />
+		
+		<label for="bio"><%= _('Bio') %></label>
+		<textarea name="bio" rows="8" cols="40"><%== profile.bio %></textarea>
+		
 		<label for="photo_path"><%= _('Photo') %></label>
 		<input type="text" name="photo_path" value="<%== flash[:error] ? flash[:photo_path] : profile.photo_path %>" />
-		
-		<label for="preferences"><%= _('Preferences') %></label>
-		<input type="text" name="preferences" value="<%== flash[:error] ? flash[:preferences] : profile.preferences %>" />
 		
 		<label for="country_id"><%= _('Country') %></label>
 		<%= render_template(
@@ -30,14 +28,11 @@
 			)
 		%>
 		
-		<label for="email"><%= _('E-Mail') %></label>
-		<input type="text" name="email" value="<%== @user.email %>"  />
+	
 		
-		<label for="bio"><%= _('Bio') %></label>
-		<textarea name="bio" rows="8" cols="40"><%== profile.bio %></textarea>
+	
 		
-		<label for="user_alias"><%= _('Alias') %> <%= flash[:error_user_alias] %></label>
-		<input type="text" name="user_alias" value="<%== @user.email %>"  />
+	
 		
 		<label for="submit"></label>
 		<input type="submit"value="Continue &rarr;" />

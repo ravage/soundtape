@@ -65,18 +65,14 @@ CREATE TABLE countries (
 
 CREATE TABLE profiles (
 	id				INT UNSIGNED AUTO_INCREMENT,
-	address			VARCHAR(255) NULL,
-	province		VARCHAR(20) NULL,
-	zip_code		VARCHAR(10) NULL,
-	city			VARCHAR(30) NULL,
 	photo_path		VARCHAR(60) NULL,
-	preferences		TEXT NULL,
 	country_id		INT UNSIGNED NULL,
 	map_point_id	INT UNSIGNED NULL,
 	user_id			INT	UNSIGNED UNIQUE NOT NULL,
 	bio				TEXT NULL,
 	user_alias		VARCHAR(100) UNIQUE NOT NULL,
 	real_name		VARCHAR(100) NOT NULL,
+	homepage		VARCHAR(100) NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(country_id),

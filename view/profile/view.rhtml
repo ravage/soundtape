@@ -1,25 +1,13 @@
 <div id="profile_view">
 <% @user.profiles.each do |profile| %>
-	<p><%= _('Address') %>
-	<%== profile.address %></p>
-
-	<p><%= _('Province') %>
-	<%== profile.province %></p>
-
-	<p><%= _('City') %>
-	<%== profile.city %></p>
-
-	<p><%= _('Zip Code') %>
-	<%== profile.zip_code %></p>
-
 	<p><%= _('Name') %>
 	<%== profile.real_name %></p>
+	
+	<p><%= _('Alias') %>
+	<%== profile.user_alias %></p>
 
 	<p><%= _('Photo') %>
 	<%== profile.photo_path %></p>
-
-	<p><%= _('Preferences') %>
-	<%== profile.preferences %></p>
 
 	<p><%= _('Country') %>
 	<%== profile.country %></p>

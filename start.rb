@@ -30,4 +30,5 @@ $LOAD_PATH.unshift(__DIR__)
 require 'controller/init'
 #require 'model/User'
 Ramaze::acquire 'model/*'
+
 Ramaze.start :adapter => :webrick, :port => 7000

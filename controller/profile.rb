@@ -2,10 +2,21 @@ class ProfileController < Controller
   helper :user, :utils
   
   def view(userid = nil)
+    
     redirect :/ if userid.nil?
     
-    @user = User[:id => userid]
-    pp @user
+    #FIXME better redirect on id or alias
+    user_by_id = User[:id => userid.to_i]
+    user_by_alias = Profile[:user_alias => userid.to_i] if user_by_id.nil?
+    
+    redirect :/ if user_by_alias.nil? && user_by_id.nil?
+    
+    if !user_by_id.nil?
+      @user = user_by_id
+    else
+      @user = User[:id => user_by_alias.user_id]
+    end
+
   end
   
   def edit(userid = nil)
@@ -21,16 +32,13 @@ class ProfileController < Controller
     begin
       profile = user.profiles.first  
       profile.update(
-         :address      => request[:address],
-         :province     => request[:province],
-         :zip_code     => request[:zip_code],
-         :city         => request[:city],
          :photo_path   => request[:photo_path],
-         :preferences  => request[:preferences],
+         :homepage     => request[:preferences],
          :country_id   => request[:country],
          :bio          => request[:bio],
          :user_alias   => request[:user_alias],
-         :real_name    => request[:real_name]
+         :real_name    => request[:real_name],
+         :map_point_id => request[:map_point_id]
        )
     rescue Sequel::DatabaseError => e
       oops(Rs(:update), e)

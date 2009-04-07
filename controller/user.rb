@@ -36,6 +36,7 @@ class UserController < Controller
   end
   
   def index
+    
     redirect Rs(:login) unless logged_in?
     
     @user = user
