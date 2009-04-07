@@ -10,11 +10,11 @@ include GetText
 set_output_charset("UTF-8")
 
 DB = Sequel.mysql('soundtape', 
-  :user => 'root', 
+  :user     => 'root', 
   :password => 'root', 
-  :host => 'localhost', 
-  :socket => '/Applications/MAMP/tmp/mysql/mysql.sock', 
-  :charset => 'utf8')
+  :host     => 'localhost', 
+  :socket   => '/Applications/MAMP/tmp/mysql/mysql.sock', 
+  :charset  => 'utf8')
   
 DB.loggers << Logger.new($stdout)
 

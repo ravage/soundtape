@@ -1,0 +1,40 @@
+<% @user.profiles.each do |profile| %>
+	<form action="<%= Rs(:save) %>" method="post" accept-charset="utf-8">
+		<label for="address"><%= _('Address') %></label>
+		<textarea name="address" rows="8" cols="40"><%= profile.address %></textarea>
+	
+		<label for="province"><%= _('Province') %></label>
+		<input type="text" name="province" value="	<%== profile.province %>" />
+	
+		<label for="city"><%= _('City') %></label>
+		<input type="text" name="city" value="<%== profile.city %>" />
+		
+		<label for="zip_code"><%= _('Zip Code') %></label>
+		<input type="text" name="zip_code" value="<%== profile.zip_code %>"  />
+		
+		<label for="real_name"><%= _('Name') %></label>
+		<input type="text" name="real_name" value="<%== profile.real_name %>"  />
+		
+		<label for="photo_path"><%= _('Photo') %></label>
+		<input type="text" name="photo_path" value="<%== profile.photo_path %>"  />
+		
+		<label for="preferences"><%= _('Preferences') %></label>
+		<input type="text" name="preferences" value="<%== profile.preferences %>"  />
+		
+		<label for="country"><%= _('Country') %></label>
+		<%= render_template(
+				'../partials/countries.rhtml',
+				:countries => Country.all,
+				:country_id => profile.country.id
+			)
+		%>
+		
+		<label for="email"><%= _('E-Mail') %></label>
+		<input type="text" name="email" value="<%== @user.email %>"  />
+		
+		
+		<input type="submit" value="Continue &rarr;" />
+	</form>
+<% end %>
+
+<!-- Missing: map; agenda; events -->

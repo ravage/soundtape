@@ -44,9 +44,6 @@ class UserController < Controller
     
   end
   
- 
-  
-  
   def activate(key = nil)
     redirect :/ if key.nil? || key.empty?
     if User.activate(key)
