@@ -1,10 +1,9 @@
 class User < Sequel::Model(:users)
-  raise_on_save_failure = false
+  #raise_on_save_failure = false
   set_sti_key(:user_type)
   set_dataset(dataset.filter({:user_type => name}))
   
   one_to_many :profiles, :unique => true, :join_table => :profiles, :class => :Profile
-  one_to_many :agendas, :unique => true, :join_table => :agendas, :class => :Agenda
   
   validations.clear
   validates do
@@ -31,11 +30,18 @@ class User < Sequel::Model(:users)
   def self.authenticate(credentials)
     return nil if credentials.nil? || credentials.empty?
     
-    return self[
-      :email    => credentials['login'],
-      :password => encrypt(credentials['password']),
-      :active   => true
-    ]
+    params = DB['SELECT id, user_type FROM users
+      WHERE email = ? AND password = ? AND active = ?',
+      credentials['login'],
+      encrypt(credentials['password']),
+      true].first
+    
+    return self.factory(:key => params[:id], :type => params[:user_type])
+    #return self[
+    #  :email    => credentials['login'],
+    #  :password => encrypt(credentials['password']),
+    #  :active   => true
+    #]
   end
   
   def self.encrypt(value)
@@ -49,5 +55,6 @@ class User < Sequel::Model(:users)
   def self.factory(params)
     return Band[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:band]
     return User[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:user]
+    return nil
   end
 end

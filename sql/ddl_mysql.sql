@@ -124,7 +124,7 @@ CREATE TABLE events (
 	id				INT UNSIGNED AUTO_INCREMENT,
 	name			VARCHAR(100) NOT NULL,
 	description		LONGTEXT NOT NULL,
-	map_point_id	INT UNSIGNED NOT NULL,
+	map_point_id	INT UNSIGNED NULL,
 	agenda_id		INT UNSIGNED NOT NULL,
 	
 	PRIMARY KEY		(id),
