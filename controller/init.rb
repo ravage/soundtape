@@ -9,5 +9,5 @@ end
 
 # Here go your requires for subclasses of Controller:
 require 'controller/main'
-require 'controller/user'
+require 'controller/account'
 require 'controller/profile'

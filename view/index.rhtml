@@ -4,13 +4,7 @@
 	</div>
 </div>
 <div id="content_right">
-	<div class="block">
-		<div class="block_title">
-			<h3>Login</h3>
-		</div>
-		
-		<div class="block_content">
-			<%= render_template('partials/form_login_user') %>
-		</div>
-	</div>
+	<% unless logged_in? %>
+		<%= render_template('partials/form_login') %>
+	<% end %>
 </div>

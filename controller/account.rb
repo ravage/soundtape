@@ -1,27 +1,31 @@
-class UserController < Controller
+class AccountController < Controller
   helper :utils, :user, :aspect
   
+  def register(type = nil)
+    redirect Rs(:register, :user) unless valid_user_type?(type)
+    @type = get_klass(type).downcase
+  end
+  
+  def create(type = nil)
+    redirect R(:/) if unless valid_user_type?(type) || !request.post?
 
-  def register  
     if request.post?
-
-      userds = User.prepare(request.params)
+      klass = get_klass(type)
+      klass = klass.prepare(request.params)
       request[:real_name].strip!
-      if userds.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
+      if klass.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
         begin
-          userds.save
-          Profile[:user_id => userds.id].update(:real_name => request[:real_name])
+          klass.save 
+          Profile[:user_id => klass.id].update(:real_name => request[:real_name])
         rescue Sequel::DatabaseError => e
-          oops('user/register', e)
+          oops(Rs(:create), e)
         end
-        send_activation_mail(userds)
+        send_activation_mail(klass)
         flash[:success] = _('successfully created account')
       else
         flash[:email]     = request[:email]
         flash[:real_name] = request[:real_name]
       end
-      
-      pp userds.errors
     end
   end
   
@@ -30,17 +34,15 @@ class UserController < Controller
       if !user_login(request.params)
         flash[:error] = true;
       else
-        redirect Rs(:/)
+        redirect Rs(:index)
       end
     end
   end
-  
+
   def index
-    
     redirect Rs(:login) unless logged_in?
     
     @user = user
-    
   end
   
   def activate(key = nil)
@@ -66,5 +68,15 @@ class UserController < Controller
     end
   end
   
+  def get_klass(type)
+    return env(SoundTape::Constant.user_types[type.to_sym])
+  end
+  
+  def valid_user_type(type)
+    return nil if type.nil?
+    return !SoundTape::Constant.user_types.keys.index(type.to_sym).nil?
+  end
+  
   before(:activate, :login, :register) {redirect Rs(:/) if logged_in?}
+end
 end

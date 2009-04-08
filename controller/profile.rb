@@ -16,18 +16,10 @@ class ProfileController < Controller
   
   def update
     redirect_referer unless request.post? && logged_in?
-
+    
     begin
-      profile = user.profiles.first  
-      profile.update(
-         :photo_path   => request[:photo_path],
-         :homepage     => request[:preferences],
-         :country_id   => request[:country],
-         :bio          => request[:bio],
-         :user_alias   => request[:user_alias],
-         :real_name    => request[:real_name],
-         :map_point_id => request[:map_point_id]
-       )
+      profile = user.profiles.first
+      profile.prepare_update(request)
     rescue Sequel::DatabaseError => e
       oops(Rs(:update), e)
     end
@@ -39,6 +31,7 @@ class ProfileController < Controller
       profile.errors.each do |key, message|
         flash["error_#{key.to_s}".to_sym] = message
       end
+
       request.params.each do |key, value|
         flash[key.to_sym] = value
       end
@@ -50,8 +43,9 @@ class ProfileController < Controller
   
   def get_user_or_redirect(userid)
    #FIXME better redirect on id or alias
-    @user = User.by_id_or_alias(userid)
-    redirect :/ if @user.nil?
-    return @user
+    @user = Profile.by_id_or_alias(userid)
+    pp @user
+    #redirect :/ if @user.nil?
+    #return @user
   end
 end

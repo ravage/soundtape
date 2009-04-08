@@ -1,0 +1,3 @@
+class Band < User
+
+end

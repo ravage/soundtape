@@ -1,9 +1,10 @@
 class User < Sequel::Model(:users)
+  raise_on_save_failure = false
+  set_sti_key(:user_type)
+  set_dataset(dataset.filter({:user_type => name}))
   
   one_to_many :profiles, :unique => true, :join_table => :profiles, :class => :Profile
   one_to_many :agendas, :unique => true, :join_table => :agendas, :class => :Agenda
-  
-  User.raise_on_save_failure = false
   
   validations.clear
   validates do
@@ -16,7 +17,7 @@ class User < Sequel::Model(:users)
   attr_accessor :password_confirmation
   
   def self.prepare(values)
-    user = User.new(
+    user = self.new(
       {
         :email                  => values['email'],
         :password               => encrypt(values['password']),
@@ -30,7 +31,7 @@ class User < Sequel::Model(:users)
   def self.authenticate(credentials)
     return nil if credentials.nil? || credentials.empty?
     
-    return User[
+    return self[
       :email    => credentials['login'],
       :password => encrypt(credentials['password']),
       :active   => true
@@ -45,15 +46,8 @@ class User < Sequel::Model(:users)
     return self.filter(:activation_key => key, :active => false).update(:active => true) == 1
   end
   
-  def self.by_id_or_alias(value)
-    if Profile.filter(:user_alias => value).count == 1
-      user_id = Profile.select(:user_id).where(:user_alias => value)
-      return User[:id => user_id]
-    elsif User.filter(:id => value).count == 1
-      return User[:id => value]
-    else
-      return nil
-    end
+  def self.factory(params)
+    return Band[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:band]
+    return User[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:user]
   end
-  
 end

@@ -6,6 +6,7 @@
 # this will force the controller to be mounted on: /otherurl
 
 class MainController < Controller
+  helper :user
   # the index action is called automatically when no other action is specified
   def index
   
@@ -14,5 +15,9 @@ class MainController < Controller
   def oops
     redirect :/ unless flash[:exception]
     _("An unexpected error ocurred please try again")
+  end
+  
+  def teste
+    pp TYPES
   end
 end

@@ -1,5 +1,5 @@
 <div id="register_form">
-	<form action="/user/register" method="post" accept-charset="utf-8">
+	<form action="/account/create/<%= @type %>" method="post" accept-charset="utf-8">
 		<label for="real_name"><%= _('Name') %></label>
 		<input type="text" name="real_name" value="<%= flash[:real_name] %>" id="real_name" />
 		<label for="email"><%= _('E-Mail') %></label>

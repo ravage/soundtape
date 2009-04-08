@@ -1,13 +1,18 @@
-<div id="login_form">
-	<form action="/user/login" method="post" accept-charset="utf-8">
-		<label for="login"><%= _('Login') %></label>
-		<input type="text" name="login" value="" />
-		
-		<label for="password"><%= _('Password') %></label>
-		<input type="password" name="password" value="" />
-		
-		<label for="submit"></label>
-		<input type="submit" name="submit" value="<%= _('Continue') %> &rarr;">
-	</form>
-	<%= _('Forgot your password?') %> <a href="<%= R(UserController, :reset) %>"><%= _('Reset it')%></a>
+<div class="block">
+	<div class="block_title">
+		<h3>Login</h3>
+	</div>
+	<div class="block_content login_form">
+		<form action="/user/login" method="post" accept-charset="utf-8">
+			<label for="login"><%= _('Login') %></label>
+			<input type="text" name="login" value="" />
+	
+			<label for="password"><%= _('Password') %></label>
+			<input type="password" name="password" value="" />
+	
+			<label for="submit"></label>
+			<input type="submit" name="submit" value="<%= _('Continue') %> &rarr;">
+		</form>
+		<%= _('Forgot your password?') %> <a href="<%= R(UserController, :reset) %>"><%= _('Reset it')%></a>
+	</div>
 </div>
