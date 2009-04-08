@@ -5,7 +5,7 @@ CREATE TABLE users (
 	active			BOOLEAN	DEFAULT FALSE,
 	created_at		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	activation_key	VARCHAR(64) NOT NULL,
-	object_type		VARCHAR(20) NOT NULL,
+	user_type		VARCHAR(20) NOT NULL,
 	
 	PRIMARY KEY		(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -46,16 +46,6 @@ CREATE TABLE mailing_lists (
 	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE map_marquers (
-	id			INT UNSIGNED AUTO_INCREMENT,
-	latitude	FLOAT NOT NULL,
-	longitude	FLOAT NOT NULL,
-	name		VARCHAR(80) NOT NULL,
-	description	LONGTEXT,
-	
-	PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE countries (
 	id			INT UNSIGNED	AUTO_INCREMENT,
 	abbr		VARCHAR(3) NOT NULL,
@@ -68,18 +58,17 @@ CREATE TABLE profiles (
 	id				INT UNSIGNED AUTO_INCREMENT,
 	photo_path		VARCHAR(60) NULL,
 	country_id		INT UNSIGNED NULL,
-	map_point_id	INT UNSIGNED NULL,
 	user_id			INT	UNSIGNED UNIQUE NOT NULL,
 	bio				TEXT NULL,
 	user_alias		VARCHAR(100) UNIQUE NOT NULL,
 	real_name		VARCHAR(100) NOT NULL,
 	homepage		VARCHAR(100) NULL,
+	longitude		FLOAT NULL,
+	latitude		FLOAT NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(country_id),
-	INDEX			(map_point_id),
 	FOREIGN KEY		(country_id) REFERENCES countries(id) ON DELETE CASCADE,
-	FOREIGN KEY		(map_point_id) REFERENCES map_marquers(id) ON DELETE CASCADE,
 	FOREIGN KEY 	(user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -124,13 +113,15 @@ CREATE TABLE events (
 	id				INT UNSIGNED AUTO_INCREMENT,
 	name			VARCHAR(100) NOT NULL,
 	description		LONGTEXT NOT NULL,
-	map_point_id	INT UNSIGNED NULL,
+	map_marker_id	INT UNSIGNED NULL,
 	agenda_id		INT UNSIGNED NOT NULL,
+	local			VARCHAR(255) NULL,
+	building		VARCHAR(150) NULL,
+	longitude		FLOAT NULL,
+	latitude		FLOAT NULL,
 	
 	PRIMARY KEY		(id),
-	INDEX			(map_point_id),
 	INDEX			(agenda_id),
-	FOREIGN KEY		(map_point_id) REFERENCES map_marquers(id) ON DELETE CASCADE,
 	FOREIGN KEY		(agenda_id)	REFERENCES agendas(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

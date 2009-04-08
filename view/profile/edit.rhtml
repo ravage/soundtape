@@ -39,13 +39,17 @@
 	<p>Agenda</p>
 	<form action="<%= R(EventController, :create, @user.id) %>" method="post" accept-charset="utf-8">
 		<fieldset id="" class="">
-			<label for="name"><%= _('Name') %></label>
-			<input type="text" name="name" value="" />
+			<label for="name"><%= _('Name') %> <%= flash[:error_name] %></label>
+			<input type="text" name="name" value="<%= flash[:name] %>" />
 		
-			<label for="description"><%= _('Description') %></label>
-			<textarea name="description" rows="8" cols="40"></textarea>
-		
-			<input type="hidden" name="agenda_id" value="<%= @user.agendas.first.id %>">
+			<label for="description"><%= _('Description') %> <%= flash[:error_name] %></label>
+			<textarea name="description" rows="8" cols="40"><%= flash[:description] %></textarea>
+			
+			<label for="local"><%= _('Local') %> <%= flash[:error_local] %></label>
+			<input type="text" name="local" value="<%= flash[:local] %>" />
+			
+			<label for="building"><%= _('Building') %> <%= flash[:error_building] %></label>
+			<input type="text" name="building" value="<%= flash[:building] %>" />
 			
 			<label for="submit"></label>
 			<input type="submit" value="Continue &rarr;">
