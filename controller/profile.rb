@@ -8,7 +8,7 @@ class ProfileController < Controller
   end
   
   def edit(userid = nil)
-    redirect R(UserController, :login) unless logged_in?
+    redirect R(AccountController, :login) unless logged_in?
     redirect Rs(:view, user.id) unless userid.to_i == user.id.to_i || userid.nil?
     
     get_user_or_redirect(userid)
@@ -42,10 +42,8 @@ class ProfileController < Controller
   private
   
   def get_user_or_redirect(userid)
-   #FIXME better redirect on id or alias
     @user = Profile.by_id_or_alias(userid)
-    pp @user
-    #redirect :/ if @user.nil?
-    #return @user
+    redirect :/ if @user.nil?
+    return @user
   end
 end

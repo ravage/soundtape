@@ -2,31 +2,31 @@ class AccountController < Controller
   helper :utils, :user, :aspect
   
   def register(type = nil)
-    redirect Rs(:register, :user) unless valid_user_type?(type)
-    @type = get_klass(type).downcase
+    redirect Rs(:register, :user) unless valid_user_type(type)
+    @type = get_klass(type).name.downcase
   end
   
   def create(type = nil)
-    redirect R(:/) if unless valid_user_type?(type) || !request.post?
-
+    redirect R(:/) unless valid_user_type(type) && request.post?
+  
     if request.post?
-      klass = get_klass(type)
-      klass = klass.prepare(request.params)
-      request[:real_name].strip!
-      if klass.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
-        begin
-          klass.save 
-          Profile[:user_id => klass.id].update(:real_name => request[:real_name])
-        rescue Sequel::DatabaseError => e
-          oops(Rs(:create), e)
-        end
-        send_activation_mail(klass)
-        flash[:success] = _('successfully created account')
-      else
-        flash[:email]     = request[:email]
-        flash[:real_name] = request[:real_name]
-      end
-    end
+       klass = get_klass(type)
+       klass = klass.prepare(request.params)
+       request[:real_name].strip!
+       if klass.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
+         begin
+           klass.save 
+           Profile[:user_id => klass.id].update(:real_name => request[:real_name])
+         rescue Sequel::DatabaseError => e
+           oops(Rs(:create), e)
+         end
+         send_activation_mail(klass)
+         flash[:success] = _('successfully created account')
+       else
+         flash[:email]     = request[:email]
+         flash[:real_name] = request[:real_name]
+       end
+     end
   end
   
   def login
@@ -69,7 +69,7 @@ class AccountController < Controller
   end
   
   def get_klass(type)
-    return env(SoundTape::Constant.user_types[type.to_sym])
+    return Kernel.const_get(SoundTape::Constant.user_types[type.to_sym])
   end
   
   def valid_user_type(type)
@@ -78,5 +78,4 @@ class AccountController < Controller
   end
   
   before(:activate, :login, :register) {redirect Rs(:/) if logged_in?}
-end
 end
