@@ -54,6 +54,7 @@ CREATE TABLE countries (
 	PRIMARY KEY	(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE profiles (
 	id				INT UNSIGNED AUTO_INCREMENT,
 	photo_path		VARCHAR(60) NULL,
@@ -113,7 +114,6 @@ CREATE TABLE events (
 	id				INT UNSIGNED AUTO_INCREMENT,
 	name			VARCHAR(100) NOT NULL,
 	description		LONGTEXT NOT NULL,
-	map_marker_id	INT UNSIGNED NULL,
 	agenda_id		INT UNSIGNED NOT NULL,
 	local			VARCHAR(255) NULL,
 	building		VARCHAR(150) NULL,

@@ -17,7 +17,7 @@ class MainController < Controller
     _("An unexpected error ocurred please try again")
   end
   
-  def teste
-    pp TYPES
+  def method_missing(method, *args, &block)
+    'something'
   end
 end

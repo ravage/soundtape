@@ -3,7 +3,6 @@ class EventController < Controller
   def create(user_id)
     redirect :/ unless logged_in? || !request.post?
 
-    Ramaze::Log.warn "INSIDE"
     event = Event.prepare(request)
     if event.valid?
       begin

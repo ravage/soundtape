@@ -7,11 +7,17 @@ class ProfileController < Controller
     get_user_or_redirect(userid)
   end
   
-  def edit(userid = nil)
-    redirect R(AccountController, :login) unless logged_in?
-    redirect Rs(:view, user.id) unless userid.to_i == user.id.to_i || userid.nil?
-    
+  def index
+    redirect :/ unless logged_in?
+    #TODO refactor view and index
     get_user_or_redirect(userid)
+  end
+  
+  def edit
+    redirect R(AccountController, :login) unless logged_in?
+    #redirect Rs(:view, user.id) unless userid.to_i == user.id.to_i || userid.nil?
+    
+    get_user_or_redirect(user.id)
   end
   
   def update
@@ -45,5 +51,9 @@ class ProfileController < Controller
     @user = Profile.by_id_or_alias(userid)
     redirect :/ if @user.nil?
     return @user
+  end
+  
+  def error
+    ferfwfwerfrefer
   end
 end

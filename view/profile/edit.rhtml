@@ -2,6 +2,7 @@
 <% @user.profiles.each do |profile| %>
 	<form action="<%= Rs(:update) %>" method="post" accept-charset="utf-8">
 		<fieldset>
+			<legend>Profile</legend>
 			<label for="real_name"><%= _('Name') %> <%= flash[:error_real_name] %></label>
 			<input type="text" name="real_name" value="<%== flash[:error] ? flash[:real_name] : profile.real_name %>" />
 		
@@ -36,13 +37,13 @@
 
 
 <% if @user.respond_to?('agendas') %>
-	<p>Agenda</p>
 	<form action="<%= R(EventController, :create, @user.id) %>" method="post" accept-charset="utf-8">
 		<fieldset id="" class="">
+			<legend>Agenda</legend>
 			<label for="name"><%= _('Name') %> <%= flash[:error_name] %></label>
 			<input type="text" name="name" value="<%= flash[:name] %>" />
 		
-			<label for="description"><%= _('Description') %> <%= flash[:error_name] %></label>
+			<label for="description"><%= _('Description') %> <%= flash[:error_description] %></label>
 			<textarea name="description" rows="8" cols="40"><%= flash[:description] %></textarea>
 			
 			<label for="local"><%= _('Local') %> <%= flash[:error_local] %></label>

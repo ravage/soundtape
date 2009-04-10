@@ -36,7 +36,7 @@ class User < Sequel::Model(:users)
       encrypt(credentials['password']),
       true].first
     
-    return self.factory(:key => params[:id], :type => params[:user_type])
+    return self.factory(:key => params[:id], :type => params[:user_type]) unless params.nil?
     #return self[
     #  :email    => credentials['login'],
     #  :password => encrypt(credentials['password']),
@@ -49,7 +49,11 @@ class User < Sequel::Model(:users)
   end
   
   def self.activate(key)
-    return self.filter(:activation_key => key, :active => false).update(:active => true) == 1
+      return DB["UPDATE users 
+      SET active = ? 
+      WHERE activation_key = ?
+      AND active = ?",
+      true, key, false].update(0) == 1
   end
   
   def self.factory(params)
