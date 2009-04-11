@@ -1,6 +1,8 @@
 class User < Sequel::Model(:users)
   self.raise_on_save_failure = false
-  self.set_sti_key(:user_type)
+  self.plugin(:validation_class_methods)
+  #self.set_sti_key(:user_type)
+  self.plugin(:single_table_inheritance, :user_type)
   self.set_dataset(dataset.filter({:user_type => name}))
   
   one_to_many :profiles, :unique => true, :join_table => :profiles, :class => :Profile

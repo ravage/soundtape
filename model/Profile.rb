@@ -1,5 +1,6 @@
 class Profile < Sequel::Model(:profiles)
   self.raise_on_save_failure = false
+  self.plugin(:validation_class_methods)
   many_to_one :country, :join_table => :countries, :class => :Country
   
   validations.clear

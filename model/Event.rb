@@ -1,4 +1,5 @@
 class Event < Sequel::Model(:events)
+  self.plugin(:validation_class_methods)
   validates do
     presence_of :name, :description, :local, :building
   end
