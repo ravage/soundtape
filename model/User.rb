@@ -1,7 +1,7 @@
 class User < Sequel::Model(:users)
-  #raise_on_save_failure = false
-  set_sti_key(:user_type)
-  set_dataset(dataset.filter({:user_type => name}))
+  self.raise_on_save_failure = false
+  self.set_sti_key(:user_type)
+  self.set_dataset(dataset.filter({:user_type => name}))
   
   one_to_many :profiles, :unique => true, :join_table => :profiles, :class => :Profile
   
@@ -60,5 +60,13 @@ class User < Sequel::Model(:users)
     return Band[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:band]
     return User[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:user]
     return nil
+  end
+  
+  def alias
+    return profile.user_alias
+  end
+  
+  def profile
+    return profiles.first
   end
 end

@@ -36,9 +36,9 @@ require 'model/User'
 Ramaze::acquire 'model/*'
 
 #match /user
-Ramaze::Route[%r{^([^profile]\w+)$}] = "/profile/view/%s"
+#Ramaze::Route[%r{^(\w+)[^master|settings]$}] = "/profile/view/%s"
 #match /user/agenda
-Ramaze::Route[%r{^/(.*)/agenda$}] = "/profile/agenda/%s"
+#Ramaze::Route[%r{^/(.*)/agenda$}] = "/profile/agenda/%s"
 
 # Add directory start.rb is in to the load path, so you can run the app from
 # any other working path

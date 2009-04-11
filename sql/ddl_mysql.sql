@@ -66,6 +66,7 @@ CREATE TABLE profiles (
 	homepage		VARCHAR(100) NULL,
 	longitude		FLOAT NULL,
 	latitude		FLOAT NULL,
+	location		VARCHAR(100) NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(country_id),

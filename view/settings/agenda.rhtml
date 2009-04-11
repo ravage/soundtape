@@ -1,0 +1,42 @@
+<% if @agenda %>
+	<div class="content">
+		<form action="<%= R(EventController, :create) %>" method="post" accept-charset="utf-8">
+			<fieldset>
+				<legend>Agenda</legend>
+				<label for="description"><%= _('Description') %> <%= flash[:error_description] %></label>
+				<input type="text" name="description" value="<%= flash[:error] ? flash[:description] : @agenda.description %>" />
+	
+				<label for="submit"></label>
+				<input type="submit" value="Continue &rarr;">
+			</fieldset>	
+		</form>
+	</div>
+	
+	<div class="content">
+		<form action="<%= R(EventController, :create) %>" method="post" accept-charset="utf-8">
+			<fieldset>
+				<legend><%= _('Events') %></legend>
+				<label for="local"><%= _('Local') %> <%= flash[:error_local] %></label>
+				<input type="text" name="local" value="<%= flash[:local] %>" />
+		
+				<label for="building"><%= _('Building') %> <%= flash[:error_building] %></label>
+				<input type="text" name="building" value="<%= flash[:building] %>" />
+		
+				<label for="when"><%= _('When') %> <%= flash[:error_when] %></label>
+				<input type="text" name="when" value="<%= flash[:when] %>" />
+		
+				<label for="price"><%= _('Price') %> <%= flash[:error_price] %></label>
+				<input type="text" name="price" value="<%= flash[:price] %>" />
+			
+				<label for="flyer"><%= _('Flyer') %> <%= flash[:error_flyer] %></label>
+				<input type="text" name="flyer" value="<%= flash[:flyer] %>" />
+		
+				<label for="description"><%= _('Description') %> <%= flash[:error_description] %></label>
+				<textarea name="description" rows="8" cols="40"><%== flash[:description] %></textarea>
+					
+				<label for="submit"></label>
+				<input type="submit" value="Continue &rarr;">
+			</fieldset>
+		</form>
+	</div>
+<% end %>

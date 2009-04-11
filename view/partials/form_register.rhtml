@@ -1,13 +1,17 @@
-<div id="register_form">
+<div class="content">
 	<form action="/account/create/<%= @type %>" method="post" accept-charset="utf-8">
 		<label for="real_name"><%= _('Name') %></label>
 		<input type="text" name="real_name" value="<%= flash[:real_name] %>" id="real_name" />
+
 		<label for="email"><%= _('E-Mail') %></label>
 		<input type="text" name="email" value="<%= flash[:email] %>" id="email" />
+
 		<label for="password"><%= _('Password') %></label>
 		<input type="password" name="password" value="" id="password" />
+
 		<label for="password_confirmation"><%= _('Password') %></label>
 		<input type="password" name="password_confirmation" value="" id="password" />
+
 		<label for="submit"></label>
 		<input type="submit" name="submit" value="<%= _('Continue') %> &rarr;">
 	</form>

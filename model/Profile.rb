@@ -1,5 +1,5 @@
 class Profile < Sequel::Model(:profiles)
-  raise_on_save_failure = false
+  self.raise_on_save_failure = false
   many_to_one :country, :join_table => :countries, :class => :Country
   
   validations.clear
@@ -9,15 +9,15 @@ class Profile < Sequel::Model(:profiles)
     uniqueness_of   :user_alias
   end
   
-  def prepare_update(values)
+  def prepare_update(params)
     update(
-       :photo_path   => values['photo_path'],
-       :homepage     => values['preferences'],
-       :country_id   => values['country'],
-       :bio          => values['bio'],
-       :user_alias   => values['user_alias'],
-       :real_name    => values['real_name'],
-       :map_point_id => values['map_point_id']
+       :photo_path  => params[:photo_path],
+       :homepage    => params[:preferences],
+       :bio         => params[:bio],
+       :user_alias  => params[:user_alias],
+       :real_name   => params[:real_name],
+       :homepage    => params[:homepage],
+       :location    => params[:location]
      )
   end
   

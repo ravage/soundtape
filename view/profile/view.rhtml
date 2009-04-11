@@ -1,4 +1,3 @@
-<div id="profile_view">
 <% @user.profiles.each do |profile| %>
 	<p><%= _('Name') %>
 	<%== profile.real_name %></p>
@@ -19,39 +18,13 @@
 	<%== profile.bio %></p>
 <% end %>
 
-<% @user.agendas.each do |agenda| %>
+<% if @agenda %>
 	<p><%= _('Agenda') %>
-	<%== agenda.description %></p>
+	<%== @agenda.description %></p>
 	
 	<%= _('Events') %>
-	<% agenda.events.each do |event| %>
+	<% @agenda.events.each do |event| %>
 		<p><%== event.name %>
 		<%== event.description %></p>
 	<% end %>
 <% end %>
-</div>
-<!--
-	name			VARCHAR(100) NOT NULL,
-	description		LONGTEXT NOT NULL,
-	map_point_id	INT UNSIGNED NOT NULL,
-	agenda_id		INT UNSIGNED NOT NULL,	
-
-id				INT UNSIGNED AUTO_INCREMENT,
-address			VARCHAR(255) NULL,
-province		VARCHAR(20) NULL,
-zip_code		VARCHAR(10) NULL,
-city			VARCHAR(30) NULL,
-real_name		VARCHAR(100) NOT NULL,
-photo_path		VARCHAR(60) NULL,
-preferences		TEXT NULL,
-country_id		INT UNSIGNED NULL,
-map_point_id	INT UNSIGNED NULL,
-user_id			INT	UNSIGNED UNIQUE NOT NULL,
-
-PRIMARY KEY		(id),
-INDEX			(country_id),
-INDEX			(map_point_id),
-FOREIGN KEY		(country_id) REFERENCES countries(id) ON DELETE CASCADE,
-FOREIGN KEY		(map_point_id) REFERENCES map_marquers(id) ON DELETE CASCADE,
-FOREIGN KEY 	(user_id) REFERENCES users(id) ON DELETE CASCADE
--->

@@ -12,13 +12,18 @@ body {
 	font-weight: lighter;
 }
 
+a {
+	color: #e64b1b;
+	text-decoration: none;
+}
+
 h3 {
 	font-size: 1.3em;
 	font-weight: bold;
-	padding: 5px 0 5px 0;
+	padding: 0px 0 10px 0;
 }
 
-input {
+input, textarea {
 	border: 2px solid #ccc;
 	margin-bottom: 10px;
 }
@@ -103,49 +108,39 @@ label {
 }
 /* @top_menu end */
 
-/* @content begin */
-#content {
-	padding: 10px;
-	overflow: auto;
+/* @content wrappers begin */
+#content_wrapper {
 	background-color: #000;
-}
-
-#content_center {
-	width: 565px;
+	width: 555px;
+	margin-left: 10px;
 	float: left;
 }
 
-#content_right {
-	width: 200px;
+#sidebar_wrapper, #content_wrapper {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#sidebar_wrapper {
+	width: 215px;
 	float: right;
+	margin-right: 10px;
 }
-
-.content_block, .block {
-	background-color: #1d1d1d;
-}
-
-.content_block {
-	padding: 10px;
-}
-/* @content end */
+/* @content wrappers end */
 
 #footer {
 	height: 50px;
 	padding: 10px;
 	background-color: #101010;
+	clear: both;
 }
 /* @main structure end */
 
 /* @blocks begin */
-.block {
-	padding: 5px;
-}
 
-.block_title {
-	padding-bottom: 5px;
-	color: #777777;
-}
-
-.block_content {
+.content, .block {
+	background-color: #1d1d1d;
+	padding: 10px;
+	margin-bottom: 10px;
 }
 /* @blocks end */

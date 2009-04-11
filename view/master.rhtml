@@ -24,8 +24,11 @@
 				<li><a href="#"><span>Link 6</span></a></li>
 			</ul>
 		</div>
-		<div id="content">
+		<div id="content_wrapper">
 			<%= @content %>
+		</div>
+		<div id="sidebar_wrapper">
+			<%= render_template('partials/sidebar') %>
 		</div>
 		<div id="footer">
 			footer

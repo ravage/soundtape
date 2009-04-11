@@ -34,7 +34,7 @@ class AccountController < Controller
       if !user_login(request.params)
         flash[:error] = true;
       else
-        redirect Rs(:index)
+        redirect '/settings'
       end
     end
   end
