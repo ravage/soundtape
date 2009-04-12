@@ -1,5 +1,40 @@
+require 'helper/exceptions'
+
 module SoundTape
   module Helpers
+    
+    class ImageResize
+      def initialize(path)
+        @image_path = path
+      end
+      
+      def resize(suffix, width, height)
+        begin
+          ImageScience.with_image(@image_path) do |image|
+            if image.height != height || image.width != width
+              image.resize(width, height) do |resize|
+                resize.save(new_name(suffix))
+              end
+            else
+              FileUtils.cp(@image_path, new_name(suffix))
+            end
+          end
+        rescue Exception => e
+          raise ImageResizeException, e
+        end
+      end
+      
+      def cleanup
+        FileUtils.rm @image_path if File.exist?(@image_path)
+      end
+      
+      private
+      
+      def new_name(suffix)
+        return @image_path.gsub('.', "#{suffix}.")
+      end
+    end
+    
     class Upload
       def initialize(upload_info)
         @tempfile, @filename, @type = upload_info.values_at(:tempfile, :filename, :type)
@@ -11,10 +46,6 @@ module SoundTape
 
       def tempfile
         return @tempfile
-      end
-
-      def filename
-        return @filename
       end
 
       def mime_type
@@ -34,10 +65,10 @@ module SoundTape
           FileUtils.cp(tempfile.path, path)
         rescue Exception => e 
           raise UploadException, e
-          return nil
         ensure
           FileUtils.rm(tempfile.path) if File.exist?(tempfile.path)
         end
+        @new_path = path
         return path
       end
 
@@ -49,6 +80,7 @@ module SoundTape
         ensure
           FileUtils.rm(tempfile.path) if File.exist?(tempfile.path)
         end
+        @new_path = path
         return path
       end
   
@@ -71,6 +103,14 @@ module SoundTape
           raise UploadException, e
         end
         return false
+      end
+      
+      def done?
+        return File.exist?(@new_path)
+      end
+      
+      def new_path
+        return @new_path
       end
     end
   end

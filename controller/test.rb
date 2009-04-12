@@ -8,3 +8,8 @@ end
 
 t = Teste.new(10)
 puts t.number
+
+begin
+  a = b
+end
+pu

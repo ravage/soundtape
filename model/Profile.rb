@@ -15,8 +15,12 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def prepare_update(params)
+    
+    avatar ||= avatar(params[:photo_path])
+    avatar.gsub!(/public\//, '') unless avatar.nil?
+    
     update(
-       :photo_path  => avatar(params[:photo_path]) || photo_path,
+       :photo_path  => avatar || photo_path,
        :homepage    => params[:preferences],
        :bio         => params[:bio],
        :user_alias  => params[:user_alias],
@@ -44,11 +48,38 @@ class Profile < Sequel::Model(:profiles)
     
     begin
       return 'NAI' unless upload.is_image?
-      return upload.move_to("#{SoundTape::Constant.upload_path}/#{Time.now.to_i}#{upload.extension}")
+      new_path = upload.move_to("#{SoundTape::Constant.upload_path}/#{Time.now.to_i}#{upload.extension}")
     rescue SoundTape::UploadException => e
-      oops('model/profile/avatar', e)
       return nil
     end
+    
+    return new_path unless resize_avatar(new_path).nil?
+  end
+  
+  def resize_avatar(path)
+    resizer = SoundTape::Helpers::ImageResize.new(path)
+    big_size = SoundTape::Constant.avatar_big_size
+    small_size = SoundTape::Constant.avatar_small_size
+    big_suffix = SoundTape::Constant.avatar_big_suffix
+    small_suffix = SoundTape::Constant.avatar_small_suffix
+    
+    begin      
+      resizer.resize(big_suffix, big_size, big_size)
+      resizer.resize(small_suffix, small_size, small_size)
+      resizer.cleanup
+    rescue SoundTape::ImageResizeException => e
+      return nil
+    end
+    
+    return true
+  end
+  
+  def avatar_big
+    return photo_path.gsub('.', "#{SoundTape::Constant.avatar_big_suffix}.")
+  end
+  
+  def avatar_small
+    return photo_path.gsub('.', "#{SoundTape::Constant.avatar_small_suffix}.")
   end
   
 end

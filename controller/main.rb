@@ -14,7 +14,10 @@ class MainController < Controller
   end
   
   def test
-    pp Month.where(:language_id => 2).all
+    %|
+      <img src="#{Band.all.first.profile.avatar_small}" />
+    |
+     
   end
   
   def oops
