@@ -1,0 +1,11 @@
+<select name="hour">
+	<% 0.upto(23) do |hour| %>
+		<option value="<%= hour %>" <%= 'selected' if @hour.to_i == hour %>><%= hour %></option>
+	<% end %>
+</select>
+
+<select name="minute">
+	<% 0.upto(11) do |minute| %>
+		<option value="<%= minute * 5 %>" <%= 'selected' if @minute.to_i == minute * 5 %>><%= minute * 5 %></option>
+	<% end %>
+</select>

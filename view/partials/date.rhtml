@@ -1,0 +1,19 @@
+<select name="day">
+	<% 1.upto(31) do |day| %>
+		<option value="<%= day %>" <%= 'selected' if @day.to_i == day %>><%= day %></option>
+	<% end %>
+</select>
+
+<select name="month">
+	<% Month.where(:language_id => 2).each do |month| %>
+	<%= month.pretty_inspect %>
+		<option value="<%= month.ref_id %>" <%= 'selected' if @month.to_i == month.ref_id %>><%= month %></option>
+	<% end %>
+</select>
+
+<select name="year">
+	<% Time.now.year.upto(Time.now.year + 1) do |year| %>
+		<option value="<%= year %>" <%= 'selected' if @year.to_i == year %>><%= year %></option>
+	<% end %>
+</select>
+

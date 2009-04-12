@@ -1,0 +1,33 @@
+<div class="content">
+	<form action="<%= Rs(:update_profile) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<fieldset style="float: left;">
+			<label for="real_name"><%= _('Name') %> <%= flash[:error_profile_real_name] %></label>
+			<input type="text" name="real_name" value="<%== flash[:error] ? flash[:profile_real_name] : @profile.real_name %>" />
+
+			<label for="user_alias"><%= _('Alias') %> <%= flash[:error_profile_user_alias] %></label>
+			<input type="text" name="user_alias" value="<%== flash[:error] ? flash[:profile_user_alias] : @profile.user_alias %>"  />
+
+			<label for="location"><%= _('Location') %> <%= flash[:error_profile_location] %></label>
+			<input type="text" name="location" value="<%== flash[:error] ? flash[:profile_location] : @profile.location %>"  />
+
+			<label for="email"><%= _('E-Mail') %> <%= flash[:error_profile_real_name] %></label>
+			<input type="text" name="email" value="<%== flash[:error] ? flash[:profile_email] : @user.email %>" />
+
+			<label for="homepage"><%= _('Homepage') %></label>
+			<input type="text" name="homepage" value="<%== flash[:error] ? flash[:profile_homepage] : @profile.homepage %>" />
+		</fieldset>
+		
+		<fieldset style="float:right;">
+			<label for="photo_path"><%= _('Photo') %> <%= flash[:error_profile_photo_path] %></label>
+			<input type="file" name="photo_path" value="<%== flash[:error] ? flash[:profile_photo_path] : @profile.photo_path %>" />
+			
+			<label for="bio"><%= _('Bio') %></label>
+			<textarea name="bio" rows="8" cols="40"><%== flash[:error] ? flash[:profile_bio] : @profile.bio %></textarea>
+		</fieldset>
+		
+		<fieldset style="clear: both;">
+			<label for="submit"></label>
+			<input type="submit"value="Continue &rarr;" />
+		</fieldset>
+	</form>
+</div>

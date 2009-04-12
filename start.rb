@@ -29,10 +29,14 @@ Ramaze::EmailHelper.trait(
 DB.loggers << Logger.new($stdout)
 
 require 'data/countries'
+require 'data/languages'
+require 'data/currencies'
+require 'data/months'
 
 # Initialize controllers and models
 require 'controller/init'
 require 'model/User'
+require 'model/Language'
 Ramaze::acquire 'model/*'
 
 #match /user

@@ -11,5 +11,4 @@ end
 require 'controller/main'
 require 'controller/account'
 require 'controller/profile'
-require 'controller/event'
 require 'controller/settings'

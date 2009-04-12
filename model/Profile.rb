@@ -8,11 +8,15 @@ class Profile < Sequel::Model(:profiles)
     presence_of     :real_name, :user_alias
     length_of       :real_name, :within => 3..100
     uniqueness_of   :user_alias
+    
+    each :photo_path do |validation, field, value|
+      validation.errors[field] << 'not an image' if value == 'NAI'
+    end
   end
   
   def prepare_update(params)
     update(
-       :photo_path  => params[:photo_path],
+       :photo_path  => avatar(params[:photo_path]) || photo_path,
        :homepage    => params[:preferences],
        :bio         => params[:bio],
        :user_alias  => params[:user_alias],
@@ -32,4 +36,19 @@ class Profile < Sequel::Model(:profiles)
     end
     return nil
   end
+  
+  def avatar(file_info)
+    upload = SoundTape::Helpers::Upload.new(file_info)
+    
+    return nil unless upload.is_uploaded?
+    
+    begin
+      return 'NAI' unless upload.is_image?
+      return upload.move_to("#{SoundTape::Constant.upload_path}/#{Time.now.to_i}#{upload.extension}")
+    rescue SoundTape::UploadException => e
+      oops('model/profile/avatar', e)
+      return nil
+    end
+  end
+  
 end

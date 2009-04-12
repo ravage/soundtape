@@ -1,0 +1,5 @@
+<select name="currency">
+	<% Currency.where(:language_id => 2).each do |currency| %>
+		<option value="<%= currency.ref_id %>" <%= 'selected' if currency.ref_id == @currency.to_i %>><%= currency %></option>
+	<% end %>
+</select>

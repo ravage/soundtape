@@ -1,3 +1,4 @@
+require 'helper/upload'
 module Ramaze
   module Helper
     module Utils
@@ -8,11 +9,12 @@ module Ramaze
         redirect '/oops'
       end
       
-      def prepare_flash(errors)
-        pp errors
+      def prepare_flash(args = {})
+        #pp errors
         flash[:error] = true
-        errors.each { |key, message| flash["error_#{key.to_s}".to_sym] = message }
-        request.params.each { |key, value| flash[key.to_sym] = value }
+        args[:errors].each { |key, message| flash["error_#{args[:prefix]}_#{key.to_s}".to_sym] = message.first }
+        request.params.each { |key, value| flash["#{args[:prefix]}_#{key}".to_sym] = value }
+        pp flash
       end
     end
   end

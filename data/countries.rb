@@ -1,12 +1,7 @@
-require 'rubygems'
-require 'm4dbi'
-require 'sequel'
-#$db = DBI.connect('dbi:mysql:database=soundtape;encoding=utf8;socket=/Applications/MAMP/tmp/mysql/mysql.sock', 'root', 'root')
-#$db = DBI.connect('../database.yml')
-#class country < DBI::Model(:countries)
-#end
-#DB = Sequel.mysql('soundtape', :socket => '/Applications/MAMP/tmp/mysql/mysql.sock', :charset => 'utf8', :user => 'root', :password => 'root')
 country = DB[:countries]
+
+pt = DB['SELECT id FROM languages WHERE abbr = ?', 'PT'].first
+en = DB['SELECT id FROM languages WHERE abbr = ?', 'EN'].first
 
 if country.count == 0
   country.insert( :abbr => 'AF', :country => 'Afghanistan')

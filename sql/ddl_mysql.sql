@@ -116,14 +116,21 @@ CREATE TABLE events (
 	name			VARCHAR(100) NOT NULL,
 	description		LONGTEXT NOT NULL,
 	agenda_id		INT UNSIGNED NOT NULL,
-	local			VARCHAR(255) NULL,
-	building		VARCHAR(150) NULL,
+	local			VARCHAR(100) NULL,
+	building		VARCHAR(100) NULL,
 	longitude		FLOAT NULL,
 	latitude		FLOAT NULL,
+	when			DATETIME NULL,
+	price			DECIMAL NULL,
+	flyer_path		VARCHAR(100) NULL,
+	currency_id		INT UNSIGNED NOT NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(agenda_id),
+	INDEX			(currency_id),
 	FOREIGN KEY		(agenda_id)	REFERENCES agendas(id) ON DELETE CASCADE
+	FOREIGN KEY		(currency_id) REFERENCES currencies(ref_id) ON DELETE CASCADE
+	
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE mailing_list_messages (
@@ -166,6 +173,40 @@ CREATE TABLE users_mailing_lists (
 	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
 	FOREIGN KEY (mailing_list_id) REFERENCES mailing_lists(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE languages (
+	id			INT UNSIGNED AUTO_INCREMENT,
+	language	VARCHAR(60),
+	abbr		VARCHAR(3),
+	
+	PRIMARY KEY	(id)
+);
+
+CREATE TABLE currencies (
+	id			INT UNSIGNED AUTO_INCREMENT,
+	currency	VARCHAR(60) NOT NULL,
+	language_id	INT UNSIGNED NOT NULL,
+	symbol		VARCHAR(1) NOT NULL,
+	ref_id		INT UNSIGNED NOT NULL,
+	
+	PRIMARY KEY (id),
+	INDEX		(language_id),
+	INDEX		(ref_id),
+	FOREIGN KEY (language_id) REFERENCES languages(id) ON DELETE CASCADE
+);
+
+CREATE TABLE months (
+	id			INT UNSIGNED AUTO_INCREMENT,
+	month		VARCHAR(30) NOT NULL,
+	language_id	INT UNSIGNED NOT NULL,
+	ref_id		INT UNSIGNED NOT NULL,
+	
+	PRIMARY KEY (id),
+	INDEX		(language_id),
+	INDEX		(ref_id),
+	FOREIGN KEY	(language_id) REFERENCES languages(id) ON DELETE CASCADE
+);
 
 
 DELIMITER $$

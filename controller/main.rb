@@ -14,7 +14,7 @@ class MainController < Controller
   end
   
   def test
-
+    pp Month.where(:language_id => 2).all
   end
   
   def oops
