@@ -1,0 +1,159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-04-13 14:09+0100\n"
+"PO-Revision-Date: 2009-04-13 14:09+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: view/account/activate.rhtml:2
+msgid "Invalid account activation key!"
+msgstr ""
+
+#: view/account/activate.rhtml:4
+msgid "Activation successfull, "
+msgstr ""
+
+#: view/account/activate.rhtml:4 view/partials/form_login.rhtml:3
+msgid "Login"
+msgstr ""
+
+#: view/account/login.rhtml:5
+msgid "Check your login and user name"
+msgstr ""
+
+#: view/account/login.rhtml:6
+msgid "Is your account activated?"
+msgstr ""
+
+#: view/partials/form_login.rhtml:6 view/partials/form_register.rhtml:9
+#: view/partials/form_register.rhtml:12
+msgid "Password"
+msgstr ""
+
+#: view/partials/form_login.rhtml:10 view/partials/form_register.rhtml:16
+msgid "Continue"
+msgstr ""
+
+#: view/partials/form_login.rhtml:12
+msgid "Forgot your password?"
+msgstr ""
+
+#: view/partials/form_login.rhtml:12
+msgid "Reset"
+msgstr ""
+
+#: view/partials/form_register.rhtml:3 view/profile/view.rhtml:2 view/settings/agenda.rhtml:20
+#: view/settings/profile.rhtml:4
+msgid "Name"
+msgstr ""
+
+#: view/partials/form_register.rhtml:6 view/profile/view.rhtml:14 view/settings/profile.rhtml:13
+msgid "E-Mail"
+msgstr ""
+
+#: view/profile/view.rhtml:5 view/settings/profile.rhtml:7
+msgid "Alias"
+msgstr ""
+
+#: view/profile/view.rhtml:8 view/settings/profile.rhtml:28
+msgid "Photo"
+msgstr ""
+
+#: view/profile/view.rhtml:11
+msgid "Country"
+msgstr ""
+
+#: view/profile/view.rhtml:17 view/settings/profile.rhtml:31
+msgid "Bio"
+msgstr ""
+
+#: view/profile/view.rhtml:22
+msgid "Agenda"
+msgstr ""
+
+#: view/profile/view.rhtml:25 view/settings/agenda.rhtml:19
+msgid "Events"
+msgstr ""
+
+#: view/settings/agenda.rhtml:6 view/settings/agenda.rhtml:51
+msgid "Description"
+msgstr ""
+
+#: view/settings/agenda.rhtml:8
+msgid "Ex: My Uber band events"
+msgstr ""
+
+#: view/settings/agenda.rhtml:22
+msgid "Ex: Concert to myself"
+msgstr ""
+
+#: view/settings/agenda.rhtml:24
+msgid "Local"
+msgstr ""
+
+#: view/settings/agenda.rhtml:26
+msgid "Ex: 500 E Cesar Chavez St, Austin, Texas"
+msgstr ""
+
+#: view/settings/agenda.rhtml:28
+msgid "Building"
+msgstr ""
+
+#: view/settings/agenda.rhtml:30
+msgid "Ex: Austin Convention Center"
+msgstr ""
+
+#: view/settings/agenda.rhtml:32
+msgid "Date"
+msgstr ""
+
+#: view/settings/agenda.rhtml:43
+msgid "Price"
+msgstr ""
+
+#: view/settings/agenda.rhtml:46
+msgid "Ex: 15.5"
+msgstr ""
+
+#: view/settings/agenda.rhtml:48
+msgid "Flyer"
+msgstr ""
+
+#: view/settings/profile.rhtml:10
+msgid "Location"
+msgstr ""
+
+#: view/settings/profile.rhtml:16
+msgid "Homepage"
+msgstr ""
+
+#: view/settings/profile.rhtml:21
+msgid "Use Gravatar"
+msgstr ""
+
+#: controller/account.rb:24
+msgid "successfully created account"
+msgstr ""
+
+#: controller/account.rb:60
+msgid "Please activate your account"
+msgstr ""
+
+#: controller/account.rb:64
+msgid "Account Activation"
+msgstr ""
+
+#: controller/main.rb:25
+msgid "An unexpected error ocurred please try again"
+msgstr ""

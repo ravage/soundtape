@@ -1,41 +1,35 @@
-require 'helper/exceptions'
+require "#{File.expand_path(File.dirname(__FILE__))}/exceptions"
 
 module SoundTape
   module Helper
     
-    class ImageResize
-      def initialize(path)
-        @image_path = path
-      end
+    module ImageFormat
+      class Format < Struct.new(:length, :offset, :signature); end
       
-      def resize(suffix, width, height)
+      def is_image?
+        formats = Hash.new
+        formats['image/png']  = [Format.new(3, 1, '504e47')]
+        formats['image/gif']  = [Format.new(3, 0, '474946')]
+        formats['image/jpeg'] = [Format.new(4, 0, 'ffd8ffe0'), Format.new(4, 0, 'ffd8ffe1')]
+        
+        format = formats[mime_type]
+    
+        return false if format.nil?
+    
         begin
-          ImageScience.with_image(@image_path) do |image|
-            if image.height != height || image.width != width
-              image.resize(width, height) do |resize|
-                resize.save(new_name(suffix))
-              end
-            else
-              FileUtils.cp(@image_path, new_name(suffix))
-            end
+          format.each do |f|
+              return true if IO.read(tempfile.path, f.length, f.offset).unpack('H*').first == f.signature
           end
         rescue Exception => e
-          raise ImageResizeException, e
+          raise UploadException, e
         end
-      end
-      
-      def cleanup
-        FileUtils.rm @image_path if File.exist?(@image_path)
-      end
-      
-      private
-      
-      def new_name(suffix)
-        return @image_path.gsub('.', "#{suffix}.")
+        return false
       end
     end
     
     class Upload
+      include ImageFormat
+      
       def initialize(upload_info)
         @tempfile, @filename, @type = upload_info.values_at(:tempfile, :filename, :type)
       end
@@ -66,7 +60,7 @@ module SoundTape
         rescue Exception => e 
           raise UploadException, e
         ensure
-          FileUtils.rm(tempfile.path) if File.exist?(tempfile.path)
+          FileUtils.rm_f(tempfile.path)
         end
         @new_path = path
         return path
@@ -78,33 +72,12 @@ module SoundTape
         rescue Exception => e
           raise UploadException, e
         ensure
-          FileUtils.rm(tempfile.path) if File.exist?(tempfile.path)
+          FileUtils.rm_f(tempfile.path)
         end
         @new_path = path
         return path
       end
   
-      def is_image?
-        Kernel.const_set('Format', Struct.new(:length, :offset, :signature))
-        formats = Hash.new
-        formats['image/png'] = [Format.new(3, 1, '504e47')]
-        formats['image/gif'] = [Format.new(3, 0, '474946')]
-        formats['image/jpeg'] = [Format.new(4, 0, 'ffd8ffe0'), Format.new(4, 0, 'ffd8ffe1')]
-        
-        format = formats[mime_type]
-    
-        return false if format.nil?
-    
-        begin
-          format.each do |f|
-              return true if IO.read(tempfile.path, f.length, f.offset).unpack('H*').first == f.signature
-          end
-        rescue Exception => e
-          raise UploadException, e
-        end
-        return false
-      end
-      
       def done?
         return File.exist?(@new_path)
       end

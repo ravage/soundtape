@@ -69,12 +69,13 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def resize_avatar(path)
-    resizer = SoundTape::Helper::ImageResize.new(path)
+    resizer = SoundTape::Helper::ImageResize.factory(path)
     big_size = SoundTape::Constant.avatar_big_size
     small_size = SoundTape::Constant.avatar_small_size
     big_suffix = SoundTape::Constant.avatar_big_suffix
     small_suffix = SoundTape::Constant.avatar_small_suffix
     
+    pp resizer.class
     begin      
       resizer.resize(big_suffix, big_size, big_size)
       resizer.resize(small_suffix, small_size, small_size)
@@ -87,21 +88,23 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def avatar_big
+    default = SoundTape::Constant.avatar_default_big
     if use_gravatar
-      default = SoundTape::Constant.avatar_default_big
       return gravatar(gravatar_email, SoundTape::Constant.avatar_big_size, default)
     else
-      return photo_path.gsub('.', "#{SoundTape::Constant.avatar_big_suffix}.")
+      return photo_path.gsub('.', "#{SoundTape::Constant.avatar_big_suffix}.") unless photo_path.nil? || photo_path.empty?
     end
+    return default
   end
   
   def avatar_small
+    default = SoundTape::Constant.avatar_default_small
     if use_gravatar
-       default = SoundTape::Constant.avatar_default_small
        return gravatar(gravatar_email, SoundTape::Constant.avatar_small_size, default)
      else
-       return photo_path.gsub('.', "#{SoundTape::Constant.avatar_small_suffix}.")
+       return photo_path.gsub('.', "#{SoundTape::Constant.avatar_small_suffix}.") unless photo_path.nil? || photo_path.empty?
      end
+     return default
   end
   
   def no_gravatar_email

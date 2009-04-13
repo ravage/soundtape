@@ -1,4 +1,5 @@
-require 'helper/upload'
+require "#{File.expand_path(File.dirname(__FILE__))}/upload"
+require "#{File.expand_path(File.dirname(__FILE__))}/image_resize"
 module Ramaze
   module Helper
     module Utils
