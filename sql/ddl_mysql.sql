@@ -67,6 +67,8 @@ CREATE TABLE profiles (
 	longitude		FLOAT NULL,
 	latitude		FLOAT NULL,
 	location		VARCHAR(100) NULL,
+	gravatar_email	VARCHAR(100) NULL,
+	use_gravatar	BOOLEAN DEFAULT FALSE,
 	
 	PRIMARY KEY		(id),
 	INDEX			(country_id),
@@ -215,7 +217,7 @@ CREATE TRIGGER user_tables AFTER INSERT ON users
 	FOR EACH ROW BEGIN
 		DECLARE lastid INT;
 		SET lastid 	= LAST_INSERT_ID();
-		INSERT INTO profiles(user_id, real_name, user_alias) VALUES(lastid, NEW.email, lastid + '');
+		INSERT INTO profiles(user_id, real_name, user_alias, gravatar_email) VALUES(lastid, NEW.email, lastid + '', New.email);
 		IF New.user_type = 'Band' THEN
 			INSERT INTO agendas(user_id) VALUES(lastid);
 			INSERT INTO mailing_lists(user_id, state) VALUES(lastid, FALSE);

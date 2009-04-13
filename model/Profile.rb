@@ -12,21 +12,31 @@ class Profile < Sequel::Model(:profiles)
     each :photo_path do |validation, field, value|
       validation.errors[field] << 'not an image' if value == 'NAI'
     end
+    
+    each :gravatar_email, :allow_blank => true do |validation, field, value|
+       validation.errors[field] << 'invalid e-mail' unless value =~ /^[a-zA-Z]([.]?([[:alnum:]_-]+)*)?@([[:alnum:]\-_]+\.)+[a-zA-Z]{2,4}$/ 
+    end
+     
+    each :use_gravatar do |validation, field, value|
+      validation.errors[field] << 'need gravatar e-mail' if validation.values[:gravatar_email].empty? && value
+    end
   end
   
   def prepare_update(params)
     
     avatar ||= avatar(params[:photo_path])
-    avatar.gsub!(/public\//, '') unless avatar.nil?
+    avatar.gsub!(/public/, '') unless avatar.nil?
     
     update(
-       :photo_path  => avatar || photo_path,
-       :homepage    => params[:preferences],
-       :bio         => params[:bio],
-       :user_alias  => params[:user_alias],
-       :real_name   => params[:real_name],
-       :homepage    => params[:homepage],
-       :location    => params[:location]
+       :photo_path      => avatar || photo_path,
+       :homepage        => params[:preferences],
+       :bio             => params[:bio],
+       :user_alias      => params[:user_alias],
+       :real_name       => params[:real_name],
+       :homepage        => params[:homepage],
+       :location        => params[:location],
+       :use_gravatar    => params.params.has_key?('use_gravatar') ? true : false,
+       :gravatar_email  => params[:gravatar_email]
      )
   end
   
@@ -57,7 +67,7 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def resize_avatar(path)
-    resizer = SoundTape::Helpers::ImageResize.new(path)
+    resizer = SoundTape::Helper::ImageResize.new(path)
     big_size = SoundTape::Constant.avatar_big_size
     small_size = SoundTape::Constant.avatar_small_size
     big_suffix = SoundTape::Constant.avatar_big_suffix
@@ -75,11 +85,24 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def avatar_big
-    return photo_path.gsub('.', "#{SoundTape::Constant.avatar_big_suffix}.")
+    if use_gravatar
+      default = SoundTape::Constant.avatar_default.gsub('.', "#{SoundTape::Constant.avatar_big_suffix}.")
+      return Ramaze::Helper::Gravatar.gravatar(gravatar_email, SoundTape::Constant.avatar_big_size, default)
+    else
+      return photo_path.gsub('.', "#{SoundTape::Constant.avatar_big_suffix}.")
+    end
   end
   
   def avatar_small
-    return photo_path.gsub('.', "#{SoundTape::Constant.avatar_small_suffix}.")
+    if use_gravatar
+       default = SoundTape::Constant.avatar_default.gsub('.', "#{SoundTape::Constant.avatar_small_suffix}.")
+       return Ramaze::Helper::Gravatar.gravatar(gravatar_email, SoundTape::Constant.avatar_small_size, default)
+     else
+       return photo_path.gsub('.', "#{SoundTape::Constant.avatar_small_suffix}.")
+     end
   end
   
+  def no_gravatar_email
+    gravatar_email.empty?
+  end
 end

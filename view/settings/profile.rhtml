@@ -18,8 +18,15 @@
 		</fieldset>
 		
 		<fieldset style="float:right;">
+			<label for="use_gravatar="><%= _('Use Gravatar') %> <%= flash[:error_profile_use_gravatar] %></label>
+			<input type="checkbox" name="use_gravatar" value="<%== flash[:error] ? flash[:profile_use_gravatar] : @profile.use_gravatar %>"  <%= 'checked' if  flash[:profile_use_gravatar] || @profile.use_gravatar %> />
+			
+			<label for="gravatar_email">Gravatar E-mail <%= flash[:error_profile_gravatar_email] %></label>
+			<input type="text" name="gravatar_email" value="<%== flash[:error] ? flash[:profile_gravatar_email] : @profile.gravatar_email %>" />
+			
+			
 			<label for="photo_path"><%= _('Photo') %> <%= flash[:error_profile_photo_path] %></label>
-			<input type="file" name="photo_path" value="<%== flash[:error] ? flash[:profile_photo_path] : @profile.photo_path %>" />
+			<input type="file" name="photo_path" value="" />
 			
 			<label for="bio"><%= _('Bio') %></label>
 			<textarea name="bio" rows="8" cols="40"><%== flash[:error] ? flash[:profile_bio] : @profile.bio %></textarea>

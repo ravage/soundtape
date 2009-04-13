@@ -6,7 +6,7 @@
 # this will force the controller to be mounted on: /otherurl
 
 class MainController < Controller
-  helper :user
+  helper :user, :gravatar
   
   # the index action is called automatically when no other action is specified
   def index
@@ -14,10 +14,10 @@ class MainController < Controller
   end
   
   def test
-    %|
-      <img src="#{Band.all.first.profile.avatar_small}" />
-    |
-     
+    @gravatar_thumbnail_src = gravatar('ravage@fragmentized.net', 60)
+    %{
+      <img src="#{Band.first.profile.avatar_small}" />
+    }
   end
   
   def oops

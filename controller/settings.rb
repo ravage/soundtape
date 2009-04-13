@@ -16,6 +16,7 @@ class SettingsController < Controller
   end
   
   def update_profile
+    pp request
     begin
       profile = user.profile
       profile.prepare_update(request)
@@ -27,6 +28,7 @@ class SettingsController < Controller
       redirect R(ProfileController, :view, user.alias)
     else
       prepare_flash(:errors => profile.errors, :prefix => 'profile')
+      flash[:profile_use_gravatar] = 1 if request.params.has_key?('use_gravatar')
       redirect Rs(:profile)
     end
   end

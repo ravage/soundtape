@@ -1,7 +1,7 @@
 require 'helper/exceptions'
 
 module SoundTape
-  module Helpers
+  module Helper
     
     class ImageResize
       def initialize(path)
