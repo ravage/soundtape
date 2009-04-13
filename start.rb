@@ -2,13 +2,15 @@ require 'rubygems'
 require 'ramaze'
 require 'sequel'
 require 'logger'
-require 'gettext/cgi'
+require 'gettext'
 require 'digest/sha1'
 require 'ramaze/contrib/email'
 require 'image_science'
 
 include GetText
-set_output_charset("UTF-8")
+#bindtextdomain('soundtape', :path => 'locale')
+#Locale.clear_all
+#Locale.default = "en"
 
 require 'options'
 

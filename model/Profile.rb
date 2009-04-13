@@ -1,4 +1,6 @@
 class Profile < Sequel::Model(:profiles)
+  include Ramaze::Helper::Gravatar
+  
   self.raise_on_save_failure = false
   self.plugin(:validation_class_methods)
   many_to_one :country, :join_table => :countries, :class => :Country
@@ -52,7 +54,7 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def avatar(file_info)
-    upload = SoundTape::Helpers::Upload.new(file_info)
+    upload = SoundTape::Helper::Upload.new(file_info)
     
     return nil unless upload.is_uploaded?
     
@@ -86,8 +88,8 @@ class Profile < Sequel::Model(:profiles)
   
   def avatar_big
     if use_gravatar
-      default = SoundTape::Constant.avatar_default.gsub('.', "#{SoundTape::Constant.avatar_big_suffix}.")
-      return Ramaze::Helper::Gravatar.gravatar(gravatar_email, SoundTape::Constant.avatar_big_size, default)
+      default = SoundTape::Constant.avatar_default_big
+      return gravatar(gravatar_email, SoundTape::Constant.avatar_big_size, default)
     else
       return photo_path.gsub('.', "#{SoundTape::Constant.avatar_big_suffix}.")
     end
@@ -95,8 +97,8 @@ class Profile < Sequel::Model(:profiles)
   
   def avatar_small
     if use_gravatar
-       default = SoundTape::Constant.avatar_default.gsub('.', "#{SoundTape::Constant.avatar_small_suffix}.")
-       return Ramaze::Helper::Gravatar.gravatar(gravatar_email, SoundTape::Constant.avatar_small_size, default)
+       default = SoundTape::Constant.avatar_default_small
+       return gravatar(gravatar_email, SoundTape::Constant.avatar_small_size, default)
      else
        return photo_path.gsub('.', "#{SoundTape::Constant.avatar_small_suffix}.")
      end

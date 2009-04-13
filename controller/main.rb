@@ -10,13 +10,14 @@ class MainController < Controller
   
   # the index action is called automatically when no other action is specified
   def index
-    
+    #Locale.current = 'pt_PT.UTF-8' if request[:lang] = 'pt'
+    session[:LOCALE] = 'pt_PT'
   end
   
   def test
     @gravatar_thumbnail_src = gravatar('ravage@fragmentized.net', 60)
     %{
-      <img src="#{Band.first.profile.avatar_small}" />
+      <img src="#{Band.first.profile.avatar_big}" />
     }
   end
   
