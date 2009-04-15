@@ -69,7 +69,8 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def resize_avatar(path)
-    resizer = SoundTape::Helper::ImageResize.factory(path)
+    resizer = SoundTape::Helper::ImageResize.new(path)
+    resizer.extend(SoundTape::Helper::ImageResize::ImageScience)
     big_size = SoundTape::Constant.avatar_big_size
     small_size = SoundTape::Constant.avatar_small_size
     big_suffix = SoundTape::Constant.avatar_big_suffix
