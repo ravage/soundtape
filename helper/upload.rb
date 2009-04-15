@@ -11,6 +11,7 @@ module SoundTape
         formats['image/png']  = [Format.new(3, 1, '504e47')]
         formats['image/gif']  = [Format.new(3, 0, '474946')]
         formats['image/jpeg'] = [Format.new(4, 0, 'ffd8ffe0'), Format.new(4, 0, 'ffd8ffe1')]
+        formats['image/jp2']  = [Format.new(12, 0, '0000000c6a5020200d0a870a')]
         
         format = formats[mime_type]
     
