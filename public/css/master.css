@@ -185,4 +185,15 @@ label {
 	font-weight: bold;
 	background-color: #1d1d1d;
 }
+
+body#profile li.profile,
+body#avatar li.avatar,
+body#password li.password,
+body#notifications li.notifications,
+body#url_alias li.url_alias,
+body#location li.location,
+body#delete li.delete {
+	font-weight: bold;
+	background-color: #1d1d1d;
+}
 /* @profile_nav end */

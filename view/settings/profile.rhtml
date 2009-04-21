@@ -4,7 +4,7 @@
 			<label for="real_name"><%= _('Name') %> <%= flash[:error_profile_real_name] %></label>
 			<input type="text" name="real_name" value="<%== flash[:error] ? flash[:profile_real_name] : @profile.real_name %>" />
 
-			<label for="email"><%= _('E-Mail') %> <%= flash[:error_profile_real_name] %></label>
+			<label for="email"><%= _('E-Mail') %> <%= flash[:error_profile_email] %></label>
 			<input type="text" name="email" value="<%== flash[:error] ? flash[:profile_email] : @user.email %>" />
 
 			<label for="homepage"><%= _('Homepage') %></label>

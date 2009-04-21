@@ -15,12 +15,14 @@ class Person
   end
 end
 
-t = Person.new
+#t = Person.new
 #t.output
 
 #puts Teste.constants
 
-puts Teste.opt
+#puts Teste.opt
 #r = SoundTape::Helper::ImageResize.new('/home')
 #r.extend(SoundTape::Helper::ImageResize::ImageScience)
-#r.resize('dede', 1, 1)
+#r.resize('dede', 1, 1
+
+puts "rui"[/^[a-z0-9]+$/]

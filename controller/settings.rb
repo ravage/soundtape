@@ -2,67 +2,128 @@ class SettingsController < Controller
   helper :user, :utils, :aspect
   #layout '/mastersettings'
   
+  def index
+    redirect Rs(:profile)
+  end
+  
   def profile
-    redirect R(AccountController, :login) unless logged_in?
     @user = user
     @profile = user.profile
-    
-    @class_profile = 'class="first current"'
   end
   
   def avatar
-    redirect R(AccountController, :login) unless logged_in?
     @profile = user.profile
-    
-    @class_avatar = 'class="current"'
   end
   
   def password
-    redirect R(AccountController, :login) unless logged_in?
     @profile = user.profile
-    
-    @class_password = 'class="current"'
   end
   
   def notifications
     @profile = user.profile
-    
-    @class_notifications = 'class="current"'
   end
   
   def url_alias
-    redirect R(AccountController, :login) unless logged_in?
     @profile = user.profile
-    
-    @class_urlalias = 'class="current"'
   end
   
   def location
     @profile = user.profile
-    
-    @class_location = 'class="current"'
   end
   
   def delete
-    
-    @class_delete = 'class="current"'
   end
   
   def update_profile
-    pp request
     begin
       profile = user.profile
-      profile.prepare_update(request)
+      profile.update_profile(request)
+      user.update(:email => request[:email])
     rescue Sequel::DatabaseError => e
-      oops(Rs(:update), e)
+      oops(Rs(:update_profile), e)
     end
     
+    if profile.valid? && user.valid?
+      redirect R(ProfileController, :view, user.alias)
+    else
+      prepare_flash(:errors => profile.errors.merge(user.errors), :prefix => 'profile')
+      redirect Rs(:profile)
+    end
+  end
+  
+  def update_avatar
+    begin
+      profile = user.profile
+      profile.update_avatar(request)
+    rescue Sequel::DatabaseError => e
+      oops(Rs(:update_profile), e)
+    end
+
     if profile.valid?
       redirect R(ProfileController, :view, user.alias)
     else
       prepare_flash(:errors => profile.errors, :prefix => 'profile')
       flash[:profile_use_gravatar] = 1 if request.params.has_key?('use_gravatar')
-      redirect Rs(:profile)
+      redirect Rs(:avatar)
+    end
+  end
+  
+  def update_password
+    #FIXME: should go into Model?
+    if request[:password] != request[:password_confirmation]
+      flash[:error_profile_password] = _('Passwords mismatch')
+      redirect Rs(:password)
+    elsif request[:password].strip.empty?
+      flash[:error_profile_password] = _('Password required')
+      redirect Rs(:password)
+    elsif request[:password].length < 6
+      flash[:error_profile_password] = _('Passwords too short')
+      redirect Rs(:password)
+    end
+
+    begin
+      user.update_password(request)
+    rescue Sequel::DatabaseError => e
+      oops(Rs(:update_password), e)
+    end
+
+    if user.valid?
+      redirect R(ProfileController, :view, user.alias)
+    else
+      prepare_flash(:errors => user.errors, :prefix => 'profile')
+      redirect Rs(:password)
+    end
+  end
+  
+  def update_alias
+    begin
+      profile = user.profile
+      profile.update_alias(request)
+    rescue Sequel::DatabaseError => e
+      oops(Rs(:update_alias), e)
+    end
+    
+    if profile.valid?
+       redirect R(ProfileController, :view, user.alias)
+     else
+       prepare_flash(:errors => profile.errors, :prefix => 'profile')
+       redirect Rs(:url_alias)
+     end
+  end
+  
+  def update_location
+    begin
+      profile = user.profile
+      profile.update_location(request)
+    rescue Sequel::DatabaseError => e
+      oops(Rs(:update_location), e)
+    end
+
+    if profile.valid?
+      redirect R(ProfileController, :view, user.alias)
+    else
+      prepare_flash(:errors => profile.errors, :prefix => 'profile')
+      redirect Rs(:location)
     end
   end
   
@@ -103,10 +164,6 @@ class SettingsController < Controller
   end
 
   
-  #TODO: eventually change to before_all
   before(:update_profile, :update_agenda, :create_event) {redirect_referer unless request.post? && logged_in?}
-  before(:profile, :avatar, :password, :notifications, :url_alias, :location, :delete) do
-    redirect_referer unless logged_in?
-    @show_settings_block = true
-  end
+  before(:profile, :avatar, :password, :notifications, :url_alias, :location, :delete) { redirect_referer unless logged_in? }
 end

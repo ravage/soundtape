@@ -8,8 +8,10 @@ class Profile < Sequel::Model(:profiles)
   validations.clear
   validates do 
     presence_of     :real_name, :user_alias
-    length_of       :real_name, :within => 3..100
+    length_of       :real_name, :user_alias, :within => 3..100
     uniqueness_of   :user_alias
+    format_of       :real_name, :with => /^[\w\s]+$/
+    format_of       :user_alias, :with => /^[a-z0-9]+$/
     
     each :photo_path do |validation, field, value|
       validation.errors[field] << 'not an image' if value == 'NAI'
@@ -18,30 +20,39 @@ class Profile < Sequel::Model(:profiles)
     each :gravatar_email, :allow_blank => true do |validation, field, value|
        validation.errors[field] << 'invalid e-mail' unless value =~ /^[a-zA-Z]([.]?([[:alnum:]_-]+)*)?@([[:alnum:]\-_]+\.)+[a-zA-Z]{2,4}$/ 
     end
-     
+
     each :use_gravatar do |validation, field, value|
       validation.errors[field] << 'need gravatar e-mail' if validation.values[:gravatar_email].empty? && value
     end
   end
   
-  def prepare_update(params)
-    
+  def update_profile(params)
+    update(
+      :real_name       => params[:real_name],
+      :homepage        => params[:homepage],
+      :bio             => params[:bio]
+    )
+  end
+  
+  def update_avatar(params)
     avatar ||= avatar(params[:photo_path])
     avatar.gsub!(/public/, '') unless avatar.nil?
     
     update(
-       :photo_path      => avatar || photo_path,
-       :homepage        => params[:preferences],
-       :bio             => params[:bio],
-       :user_alias      => params[:user_alias],
-       :real_name       => params[:real_name],
-       :homepage        => params[:homepage],
-       :location        => params[:location],
-       :use_gravatar    => params.params.has_key?('use_gravatar') ? true : false,
-       :gravatar_email  => params[:gravatar_email]
-     )
+      :photo_path      => avatar || photo_path,
+      :use_gravatar    => params.params.has_key?('use_gravatar') ? true : false,
+      :gravatar_email  => params[:gravatar_email]
+    )
   end
   
+  def update_alias(params)
+    update(:user_alias => params[:user_alias])
+  end
+  
+  def update_location(params)
+    update(:location => params[:location])
+  end
+   
   def self.by_id_or_alias(value)
     profile = Profile.select(:user_id).where(
       {:user_id => value.to_i} | {:user_alias => value}).first
