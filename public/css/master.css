@@ -122,6 +122,10 @@ label {
 	border-bottom: 1px dotted #e64b1b;
 }
 
+#content_wrapper a:hover {
+	border-bottom: 1px dotted #ccc;
+}
+
 #sidebar_wrapper, #content_wrapper {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -157,3 +161,28 @@ label {
 	margin-left: 2px;
 	color: #ccc;
 }
+
+/* @profile_nav begin */
+.profile_nav a {
+	
+}
+
+.profile_nav a:hover {
+	color: #ccc;
+}
+
+.profile_nav li {
+	background-color: black;
+	padding: 5px 5px 5px 10px;
+	margin-top: 2px;
+}
+
+.profile_nav li.first, .profile_nav li.current{
+	margin-top: 0px;
+}
+
+.profile_nav li.current {
+	font-weight: bold;
+	background-color: #1d1d1d;
+}
+/* @profile_nav end */

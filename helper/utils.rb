@@ -17,6 +17,20 @@ module Ramaze
         request.params.each { |key, value| flash["#{args[:prefix]}_#{key}".to_sym] = value }
         pp flash
       end
+      
+      def current(args = {})
+        args[:full] ||= true
+        args[:class] ||= 'current'
+        args[:action] ||= nil
+        
+        Ramaze::Log.warn Action.current
+        
+        if Action.name == args[:action].to_s
+          return %| class="#{args[:class]}"| if args[:full]
+          return args[:class]
+        end
+      end
+      
     end
   end
 end

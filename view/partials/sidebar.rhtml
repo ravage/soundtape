@@ -4,6 +4,21 @@
 	</div>
 <% end %>
 
+<% if @show_settings_block %>
+	<div class="block profile_nav">
+		<h3><%= _('Profile Menu') %></h3>
+		<ul>
+			<li<%= current(:action => :profile)  %>><a href="<%= R(SettingsController, :profile) %>"><%= _('Personal Info') %></a></li>
+			<li<%=  %>><a href="<%= R(SettingsController, :avatar) %>"><%= _('Avatar') %></a></li>
+			<li<%=  %>><a href="<%= R(SettingsController, :password) %>"><%= _('Password') %></a></li>
+			<li<%=  %>><a href="<%= R(SettingsController, :notifications) %>"><%= _('Notification') %></a></li>
+			<li<%=  %>><a href="<%= R(SettingsController, :url_alias) %>"><%= _('URL Alias') %></a></li>
+			<li<%=  %>><a href="<%= R(SettingsController, :location) %>"><%= _('Location') %></a></li>
+			<li<%=  %>><a href="<%= R(SettingsController, :delete) %>"><%= _('Delete Account') %></a></li>
+		</ul>
+	</div>
+<% end %>
+
 <div class="block">
 	<h3>Dummy Block</h3>
 	bla bla bla

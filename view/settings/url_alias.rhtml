@@ -1,0 +1,11 @@
+<div class="content">
+	<form action="<%= Rs(:update_alias) %>" method="post" accept-charset="utf-8">
+		<fieldset>
+			<label for="user_alias"><%= _('Alias') %> <%= flash[:error_profile_user_alias] %></label>
+			<input type="text" name="user_alias" value="<%== flash[:error] ? flash[:profile_user_alias] : @profile.user_alias %>"  />
+			
+			<label for="submit"></label>
+			<input type="submit"value="Continue &rarr;" />
+		</fieldset>
+	</form>
+</div>

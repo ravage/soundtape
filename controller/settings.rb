@@ -6,13 +6,46 @@ class SettingsController < Controller
     redirect R(AccountController, :login) unless logged_in?
     @user = user
     @profile = user.profile
+    
+    @class_profile = 'class="first current"'
   end
   
-  def agenda
+  def avatar
     redirect R(AccountController, :login) unless logged_in?
+    @profile = user.profile
     
-    @agenda = user.agenda if user.respond_to?(:agenda)
+    @class_avatar = 'class="current"'
+  end
+  
+  def password
+    redirect R(AccountController, :login) unless logged_in?
+    @profile = user.profile
     
+    @class_password = 'class="current"'
+  end
+  
+  def notifications
+    @profile = user.profile
+    
+    @class_notifications = 'class="current"'
+  end
+  
+  def url_alias
+    redirect R(AccountController, :login) unless logged_in?
+    @profile = user.profile
+    
+    @class_urlalias = 'class="current"'
+  end
+  
+  def location
+    @profile = user.profile
+    
+    @class_location = 'class="current"'
+  end
+  
+  def delete
+    
+    @class_delete = 'class="current"'
   end
   
   def update_profile
@@ -68,6 +101,12 @@ class SettingsController < Controller
       redirect Rs(:agenda)
     end
   end
+
   
+  #TODO: eventually change to before_all
   before(:update_profile, :update_agenda, :create_event) {redirect_referer unless request.post? && logged_in?}
+  before(:profile, :avatar, :password, :notifications, :url_alias, :location, :delete) do
+    redirect_referer unless logged_in?
+    @show_settings_block = true
+  end
 end

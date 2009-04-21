@@ -1,0 +1,12 @@
+<div class="content">
+	<form action="<%= Rs(:update_location) %>" method="post" accept-charset="utf-8">
+		<fieldset>
+
+			<label for="location"><%= _('Location') %> <%= flash[:error_profile_location] %></label>
+			<input type="text" name="location" value="<%== flash[:error] ? flash[:profile_location] : @profile.location %>"  />
+
+			<label for="submit"></label>
+			<input type="submit"value="Continue &rarr;" />
+		</fieldset>
+	</form>
+</div>

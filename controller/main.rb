@@ -6,12 +6,12 @@
 # this will force the controller to be mounted on: /otherurl
 
 class MainController < Controller
-  helper :user, :gravatar
+  helper :user, :gravatar, :utils
   
   # the index action is called automatically when no other action is specified
   def index
     #Locale.current = 'pt_PT.UTF-8' if request[:lang] = 'pt'
-    session[:LOCALE] = 'pt_PT'
+    #session[:LOCALE] = 'pt_PT'
   end
   
   def test
