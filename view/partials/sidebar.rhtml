@@ -14,6 +14,12 @@
 			<li class="notifications"><a href="<%= R(SettingsController, :notifications) %>"><%= _('Notification') %></a></li>
 			<li class="url_alias"><a href="<%= R(SettingsController, :url_alias) %>"><%= _('URL Alias') %></a></li>
 			<li class="location"><a href="<%= R(SettingsController, :location) %>"><%= _('Location') %></a></li>
+			<li class="photos"><a href="<%= R(SettingsController, :photos) %>"><%= _('Photos') %></a></li>
+			<% if user.respond_to?(:discography) %>
+				<li class="discography"><a href="<%= R(SettingsController, :discography) %>"><%= _('Discography') %></a></li>
+				<li class="elements"><a href="<%= R(SettingsController, :elements) %>"><%= _('Elements') %></a></li>
+			<% end %>
+			
 			<li class="delete"><a href="<%= R(SettingsController, :delete) %>"><%= _('Delete Account') %></a></li>
 		</ul>
 	</div>

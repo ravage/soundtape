@@ -7,5 +7,9 @@ class Band < User
    
   def events
     return agenda.events
-  end 
+  end
+  
+  def discography
+    return nil
+  end
 end

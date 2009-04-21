@@ -183,7 +183,7 @@ CREATE TABLE languages (
 	abbr		VARCHAR(3),
 	
 	PRIMARY KEY	(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE currencies (
 	id			INT UNSIGNED AUTO_INCREMENT,
@@ -196,7 +196,7 @@ CREATE TABLE currencies (
 	INDEX		(language_id),
 	INDEX		(ref_id),
 	FOREIGN KEY (language_id) REFERENCES languages(id) ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE months (
 	id			INT UNSIGNED AUTO_INCREMENT,
@@ -208,7 +208,19 @@ CREATE TABLE months (
 	INDEX		(language_id),
 	INDEX		(ref_id),
 	FOREIGN KEY	(language_id) REFERENCES languages(id) ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE user_photos (
+	id			INT UNSIGNED AUTO_INCREMENT,
+	user_id		INT UNSIGNED NOT NULL,
+	photo_path	VARCHAR(60) NOT NULL,
+	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	
+	PRIMARY KEY	(id),
+	INDEX		(user_id),
+	FOREIGN KEY	(user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 DELIMITER $$

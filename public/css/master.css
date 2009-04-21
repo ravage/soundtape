@@ -192,7 +192,11 @@ body#password li.password,
 body#notifications li.notifications,
 body#url_alias li.url_alias,
 body#location li.location,
-body#delete li.delete {
+body#delete li.delete, 
+body#photos li.photos,
+body#discography li.discography,
+body#elements li.elements
+ {
 	font-weight: bold;
 	background-color: #1d1d1d;
 }

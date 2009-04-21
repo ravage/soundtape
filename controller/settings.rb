@@ -31,6 +31,18 @@ class SettingsController < Controller
     @profile = user.profile
   end
   
+  def photos
+    
+  end
+  
+  def discography
+    
+  end
+  
+  def elements
+    
+  end
+  
   def delete
   end
   
@@ -162,8 +174,13 @@ class SettingsController < Controller
       redirect Rs(:agenda)
     end
   end
-
   
-  before(:update_profile, :update_agenda, :create_event) {redirect_referer unless request.post? && logged_in?}
-  before(:profile, :avatar, :password, :notifications, :url_alias, :location, :delete) { redirect_referer unless logged_in? }
+  before(:update_profile, :update_agenda, :create_event, :update_event, 
+    :update_profile, :update_avatar, :update_password, :update_alias, 
+    :update_location) {redirect_referer unless request.post? && logged_in?}
+    
+  before(:profile, :avatar, :password, :notifications, :url_alias, :location, 
+    :photos, :delete, :discography, :elements, :agenda) { redirect_referer unless logged_in? }
+  
+   before(:discography, :elements, :agenda) {redirect_referer unless user.respond_to?(:discography)}
 end
