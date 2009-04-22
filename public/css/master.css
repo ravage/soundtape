@@ -195,7 +195,9 @@ body#location li.location,
 body#delete li.delete, 
 body#photos li.photos,
 body#discography li.discography,
-body#elements li.elements
+body#elements li.elements,
+body#agenda li.agenda,
+body#event li.event
  {
 	font-weight: bold;
 	background-color: #1d1d1d;

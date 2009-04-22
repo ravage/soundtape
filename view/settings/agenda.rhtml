@@ -1,59 +1,19 @@
-<% if @agenda %>
-	<div class="content">
-		<form action="<%= Rs(:update_agenda) %>" method="post" accept-charset="utf-8">
-			<fieldset>
-				<legend>Agenda</legend>
-				<label for="agenda_description"><%= _('Description') %> <%= flash[:error_agenda_description] %></label>
-				<input type="text" name="description" value="<%= @agenda.description %>" />
-				<span class="example"><%= _('Ex: My Uber band events') %></span>
-	
-				<label for="submit"></label>
-				<input type="submit" value="Continue &rarr;">
-			</fieldset>	
-		</form>
-	</div>
-	
-	<div class="content">
-		<form action="<%= Rs(:create_event) %>" method="post" accept-charset="utf-8">
-			<fieldset>
-				<legend><%= _('Events') %></legend>
-				<label for="name"><%= _('Name') %> <%= flash[:error_event_name] %></label>
-				<input type="text" name="name" value="<%= flash[:event_name] %>" maxlength="100" />
-				<span class="example"><%= _('Ex: Concert to myself') %></span>
-				
-				<label for="local"><%= _('Local') %> <%= flash[:error_event_local] %></label>
-				<input type="text" name="local" value="<%= flash[:event_local] %>" maxlength="100" />
-				<span class="example"><%= _('Ex: 500 E Cesar Chavez St, Austin, Texas') %></span>
-		
-				<label for="building"><%= _('Building') %> <%= flash[:error_event_building] %></label>
-				<input type="text" name="building" value="<%= flash[:event_building] %>" maxlength="100" />
-				<span class="example"><%= _('Ex: Austin Convention Center') %></span>
-			
-				<label for="day"><%= _('Date') %> <%= flash[:error_event_when] %></label>
-				<%= render_template('../partials/date', 
-					:day => flash[:event_day], 
-					:month => flash[:event_month], 
-					:year => flash[:event_year]) %>
-				
-				<label for="hour">Time</label>
-				<%= render_template('../partials/time', 
-					:hour => flash[:event_hour], 
-					:minute => flash[:event_minute]) %>
-		
-				<label for="price"><%= _('Price') %> <%= flash[:error_event_price] %></label>
-				<input type="text" name="price" value="<%= flash[:event_price].to_f %>" />
-				<%= render_template('../partials/currency', :currency => flash[:event_currency]) %>
-				<span class="example"><%= _('Ex: 15.5') %></span>
-				
-				<label for="flyer"><%= _('Flyer') %> <%= flash[:error_event_flyer] %></label>
-				<input type="text" name="flyer" value="<%= flash[:event_flyer] %>" />
-		
-				<label for="description"><%= _('Description') %> <%= flash[:error_event_description] %></label>
-				<textarea name="description" rows="8" cols="40"><%== flash[:event_description] %></textarea>
-					
-				<label for="submit"></label>
-				<input type="submit" value="Continue &rarr;">
-			</fieldset>
-		</form>
-	</div>
-<% end %>
+<div class="content">
+	<form action="<%= R(AgendaController, :update_agenda) %>" method="post" accept-charset="utf-8">
+		<fieldset>
+			<legend>Agenda</legend>
+			<label for="agenda_description"><%= _('Description') %> <%= flash[:error_agenda_description] %></label>
+			<input type="text" name="description" value="<%= @agenda.description %>" />
+			<span class="example"><%= _('Ex: My Uber band events') %></span>
+
+			<label for="submit"></label>
+			<input type="submit" value="Continue &rarr;">
+		</fieldset>	
+	</form>
+</div>
+
+<div class="content">
+	<% @events.each do |event| %>
+		<p><a href="<%= Rs(:event, event.id) %>"><%= event.name %></a></p>
+	<% end %>
+</div>

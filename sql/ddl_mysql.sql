@@ -119,6 +119,7 @@ CREATE TABLE events (
 	name			VARCHAR(100) NOT NULL,
 	description		LONGTEXT NOT NULL,
 	agenda_id		INT UNSIGNED NOT NULL,
+	user_id			INT UNSIGNED NOT NULL,
 	local			VARCHAR(100) NULL,
 	building		VARCHAR(100) NULL,
 	longitude		FLOAT NULL,
@@ -126,6 +127,7 @@ CREATE TABLE events (
 	when			DATETIME NULL,
 	price			DECIMAL NULL,
 	flyer_path		VARCHAR(100) NULL,
+	flyer_thumb		VARCHAR(100) NULL,
 	currency_id		INT UNSIGNED NOT NULL,
 	
 	PRIMARY KEY		(id),

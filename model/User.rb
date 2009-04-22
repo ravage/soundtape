@@ -26,12 +26,32 @@ class User < Sequel::Model(:users)
     )
     return user
   end
+  
+  def update_password
+    #FIXME: should go into Model?
+    if request[:password] != request[:password_confirmation]
+      flash[:error_profile_password] = _('Passwords mismatch')
+      redirect Rs(:password)
+    elsif request[:password].strip.empty?
+      flash[:error_profile_password] = _('Password required')
+      redirect Rs(:password)
+    elsif request[:password].length < 6
+      flash[:error_profile_password] = _('Passwords too short')
+      redirect Rs(:password)
+    end
 
-  def update_password(params)
-    update(
-      :password => encrypt(params[:password]),
-      :password_confirmation => encrypt(params[:password_confirmation])
-    )
+    begin
+      user.update_password(request)
+    rescue Sequel::DatabaseError => e
+      oops(Rs(:update_password), e)
+    end
+
+    if user.valid?
+      redirect R(ProfileController, :view, user.alias)
+    else
+      prepare_flash(:errors => user.errors, :prefix => 'profile')
+      redirect Rs(:password)
+    end
   end
 
   def self.authenticate(credentials)
@@ -42,37 +62,37 @@ class User < Sequel::Model(:users)
       credentials['login'],
       encrypt(credentials['password']),
       true].first
-      
+
       return self.factory(:key => params[:id], :type => params[:user_type]) unless params.nil?
-    end
+  end
 
-    def self.encrypt(value)
-      return Digest::SHA512.hexdigest(value)
-    end
-    
-    def encrypt(value)
-      return self.class.encrypt(value)
-    end
+  def self.encrypt(value)
+    return Digest::SHA512.hexdigest(value)
+  end
 
-    def self.activate(key)
-      return DB["UPDATE users 
-        SET active = ? 
-        WHERE activation_key = ?
-        AND active = ?",
-        true, key, false].update(0) == 1
-      end
+  def encrypt(value)
+    return self.class.encrypt(value)
+  end
 
-      def self.factory(params)
-        return Band[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:band]
-        return User[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:user]
-        return nil
-      end
+  def self.activate(key)
+    return DB["UPDATE users 
+      SET active = ? 
+      WHERE activation_key = ?
+      AND active = ?",
+      true, key, false].update(0) == 1
+  end
 
-      def alias
-        return profile.user_alias
-      end
+  def self.factory(params)
+    return Band[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:band]
+    return User[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:user]
+    return nil
+  end
 
-      def profile
-        return profiles.first
-      end
-    end
+  def alias
+    return profile.user_alias
+  end
+
+  def profile
+    return profiles.first
+  end
+end

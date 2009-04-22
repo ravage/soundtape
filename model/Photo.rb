@@ -16,7 +16,7 @@ class Photo < Sequel::Model(:user_photos)
   
   def self.prepare(params, user)
     @user = user
-    new_photo = upload(params[:photo_path])
+    new_photo = upload(params[:photo_path], @user)
     new_photo.map! { |photo| photo = File.basename(photo) } unless new_photo.nil?
     
     original, thumb = *new_photo
@@ -29,8 +29,8 @@ class Photo < Sequel::Model(:user_photos)
     return photo
   end
 
-  def upload(file_info)
-    self.class.upload(file_info)
+  def upload(file_info, user)
+    self.class.upload(file_info, user)
   end
 
   def self.upload(file_info)
@@ -40,7 +40,7 @@ class Photo < Sequel::Model(:user_photos)
 
     begin
       return 'NAI' unless upload.is_image?
-      original = upload.move_to(File.join(get_or_create_photo_dir(@user.id), "#{Time.now.to_i}#{upload.extension}"))
+      original = upload.move_to(File.join(get_or_create_photo_dir(user.id), "#{Time.now.to_i}#{upload.extension}"))
     rescue SoundTape::UploadException => e
       return nil
     end

@@ -33,6 +33,13 @@ module Ramaze
         FileUtils.mkdir_p(path) unless File.exist?(path)
         return path
       end
+      
+      def get_or_create_event_dir(user_id)
+        path = File.join(SoundTape::Constant.upload_path, user_id.to_s, 'events')
+        FileUtils.mkdir_p(path) unless File.exist?(path)
+        return path
+      end
+      
     end
   end
 end

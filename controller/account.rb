@@ -35,6 +35,7 @@ class AccountController < Controller
         flash[:error] = true;
       else
         session[:user_id] = user.id
+        session[:user_alias] = user.profile.user_alias
         redirect '/settings/profile'
       end
     end

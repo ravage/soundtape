@@ -1,5 +1,5 @@
 <div class="content">
-	<form action="<%= Rs(:update_avatar) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<form action="<%= R(ProfileController, :update_avatar) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 		<fieldset>
 			<label for="use_gravatar="><%= _('Use Gravatar') %> <%= flash[:error_profile_use_gravatar] %></label>
 			<input type="checkbox" name="use_gravatar" value="<%== flash[:error] ? flash[:profile_use_gravatar] : @profile.use_gravatar %>"  <%= 'checked' if  flash[:profile_use_gravatar] || @profile.use_gravatar %> />

@@ -16,6 +16,8 @@
 			<li class="location"><a href="<%= R(SettingsController, :location) %>"><%= _('Location') %></a></li>
 			<li class="photos"><a href="<%= R(SettingsController, :photos) %>"><%= _('Photos') %></a></li>
 			<% if user.respond_to?(:discography) %>
+				<li class="agenda"><a href="<%= R(SettingsController, :agenda) %>"><%= _('Agenda') %></a></li>
+				<li class="event"><a href="<%= R(SettingsController, :event) %>"><%= _('Event') %></a></li>
 				<li class="discography"><a href="<%= R(SettingsController, :discography) %>"><%= _('Discography') %></a></li>
 				<li class="elements"><a href="<%= R(SettingsController, :elements) %>"><%= _('Elements') %></a></li>
 			<% end %>

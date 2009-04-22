@@ -3,10 +3,9 @@
 		<option value="<%= day %>" <%= 'selected' if @day.to_i == day %>><%= day %></option>
 	<% end %>
 </select>
-
+<% Ramaze::Log.warn Month.from_now %>
 <select name="month">
-	<% Month.where(:language_id => 2).each do |month| %>
-	<%= month.pretty_inspect %>
+	<% Month.filter(:language_id => 2).each do |month| %>
 		<option value="<%= month.ref_id %>" <%= 'selected' if @month.to_i == month.ref_id %>><%= month %></option>
 	<% end %>
 </select>

@@ -1,5 +1,5 @@
 <div class="content">
-	<form action="<%= Rs(:update_profile) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<form action="<%= R(ProfileController, :update_profile) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
 			<label for="real_name"><%= _('Name') %> <%= flash[:error_profile_real_name] %></label>
 			<input type="text" name="real_name" value="<%== flash[:error] ? flash[:profile_real_name] : @profile.real_name %>" />

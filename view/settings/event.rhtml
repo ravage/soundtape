@@ -1,0 +1,52 @@
+<% if flash[:event_not_found] %>
+<div class="content">
+	<%= flash[:event_not_found] %>
+</div>
+<% end %>
+
+<% unless flash[:event_not_found] %>
+<div class="content">
+	<form action="<%= R(AgendaController, @action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<fieldset>
+			<legend><%= _('Events') %></legend>
+			<label for="name"><%= _('Name') %> <%= flash[:error_event_name] %></label>
+			<input type="text" name="name" value="<%= flash[:error] ? flash[:event_name] : @event.name %>" maxlength="100" />
+			<span class="example"><%= _('Ex: Concert to myself') %></span>
+			
+			<label for="local"><%= _('Local') %> <%= flash[:error_event_local] %></label>
+			<input type="text" name="local" value="<%= flash[:error] ? flash[:event_local] : @event.local %>" maxlength="100" />
+			<span class="example"><%= _('Ex: 500 E Cesar Chavez St, Austin, Texas') %></span>
+	
+			<label for="building"><%= _('Building') %> <%= flash[:error_event_building] %></label>
+			<input type="text" name="building" value="<%= flash[:error] ? flash[:event_building] : @event.building %>" maxlength="100" />
+			<span class="example"><%= _('Ex: Austin Convention Center') %></span>
+
+			<label for="day"><%= _('Date') %> <%= flash[:error_event_when] %></label>
+			<%= render_template('../partials/date', 
+				:day => flash[:event_day] || @event.day, 
+				:month => flash[:event_month] || @event.month,
+				:year => flash[:event_year] || @event.year ) %>
+			
+			<label for="hour">Time</label>
+			<%= render_template('../partials/time', 
+				:hour => flash[:event_hour] || @event.hour, 
+				:minute => flash[:event_minute] || @event.minutes ) %>
+	
+			<label for="price"><%= _('Price') %> <%= flash[:error_event_price] %></label>
+			<input type="text" name="price" value="<%= flash[:error] ? flash[:event_price].to_f : @event.price.to_f unless @event.nil? %>" />
+			<%= render_template('../partials/currency', :currency => flash[:event_currency] || @event.currency_id) %>
+			<span class="example"><%= _('Ex: 15.5') %></span>
+			
+			<label for="flyer"><%= _('Flyer') %> <%= flash[:error_event_flyer_path] %></label>
+			<input type="file" name="flyer" />
+	
+			<label for="description"><%= _('Description') %> <%= flash[:error_event_description] %></label>
+			<textarea name="description" rows="8" cols="40"><%== flash[:event_description] || @event.description %></textarea>
+			
+			<input type="hidden" name="event_id" value="<%= @event.id unless @event.nil? %>" />
+			<label for="submit"></label>
+			<input type="submit" value="Continue &rarr;">
+		</fieldset>
+	</form>
+</div>
+<% end %>
