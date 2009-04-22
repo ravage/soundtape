@@ -1,9 +1,11 @@
 class Profile < Sequel::Model(:profiles)
   include Ramaze::Helper::Gravatar
+  include Ramaze::Helper::Utils
   
   self.raise_on_save_failure = false
   self.plugin(:validation_class_methods)
   many_to_one :country, :join_table => :countries, :class => :Country
+  many_to_one :user, :join_table => :users, :class => :User
   
   validations.clear
   validates do 
@@ -13,7 +15,7 @@ class Profile < Sequel::Model(:profiles)
     format_of       :real_name, :with => /^[\w\s]+$/
     format_of       :user_alias, :with => /^[a-z0-9]+$/
     
-    each :photo_path do |validation, field, value|
+    each :photo_big, :photo_small do |validation, field, value|
       validation.errors[field] << 'not an image' if value == 'NAI'
     end
     
@@ -35,13 +37,17 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def update_avatar(params)
-    avatar ||= avatar(params[:photo_path])
-    avatar.gsub!(/public/, '') unless avatar.nil?
+    avatar =  avatar(params[:photo_path]) 
+
+    avatar.map! { |val| val = File.basename(val) } unless avatar.nil?
+    
+    big, small = *avatar
     
     update(
-      :photo_path      => avatar || photo_path,
-      :use_gravatar    => params.params.has_key?('use_gravatar') ? true : false,
-      :gravatar_email  => params[:gravatar_email]
+      :photo_big      => big || photo_big,
+      :photo_small    => small || photo_small,
+      :use_gravatar   => params.params.has_key?('use_gravatar') ? true : false,
+      :gravatar_email => params[:gravatar_email]
     )
   end
   
@@ -71,12 +77,12 @@ class Profile < Sequel::Model(:profiles)
     
     begin
       return 'NAI' unless upload.is_image?
-      new_path = upload.move_to("#{SoundTape::Constant.upload_path}/#{Time.now.to_i}#{upload.extension}")
+      new_path = upload.move_to(File.join(get_or_create_avatar_dir(user_id),"#{Time.now.to_i}#{upload.extension}"))
     rescue SoundTape::UploadException => e
       return nil
     end
     
-    return new_path unless resize_avatar(new_path).nil?
+    return resize_avatar(new_path)
   end
   
   def resize_avatar(path)
@@ -87,16 +93,15 @@ class Profile < Sequel::Model(:profiles)
     big_suffix = SoundTape::Constant.avatar_big_suffix
     small_suffix = SoundTape::Constant.avatar_small_suffix
     
-    pp resizer.class
     begin      
-      resizer.resize(big_suffix, big_size, big_size)
-      resizer.resize(small_suffix, small_size, small_size)
+      big_path = resizer.resize(big_size, big_size)
+      small_path = resizer.resize(small_size, small_size)
       resizer.cleanup
     rescue SoundTape::ImageResizeException => e
       return nil
     end
     
-    return true
+    return [big_path, small_path]
   end
   
   def avatar_big
@@ -104,7 +109,7 @@ class Profile < Sequel::Model(:profiles)
     if use_gravatar
       return gravatar(gravatar_email, SoundTape::Constant.avatar_big_size, default)
     else
-      return photo_path.gsub('.', "#{SoundTape::Constant.avatar_big_suffix}.") unless photo_path.nil? || photo_path.empty?
+      return link_path(photo_big) unless photo_big.nil? || photo_big.empty?
     end
     return default
   end
@@ -114,12 +119,14 @@ class Profile < Sequel::Model(:profiles)
     if use_gravatar
        return gravatar(gravatar_email, SoundTape::Constant.avatar_small_size, default)
      else
-       return photo_path.gsub('.', "#{SoundTape::Constant.avatar_small_suffix}.") unless photo_path.nil? || photo_path.empty?
+       return link_path(photo_small) unless photo_small.nil? || photo_small.empty?
      end
      return default
   end
   
-  def no_gravatar_email
-    gravatar_email.empty?
+  def link_path(file)
+    #/uploads/5/avatar/
+    return File.join(File::SEPARATOR, SoundTape::Constant.relative_path, user_id.to_s, SoundTape::Constant.avatar_path , file)
   end
+  
 end

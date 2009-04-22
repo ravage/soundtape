@@ -22,20 +22,17 @@ module Ramaze
         return Action.stack.first.instance.kind_of?(SettingsController)
       end
       
-      def current(args = {})
-        return Action.stack.first.name
-        # args[:full] ||= true
-        # args[:class] ||= 'current'
-        # args[:action] ||= nil
-        # 
-        # Ramaze::Log.warn Action.current
-        # 
-        # if Action.name == args[:action].to_s
-        #   return %| class="#{args[:class]}"| if args[:full]
-        #   return args[:class]
-        # end
+      def get_or_create_avatar_dir(user_id)
+        path = File.join(SoundTape::Constant.upload_path, user_id.to_s, 'avatar')
+        FileUtils.mkdir_p(path) unless File.exist?(path)
+        return path
       end
       
+      def get_or_create_photo_dir(user_id)
+        path = File.join(SoundTape::Constant.upload_path, user_id.to_s, 'photos')
+        FileUtils.mkdir_p(path) unless File.exist?(path)
+        return path
+      end
     end
   end
 end

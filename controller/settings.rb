@@ -1,7 +1,7 @@
 class SettingsController < Controller
   helper :user, :utils, :aspect
   #layout '/mastersettings'
-  
+
   def index
     redirect Rs(:profile)
   end
@@ -29,10 +29,6 @@ class SettingsController < Controller
   
   def location
     @profile = user.profile
-  end
-  
-  def photos
-    
   end
   
   def discography
@@ -175,9 +171,29 @@ class SettingsController < Controller
     end
   end
   
+  def upload_photo
+    photo = Photo.prepare(request, user)
+
+    if photo.valid?
+      begin
+        user.add_photo(photo)
+      rescue Sequel::DatabaseError => e
+        oops(Rs(:upload_photo), e)
+      end
+    else
+      prepare_flash(:errors => photo.errors, :prefix => 'profile')
+      redirect Rs(:photos)
+    end
+    redirect Rs(:photos)
+  end
+  
+  def photos
+    @photos = user.photos
+  end
+  
   before(:update_profile, :update_agenda, :create_event, :update_event, 
     :update_profile, :update_avatar, :update_password, :update_alias, 
-    :update_location) {redirect_referer unless request.post? && logged_in?}
+    :update_location, :upload_photo) {redirect_referer unless request.post? && logged_in?}
     
   before(:profile, :avatar, :password, :notifications, :url_alias, :location, 
     :photos, :delete, :discography, :elements, :agenda) { redirect_referer unless logged_in? }

@@ -17,21 +17,33 @@ module SoundTape
       end
 
       def new_name(suffix)
-        return @image_path.gsub('.', "#{suffix}.")
+        return @image_path.gsub('.', "_#{suffix}.")
       end
 
       module ImageScience
         require 'image_science'
-        def resize(suffix, width, height)
+        def resize(width, height)
+          new_path = new_name(width)
           ::ImageScience.with_image(@image_path) do |image|
             if image.height != height || image.width != width
               image.resize(width, height) do |resize|
-                resize.save(new_name(suffix))
+                resize.save(new_path)
               end
             else
-              FileUtils.cp(@image_path, new_name(suffix))
+              FileUtils.cp(@image_path, new_path)
             end
           end
+          return new_path
+        end
+        
+        def crop(size)
+          new_path = new_name(size)
+          ::ImageScience.with_image(@image_path) do |image|
+            image.cropped_thumbnail(size) do |crop|
+              crop.save(new_path)
+            end
+          end
+          return new_path
         end
       end
 

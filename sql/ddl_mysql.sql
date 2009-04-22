@@ -57,7 +57,8 @@ CREATE TABLE countries (
 
 CREATE TABLE profiles (
 	id				INT UNSIGNED AUTO_INCREMENT,
-	photo_path		VARCHAR(60) NULL,
+	photo_big		VARCHAR(60) NULL,
+	photo_small		VARCHAR(60) NULL,
 	country_id		INT UNSIGNED NULL,
 	user_id			INT	UNSIGNED UNIQUE NOT NULL,
 	bio				TEXT NULL,
@@ -214,6 +215,7 @@ CREATE TABLE user_photos (
 	id			INT UNSIGNED AUTO_INCREMENT,
 	user_id		INT UNSIGNED NOT NULL,
 	photo_path	VARCHAR(60) NOT NULL,
+	thumb_path	VARCHAR(60) NOT NULL,
 	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY	(id),

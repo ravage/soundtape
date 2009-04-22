@@ -5,6 +5,7 @@ class User < Sequel::Model(:users)
   self.set_dataset(dataset.filter({:user_type => name}))
 
   one_to_many :profiles, :unique => true, :join_table => :profiles, :class => :Profile
+  one_to_many :photos, :join_table => :photos, :class => :Photo
 
   validations.clear
   validates do
@@ -41,7 +42,7 @@ class User < Sequel::Model(:users)
       credentials['login'],
       encrypt(credentials['password']),
       true].first
-
+      
       return self.factory(:key => params[:id], :type => params[:user_type]) unless params.nil?
     end
 
