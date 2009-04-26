@@ -37,12 +37,17 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def update_avatar(params)
-    avatar =  avatar(params[:photo_path]) 
-
-    avatar.map! { |val| val = File.basename(val) } unless avatar.nil?
-    
-    big, small = *avatar
-    
+    if(params[:photo_path])
+      avatar =  avatar(params[:photo_path]) 
+      
+      if(avatar.respond_to?(:map!))
+        avatar.map! { |val| val = File.basename(val) }
+        big, small = *avatar
+      else
+        big = small = avatar
+      end
+    end
+    Ramaze::Log.warn big
     update(
       :photo_big      => big || photo_big,
       :photo_small    => small || photo_small,
@@ -88,10 +93,10 @@ class Profile < Sequel::Model(:profiles)
   def resize_avatar(path)
     resizer = SoundTape::Helper::ImageResize.new(path)
     resizer.extend(SoundTape::Helper::ImageResize::ImageScience)
-    big_size = SoundTape::Constant.avatar_big_size
-    small_size = SoundTape::Constant.avatar_small_size
-    big_suffix = SoundTape::Constant.avatar_big_suffix
-    small_suffix = SoundTape::Constant.avatar_small_suffix
+    big_size = SoundTape.options.Constant.avatar_big_size
+    small_size = SoundTape.options.Constant.avatar_small_size
+    big_suffix = SoundTape.options.Constant.avatar_big_suffix
+    small_suffix = SoundTape.options.Constant.avatar_small_suffix
     
     begin      
       big_path = resizer.resize(big_size, big_size)

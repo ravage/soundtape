@@ -9,7 +9,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>master</title>
 </head>
-<body id="<%= Action.stack.first.name %>">
+<body id="<%= Current.actions.first.name %>">
 	<div id="wrapper">
 		<div id="header">
 			<!--header content-->
@@ -28,7 +28,7 @@
 			<%= @content %>
 		</div>
 		<div id="sidebar_wrapper">
-			<%= render_template('partials/sidebar') %>
+			<%= render_view(Current.actions.first.name){|action| action.view = 'view/partials/sidebar.rhtml'} %>
 		</div>
 		<div id="footer">
 			footer

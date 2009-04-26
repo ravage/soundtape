@@ -15,12 +15,17 @@ class Photo < Sequel::Model(:user_photos)
   end
   
   def self.prepare(params, user)
-    @user = user
-    new_photo = upload(params[:photo_path], @user)
-    new_photo.map! { |photo| photo = File.basename(photo) } unless new_photo.nil?
-    
-    original, thumb = *new_photo
-    
+    if(params[:photo_path])
+      new_photo = upload(params[:photo_path], @user)
+      
+      if(new_photo.respond_to?(:map!))
+        new_photo.map! { |photo| photo = File.basename(photo) }
+        original, thumb = *new_photo
+      else
+        original = thumb = new_photo
+      end
+    end
+    Ramaze::Log.warn new_photo
     photo = self.new(
       :photo_path => original || '',
       :thumb_path => thumb || ''
@@ -33,7 +38,7 @@ class Photo < Sequel::Model(:user_photos)
     self.class.upload(file_info, user)
   end
 
-  def self.upload(file_info)
+  def self.upload(file_info, user)
     upload = SoundTape::Helper::Upload.new(file_info)
 
     return nil unless upload.is_uploaded?
@@ -73,7 +78,7 @@ class Photo < Sequel::Model(:user_photos)
   
   def link_path(file)
     #/uploads/5/photos/
-    return File.join(File::SEPARATOR, SoundTape::Constant.relative_path, user_id.to_s, SoundTape::Constant.photos_path , file)
+    return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.photos_path , file)
   end
   
   def to_s

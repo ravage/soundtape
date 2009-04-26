@@ -1,6 +1,6 @@
 <% unless logged_in? %>
 	<div class="block"> 
-		<%= render_template('partials/form_login') %>
+		<%= render_view(Current.actions.first.name) {|action| action.view = 'view/partials/form_login.rhtml' } %>
 	</div>
 <% end %>
 
@@ -8,21 +8,21 @@
 	<div class="block profile_nav">
 		<h3><%= _('Profile Menu') %></h3>
 		<ul>
-			<li class="first profile"><a href="<%= R(SettingsController, :profile) %>"><%= _('Personal Info') %></a></li>
-			<li class="avatar"><a href="<%= R(SettingsController, :avatar) %>"><%= _('Avatar') %></a></li>
-			<li class="password"><a href="<%= R(SettingsController, :password) %>"><%= _('Password') %></a></li>
-			<li class="notifications"><a href="<%= R(SettingsController, :notifications) %>"><%= _('Notification') %></a></li>
-			<li class="url_alias"><a href="<%= R(SettingsController, :url_alias) %>"><%= _('URL Alias') %></a></li>
-			<li class="location"><a href="<%= R(SettingsController, :location) %>"><%= _('Location') %></a></li>
-			<li class="photos"><a href="<%= R(SettingsController, :photos) %>"><%= _('Photos') %></a></li>
+			<li class="first profile"><a href="<%= SettingsController.r(:profile) %>"><%= _('Personal Info') %></a></li>
+			<li class="avatar"><a href="<%= SettingsController.r(:avatar) %>"><%= _('Avatar') %></a></li>
+			<li class="password"><a href="<%= SettingsController.r(:password) %>"><%= _('Password') %></a></li>
+			<li class="notifications"><a href="<%= SettingsController.r(:notifications) %>"><%= _('Notification') %></a></li>
+			<li class="url_alias"><a href="<%= SettingsController.r(:url_alias) %>"><%= _('URL Alias') %></a></li>
+			<li class="location"><a href="<%= SettingsController.r(:location) %>"><%= _('Location') %></a></li>
+			<li class="photos"><a href="<%= SettingsController.r(:photos) %>"><%= _('Photos') %></a></li>
 			<% if user.respond_to?(:discography) %>
-				<li class="agenda"><a href="<%= R(SettingsController, :agenda) %>"><%= _('Agenda') %></a></li>
-				<li class="event"><a href="<%= R(SettingsController, :event) %>"><%= _('Event') %></a></li>
-				<li class="discography"><a href="<%= R(SettingsController, :discography) %>"><%= _('Discography') %></a></li>
-				<li class="elements"><a href="<%= R(SettingsController, :elements) %>"><%= _('Elements') %></a></li>
+				<li class="agenda"><a href="<%= SettingsController.r(:agenda) %>"><%= _('Agenda') %></a></li>
+				<li class="event"><a href="<%= SettingsController.r(:event) %>"><%= _('Event') %></a></li>
+				<li class="discography"><a href="<%= SettingsController.r(:discography) %>"><%= _('Discography') %></a></li>
+				<li class="elements"><a href="<%= SettingsController.r(:elements) %>"><%= _('Elements') %></a></li>
 			<% end %>
 			
-			<li class="delete"><a href="<%= R(SettingsController, :delete) %>"><%= _('Delete Account') %></a></li>
+			<li class="delete"><a href="<%= SettingsController.r(:delete) %>"><%= _('Delete Account') %></a></li>
 		</ul>
 	</div>
 <% end %>

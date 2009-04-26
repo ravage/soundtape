@@ -71,13 +71,13 @@ class AccountController < Controller
   end
   
   def get_klass(type)
-    return Kernel.const_get(SoundTape::Constant.user_types[type.to_sym])
+    return Kernel.const_get(SoundTape.options.Constant.user_types[type.to_sym])
   end
   
   def valid_user_type(type)
     return nil if type.nil?
-    return !SoundTape::Constant.user_types.keys.index(type.to_sym).nil?
+    return !SoundTape.options.Constant.user_types.keys.index(type.to_sym).nil?
   end
-  
-  before(:activate, :login, :register) {redirect Rs(:/) if logged_in?}
+
+  before([:activate, :login, :register]) {redirect Rs(:/) if logged_in?}
 end

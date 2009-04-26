@@ -6,7 +6,7 @@
 
 <% unless flash[:event_not_found] %>
 <div class="content">
-	<form action="<%= R(AgendaController, @action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<form action="<%= AgendaController.r(@action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 		<fieldset>
 			<legend><%= _('Events') %></legend>
 			<label for="name"><%= _('Name') %> <%= flash[:error_event_name] %></label>
@@ -22,19 +22,20 @@
 			<span class="example"><%= _('Ex: Austin Convention Center') %></span>
 
 			<label for="day"><%= _('Date') %> <%= flash[:error_event_when] %></label>
-			<%= render_template('../partials/date', 
+			<%= render_view(action.name, 
 				:day => flash[:event_day] || @event.day, 
-				:month => flash[:event_month] || @event.month,
-				:year => flash[:event_year] || @event.year ) %>
+				:month => flash[:event_month] || @event.month, 
+				:year => flash[:event_year] || @event.year) { |action| action.view = 'view/partials/date.rhtml' } %>
 			
 			<label for="hour">Time</label>
-			<%= render_template('../partials/time', 
+			<%= render_view(action.name, 
 				:hour => flash[:event_hour] || @event.hour, 
-				:minute => flash[:event_minute] || @event.minutes ) %>
+				:minute => flash[:event_minute] || @event.minutes) { |action| action.view = 'view/partials/time.rhtml' } %>
 	
 			<label for="price"><%= _('Price') %> <%= flash[:error_event_price] %></label>
 			<input type="text" name="price" value="<%= flash[:error] ? flash[:event_price].to_f : @event.price.to_f unless @event.nil? %>" />
-			<%= render_template('../partials/currency', :currency => flash[:event_currency] || @event.currency_id) %>
+			<%= render_view(action.name, 
+				:currency => flash[:event_currency] || @event.currency_id) { |action| action.view = 'view/partials/currency.rhtml' } %>
 			<span class="example"><%= _('Ex: 15.5') %></span>
 			
 			<label for="flyer"><%= _('Flyer') %> <%= flash[:error_event_flyer_path] %></label>

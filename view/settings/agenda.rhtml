@@ -1,5 +1,5 @@
 <div class="content">
-	<form action="<%= R(AgendaController, :update_agenda) %>" method="post" accept-charset="utf-8">
+	<form action="<%= AgendaController.r(:update_agenda) %>" method="post" accept-charset="utf-8">
 		<fieldset>
 			<legend>Agenda</legend>
 			<label for="agenda_description"><%= _('Description') %> <%= flash[:error_agenda_description] %></label>
@@ -14,6 +14,6 @@
 
 <div class="content">
 	<% @events.each do |event| %>
-		<p><a href="<%= Rs(:event, event.id) %>"><%= event.name %></a></p>
+		<p><a href="<%= r(:event, event.id) %>"><%= event.name %></a></p>
 	<% end %>
 </div>

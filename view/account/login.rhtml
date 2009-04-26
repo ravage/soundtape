@@ -1,8 +1,9 @@
-<%= render_template('../partials/form_login') %>
-
-<% if flash[:error] %>
-<ul>
-<li><%= _('Check your login and user name') %></li>
-<li><%= _('Is your account activated?') %></li>
-</ul>
-<% end %>
+<div class="content">
+	<%= render_view(action.name){|action| action.view = 'view/partials/form_login.rhtml' } %>
+	<% if flash[:error] %>
+	<ul>
+	<li><%= _('Check your login and user name') %></li>
+	<li><%= _('Is your account activated?') %></li>
+	</ul>
+	<% end %>
+</div>

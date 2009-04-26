@@ -1,5 +1,5 @@
 class AgendaController < Controller
-  helper :user, :aspect
+  helper :user, :aspect, :utils
   
   def update_agenda
     redirect :/ unless user.respond_to?(:agenda)
@@ -35,9 +35,9 @@ class AgendaController < Controller
       end
     else
       prepare_flash(:errors => event.errors, :prefix => 'event')
-      redirect R(SettingsController, :event, event.id)
+      redirect SettingsController.r(:event, event.id)
     end
-    redirect R(ProfileController, :view)
+    redirect ProfileController.r(:view)
   end
   
   def create_event
@@ -55,5 +55,5 @@ class AgendaController < Controller
     redirect R(ProfileController, :view)
   end
   
-  before(:update_agenda, :create_event, :update_event) {redirect_referer unless request.post? && logged_in?}
+  before([:update_agenda, :create_event, :update_event]) {redirect_referer unless request.post? && logged_in?}
 end

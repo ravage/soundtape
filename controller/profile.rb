@@ -17,23 +17,24 @@ class ProfileController < Controller
       profile.update_profile(request)
       user.update(:email => request[:email])
     rescue Sequel::DatabaseError => e
-      oops(Rs(:update_profile), e)
+      oops(r(:update_profile), e)
     end
     
     if profile.valid? && user.valid?
       redirect R(ProfileController, :view, user.alias)
     else
       prepare_flash(:errors => profile.errors.merge(user.errors), :prefix => 'profile')
-      redirect Rs(:profile)
+      redirect SettingsController.r(:profile)
     end
   end
   
   def update_avatar
+    pp request
     begin
       profile = user.profile
       profile.update_avatar(request)
     rescue Sequel::DatabaseError => e
-      oops(Rs(:update_profile), e)
+      oops(r(:update_profile), e)
     end
 
     if profile.valid?
@@ -41,7 +42,7 @@ class ProfileController < Controller
     else
       prepare_flash(:errors => profile.errors, :prefix => 'profile')
       flash[:profile_use_gravatar] = 1 if request.params.has_key?('use_gravatar')
-      redirect Rs(:avatar)
+      redirect SettingsController.r(:avatar)
     end
   end
   
@@ -88,10 +89,10 @@ class ProfileController < Controller
       end
     else
       prepare_flash(:errors => photo.errors, :prefix => 'profile')
-      redirect Rs(:photos)
+      redirect SettingsController.r(:photos)
     end
     redirect Rs(:photos)
   end
   
-  before(:update_profile, :update_avatar, :update_alias, :update_location, :upload_photo) {redirect_referer unless request.post? && logged_in?}
+  before([:update_profile, :update_avatar, :update_alias, :update_location, :upload_photo]) {redirect_referer unless request.post? && logged_in?}
 end

@@ -1,6 +1,6 @@
 class Event < Sequel::Model(:events)
   extend Ramaze::Helper::Utils
-  
+  self.raise_on_save_failure = false
   many_to_one :agenda, :join_table => :agendas, :class => :Agenda
   self.plugin(:validation_class_methods)
   
@@ -24,10 +24,15 @@ class Event < Sequel::Model(:events)
     
     date_time = "#{params[:year]}-#{params[:month]}-#{params[:day]} #{params[:hour]}:#{params[:minute]}:00"
   
-    flyer = upload(params[:flyer], user)
-    flyer.map! { |file| file = File.basename(file) } if flyer.respond_to?(:map!)
-    original, thumb =  *flyer
-
+    if(params[:flyer])
+      flyer = upload(params[:flyer], @user)
+      if(flyer.respond_to?(:map!))
+        flyer.map! { |file| file = File.basename(file) }
+        original, thumb =  *flyer
+      else
+        original = thumb = flyer
+      end
+    end
 
     event = self.new(
       :name         => params[:name],
@@ -47,10 +52,15 @@ class Event < Sequel::Model(:events)
   def prepare_update(params, user)
     @user = user
     date_time = "#{params[:year]}-#{params[:month]}-#{params[:day]} #{params[:hour]}:#{params[:minute]}:00"
-
-    flyer = upload(params[:flyer], @user)
-    flyer.map! { |file| file = File.basename(file) } if flyer.respond_to?(:map!)
-    original, thumb =  *flyer
+    if(params[:flyer])
+      flyer = upload(params[:flyer], @user)
+      if(flyer.respond_to?(:map!))
+        flyer.map! { |file| file = File.basename(file) }
+        original, thumb =  *flyer
+      else
+        original = thumb = flyer
+      end
+    end
 
     update(
       :name         => params[:name],
@@ -120,6 +130,6 @@ class Event < Sequel::Model(:events)
   
   def link_path(file)
     #/uploads/5/events/
-    return File.join(File::SEPARATOR, SoundTape::Constant.relative_path, user_id.to_s, SoundTape::Constant.events_path , file)
+    return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.events_path , file)
   end
 end

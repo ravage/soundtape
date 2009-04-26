@@ -83,8 +83,8 @@ class User < Sequel::Model(:users)
   end
 
   def self.factory(params)
-    return Band[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:band]
-    return User[:id => params[:key]] if params[:type] == SoundTape::Constant.user_types[:user]
+    return Band[:id => params[:key]] if params[:type] == SoundTape.options.Constant.user_types[:band]
+    return User[:id => params[:key]] if params[:type] == SoundTape.options.Constant.user_types[:user]
     return nil
   end
 

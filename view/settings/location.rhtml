@@ -1,5 +1,5 @@
 <div class="content">
-	<form action="<%= R(ProfileController, :update_location) %>" method="post" accept-charset="utf-8">
+	<form action="<%= ProfileController.r(:update_location) %>" method="post" accept-charset="utf-8">
 		<fieldset>
 
 			<label for="location"><%= _('Location') %> <%= flash[:error_profile_location] %></label>

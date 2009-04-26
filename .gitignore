@@ -1,5 +1,5 @@
 .DS_Store
 soundtape.db
 options.rb
-public/uploads/
-public/images/
+public/uploads
+public/images

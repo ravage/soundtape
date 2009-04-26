@@ -29,4 +29,9 @@ class MainController < Controller
   def method_missing(method, *args, &block)
     'something'
   end
+  
+  def master
+    
+  end
+
 end

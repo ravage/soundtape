@@ -19,23 +19,23 @@ module Ramaze
       end
       
       def settings?
-        return Action.stack.first.instance.kind_of?(SettingsController)
+        return action.instance.kind_of?(SettingsController)
       end
       
       def get_or_create_avatar_dir(user_id)
-        path = File.join(SoundTape::Constant.upload_path, user_id.to_s, 'avatar')
+        path = File.join(SoundTape.options.Constant.upload_path, user_id.to_s, 'avatar')
         FileUtils.mkdir_p(path) unless File.exist?(path)
         return path
       end
       
       def get_or_create_photo_dir(user_id)
-        path = File.join(SoundTape::Constant.upload_path, user_id.to_s, 'photos')
+        path = File.join(SoundTape.options.Constant.upload_path, user_id.to_s, 'photos')
         FileUtils.mkdir_p(path) unless File.exist?(path)
         return path
       end
       
       def get_or_create_event_dir(user_id)
-        path = File.join(SoundTape::Constant.upload_path, user_id.to_s, 'events')
+        path = File.join(SoundTape.options.Constant.upload_path, user_id.to_s, 'events')
         FileUtils.mkdir_p(path) unless File.exist?(path)
         return path
       end

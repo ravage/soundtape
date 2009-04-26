@@ -1,5 +1,5 @@
 <div class="content">
-	<form action="<%= R(ProfileController, :upload_photo) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<form action="<%= ProfileController.r(:upload_photo) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 		<label for="photo_path"><%= _('Photo') %> <%= flash[:error_profile_photo_path] %></label>
 		<input type="file" name="photo_path" value="" />
 		
