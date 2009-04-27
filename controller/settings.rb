@@ -49,7 +49,7 @@ class SettingsController < Controller
   end
   
   def discography
-    
+    @albums = user.albums
   end
   
   def elements
@@ -66,5 +66,5 @@ class SettingsController < Controller
   before(:profile, :avatar, :password, :notifications, :url_alias, :location, 
     :photos, :delete, :discography, :elements, :agenda, :event, :index) { redirect_referer unless logged_in? }
     
-  before(:discography, :elements, :agenda, :events) {redirect_referer unless user.respond_to?(:discography)}
+  before(:discography, :elements, :agenda, :events) {redirect_referer unless user.kind_of?(Band)}
 end

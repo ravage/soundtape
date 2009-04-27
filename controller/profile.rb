@@ -94,5 +94,5 @@ class ProfileController < Controller
     redirect Rs(:photos)
   end
   
-  before([:update_profile, :update_avatar, :update_alias, :update_location, :upload_photo]) {redirect_referer unless request.post? && logged_in?}
+  before(:update_profile, :update_avatar, :update_alias, :update_location, :upload_photo) {redirect_referer unless request.post? && logged_in?}
 end

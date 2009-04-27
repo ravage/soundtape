@@ -79,5 +79,5 @@ class AccountController < Controller
     return !SoundTape.options.Constant.user_types.keys.index(type.to_sym).nil?
   end
 
-  before([:activate, :login, :register]) {redirect Rs(:/) if logged_in?}
+  before(:activate, :login, :register) {redirect r(:/) if logged_in?}
 end

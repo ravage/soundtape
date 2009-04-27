@@ -1,0 +1,11 @@
+<div class="content">
+	<% @albums.each do |album| %>
+		<ul>
+		<li><%== album.title %>
+		<% album.tracks.each do |track| %>
+			<li><%== track.title %></li>
+		</li>
+		<% end %>
+		</ul>
+	<% end %>
+</div>

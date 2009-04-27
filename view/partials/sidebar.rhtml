@@ -15,7 +15,7 @@
 			<li class="url_alias"><a href="<%= SettingsController.r(:url_alias) %>"><%= _('URL Alias') %></a></li>
 			<li class="location"><a href="<%= SettingsController.r(:location) %>"><%= _('Location') %></a></li>
 			<li class="photos"><a href="<%= SettingsController.r(:photos) %>"><%= _('Photos') %></a></li>
-			<% if user.respond_to?(:discography) %>
+			<% if user.kind_of?(Band) %>
 				<li class="agenda"><a href="<%= SettingsController.r(:agenda) %>"><%= _('Agenda') %></a></li>
 				<li class="event"><a href="<%= SettingsController.r(:event) %>"><%= _('Event') %></a></li>
 				<li class="discography"><a href="<%= SettingsController.r(:discography) %>"><%= _('Discography') %></a></li>
