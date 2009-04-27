@@ -48,7 +48,14 @@ class SettingsController < Controller
     end
   end
   
-  def discography
+  def discography(album_id = nil)
+    if album_id.nil?
+        @action = 'create_album'
+        @album = Album.new
+      else
+        @action = 'update_album'
+        @album = user.album(album_id)
+    end
     @albums = user.albums
   end
   

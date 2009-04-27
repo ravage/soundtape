@@ -10,5 +10,8 @@ class Band < User
   def events
     return events
   end
-
+  
+  def album(album_id)
+     return Album[:user_id => user_id, :id = album_id]
+   end
 end

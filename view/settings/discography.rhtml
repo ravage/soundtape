@@ -1,4 +1,49 @@
 <div class="content">
+	<form action="<%= DiscographyController.r(@action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<fieldset>
+			<legend><%= _('New Album') %></legend>
+	
+			<label for="title"><%= _('Title') %> <%= flash[:error_album_title] %></label>
+			<input type="text" name="title" value="<% flash[:error] ? flash[:album_title] : @album.title %>" />
+			
+			<label for="category"><%= _('Category') %></label>
+			<%= render_view(action.name, 
+				:category => flash[:album_category_id] || @album.category_id ) { |action| action.view = 'view/partials/categories.rhtml' } %>
+				
+			<label for="cover"><%= _('Cover') %> <%= flash[:error_album_cover] %></label>
+			<input type="file" name="cover" >
+			
+			<label for="submit"></label>
+			<input type="submit" value="Continue &rarr;" name="submit">
+		</fieldset>
+	</form>
+</div>
+
+<div class="content">
+	<form action="<%= DiscographyController.r(@action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<fieldset>
+			<legend><%= _('Add Tracks') %></legend>
+			
+			<label for="Album"><%= _('Album') %></label>
+			<%= render_view(action.name, 
+				:album => flash[:track_id] || @album.id ) { |action| action.view = 'view/partials/albums.rhtml' } %>
+			
+			<label for="title"><%= _('Title') %> <%= flash[:error_track_title]%></label>
+			<input type="text" name="track_title" value="<%= flash[:error] ? flash[:track_title] : '@track.title' %>" />
+			
+			<label for="lyrics"><%= _('Lyrics') %> <%= flash[:error_track_lyrics] %></label>
+			<textarea name="lyrics" rows="8" cols="40"><%= '@track.lyrics' %></textarea>
+			
+			<label for="track"><%= _('Track') %> <%= flash[:error_track_track]%></label>
+			<input type="file" name="track" >
+			
+				<label for="submit"></label>
+				<input type="submit" value="Continue &rarr;" name="submit">
+		</fieldset>
+	</form>
+</div>
+
+<div class="content">
 	<% @albums.each do |album| %>
 		<ul>
 		<li><%== album.title %>

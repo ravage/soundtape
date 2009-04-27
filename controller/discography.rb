@@ -1,0 +1,3 @@
+class DiscographyController < Controller
+  
+end

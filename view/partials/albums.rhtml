@@ -1,0 +1,6 @@
+<select name="albums">
+	<% pp user %>
+	<% user.albums.each do |album| %>
+		<option value="<%= album.id %>" <%= 'selected' if @album.to_i == album %>><%= album %></option>
+	<% end %>
+</select>
