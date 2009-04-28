@@ -1,15 +1,22 @@
 <div class="content">
 	<form action="<%= ProfileController.r(:upload_photo) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<label for="title"><%= _('Title') %> <%= flash[:error_profile_title] %></label>
+		<input type="text" name="title" />
+		
 		<label for="photo_path"><%= _('Photo') %> <%= flash[:error_profile_photo_path] %></label>
-		<input type="file" name="photo_path" value="" />
+		<input type="file" name="photo_path" />
 		
 		<label for="submit"></label>
 		<input type="submit" value="Continue &rarr;">
 	</form>
+
 </div>
 
 <div class="content">
 	<% @photos.each do |photo| %>
-	<img src="<%= photo.thumbnail %>" alt="..." />
+		<div style="float: left;">
+			<a href="<%= r(:photo, photo.id_) %>"><img src="<%= photo.thumbnail %>" alt="<%== photo.title %>" title="<%== photo.title %>" /></a>
+			<p style="text-align: center; background: #000"><a href="<%= ProfileController.r(:delete_photo, photo.id_) %>"><%= _('Delete') %></a></p>
+		</div>
 	<% end %>
 </div>

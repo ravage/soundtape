@@ -220,6 +220,7 @@ CREATE TABLE user_photos (
 	user_id		INT UNSIGNED NOT NULL,
 	photo_path	VARCHAR(60) NOT NULL,
 	thumb_path	VARCHAR(60) NOT NULL,
+	title		VARCHAR(100) NULL,
 	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY	(id),

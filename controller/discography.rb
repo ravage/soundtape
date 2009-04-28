@@ -12,7 +12,7 @@ class DiscographyController < Controller
     else
       prepare_flash(:errors => album.errors, :prefix => 'album')
     end
-    redirect SettingsController.r(:album, album.id)
+    redirect SettingsController.r(:album, album.id_)
   end
   
   def update_album
@@ -29,7 +29,7 @@ class DiscographyController < Controller
     else
       prepare_flash(:errors => album.errors, :prefix => 'album')
     end
-    redirect SettingsController.r(:album, album.id)
+    redirect SettingsController.r(:album, album.id_)
   end
   
   def create_track
@@ -63,7 +63,7 @@ class DiscographyController < Controller
       end
     else
       prepare_flash(:errors => track.errors, :prefix => 'track')
-      redirect SettingsController.r(:track, track.id)
+      redirect SettingsController.r(:track, track.id_)
     end
     redirect SettingsController.r(:discography)
   end

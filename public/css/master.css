@@ -12,6 +12,16 @@ body {
 	font-weight: lighter;
 }
 
+form {
+	padding: 0;
+	margin: 0;
+}
+
+legend {
+	padding: 0;
+	margin: 0;
+}
+
 a {
 	color: #e64b1b;
 	text-decoration: none;
@@ -194,7 +204,7 @@ body#notifications li.notifications,
 body#url_alias li.url_alias,
 body#location li.location,
 body#delete li.delete, 
-body#photos li.photos,
+body#photos li.photos, body#photo li.photos,
 body#discography li.discography, body#album li.discography, body#track li.discography,
 body#elements li.elements,
 body#agenda li.agenda, body#event li.agenda

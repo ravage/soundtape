@@ -12,4 +12,8 @@ class Agenda < Sequel::Model(:agendas)
   def event(event_id)
     Event.filter({:agenda_id => id, :id => event_id}).first
   end
+  
+  def id_
+    return id
+  end
 end

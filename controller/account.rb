@@ -16,7 +16,7 @@ class AccountController < Controller
        if klass.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
          begin
            klass.save 
-           Profile[:user_id => klass.id].update(:real_name => request[:real_name])
+           Profile[:user_id => klass.id_].update(:real_name => request[:real_name])
          rescue Sequel::DatabaseError => e
            oops(Rs(:create), e)
          end
@@ -34,7 +34,7 @@ class AccountController < Controller
       if !user_login(request.params)
         flash[:error] = true;
       else
-        session[:user_id] = user.id
+        session[:user_id] = user.id_
         session[:user_alias] = user.profile.user_alias
         redirect '/settings/profile'
       end

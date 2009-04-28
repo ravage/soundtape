@@ -1,0 +1,11 @@
+<div class="content">
+	<form action="<%= ProfileController.r(:update_photo) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<label for="title"><%= _('Title') %> <%= flash[:error_profile_title] %></label>
+		<input type="text" name="title" value="<%= flash[:profile_title] || @photo.title %>"/>
+		<input type="hidden" name="photo_id" value="<%= @photo.id_ %>" />
+		<label for="submit"></label>
+		<input type="submit" value="Continue &rarr;">
+	</form>
+	
+	<img src="<%= @photo.thumbnail %>" alt="<%== @photo.title %>" title="<%== @photo.title %>" />
+</div>

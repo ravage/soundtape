@@ -35,7 +35,7 @@ class AgendaController < Controller
       end
     else
       prepare_flash(:errors => event.errors, :prefix => 'event')
-      redirect SettingsController.r(:event, event.id)
+      redirect SettingsController.r(:event, event.id_)
     end
     redirect ProfileController.r(:view)
   end
@@ -53,6 +53,14 @@ class AgendaController < Controller
       redirect R(SettingsController, :event)
     end
     redirect R(ProfileController, :view)
+  end
+  
+  def delete_event(event_id = nil)
+    redirect SettingsController.r(:agenda) if event_id.nil?
+    event = user.agenda.event(event_id)
+    redirect SettingsController.r(:agenda) if event.nil?
+    event.sane_delete
+    redirect SettingsController.r(:agenda)
   end
   
   before(:update_agenda, :create_event, :update_event) {redirect_referer unless request.post? && logged_in?}

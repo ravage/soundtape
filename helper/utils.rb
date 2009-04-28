@@ -1,5 +1,6 @@
 require "#{File.expand_path(File.dirname(__FILE__))}/upload"
 require "#{File.expand_path(File.dirname(__FILE__))}/image_resize"
+require "#{File.expand_path(File.dirname(__FILE__))}/cleanup"
 module Ramaze
   module Helper
     module Utils

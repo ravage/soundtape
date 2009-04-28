@@ -38,6 +38,7 @@ class Profile < Sequel::Model(:profiles)
   
   def update_avatar(params)
     if(params[:photo_path])
+      SoundTape::Helper.remove_files(absolute_path(photo_big), absolute_path(photo_small)) unless photo_big.nil?
       avatar =  avatar(params[:photo_path]) 
       
       if(avatar.respond_to?(:map!))
@@ -47,7 +48,7 @@ class Profile < Sequel::Model(:profiles)
         big = small = avatar
       end
     end
-    Ramaze::Log.warn big
+    
     update(
       :photo_big      => big || photo_big,
       :photo_small    => small || photo_small,
@@ -110,9 +111,9 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def avatar_big
-    default = SoundTape::Constant.avatar_default_big
+    default = SoundTape.options.Constant.avatar_default_big
     if use_gravatar
-      return gravatar(gravatar_email, SoundTape::Constant.avatar_big_size, default)
+      return gravatar(gravatar_email, :size => SoundTape.options.Constant.avatar_big_size, :default => default)
     else
       return link_path(photo_big) unless photo_big.nil? || photo_big.empty?
     end
@@ -120,9 +121,9 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def avatar_small
-    default = SoundTape::Constant.avatar_default_small
+    default = SoundTape.options.Constant.avatar_default_small
     if use_gravatar
-       return gravatar(gravatar_email, SoundTape::Constant.avatar_small_size, default)
+       return gravatar(gravatar_email, :size => SoundTape.options.Constant.avatar_small_size, :default => default)
      else
        return link_path(photo_small) unless photo_small.nil? || photo_small.empty?
      end
@@ -131,7 +132,14 @@ class Profile < Sequel::Model(:profiles)
   
   def link_path(file)
     #/uploads/5/avatar/
-    return File.join(File::SEPARATOR, SoundTape::Constant.relative_path, user_id.to_s, SoundTape::Constant.avatar_path , file)
+    return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.avatar_path , file)
   end
   
+  def absolute_path(file)
+    return File.join(File::SEPARATOR, SoundTape.options.Constant.upload_path, user_id.to_s, SoundTape.options.Constant.avatar_path, file)
+  end
+  
+  def id_
+    return id
+  end
 end

@@ -44,10 +44,14 @@
 			<label for="description"><%= _('Description') %> <%= flash[:error_event_description] %></label>
 			<textarea name="description" rows="8" cols="40"><%== flash[:event_description] || @event.description %></textarea>
 			
-			<input type="hidden" name="event_id" value="<%= @event.id unless @event.nil? %>" />
+			<input type="hidden" name="event_id" value="<%= @event.id_ unless @event.nil? %>" />
 			<label for="submit"></label>
 			<input type="submit" value="Continue &rarr;">
 		</fieldset>
 	</form>
+	
+	<% unless @event.flyer_thumb.nil?%>
+		<img src="<%= @event.link_path(@event.flyer_thumb) %>">
+	<% end %>
 </div>
 <% end %>

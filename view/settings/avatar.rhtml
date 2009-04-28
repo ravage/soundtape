@@ -1,21 +1,26 @@
 <div class="content">
-	<%= pp flash %>
-	<form action="<%= ProfileController.r(:update_avatar) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-		<fieldset>
-			<label for="use_gravatar="><%= _('Use Gravatar') %> <%= flash[:error_profile_use_gravatar] %></label>
-			<input type="checkbox" name="use_gravatar" value="<%== flash[:error] ? flash[:profile_use_gravatar] : @profile.use_gravatar %>"  <%= 'checked' if  flash[:profile_use_gravatar] || @profile.use_gravatar %> />
+	<div style="float:left; margin-top: 0; padding-top: 0; margin-left: 5px;">
+		<form action="<%= ProfileController.r(:update_avatar) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<fieldset>
+				<legend>Avatar</legend>
+				<label for="use_gravatar="><%= _('Use Gravatar') %> <%= flash[:error_profile_use_gravatar] %></label>
+				<input type="checkbox" name="use_gravatar" value="<%== flash[:error] ? flash[:profile_use_gravatar] : @profile.use_gravatar %>"  <%= 'checked' if  flash[:profile_use_gravatar] || @profile.use_gravatar %> />
 			
-			<label for="gravatar_email">Gravatar E-mail <%= flash[:error_profile_gravatar_email] %></label>
-			<input type="text" name="gravatar_email" value="<%== flash[:error] ? flash[:profile_gravatar_email] : @profile.gravatar_email %>" />
+				<label for="gravatar_email">Gravatar E-mail <%= flash[:error_profile_gravatar_email] %></label>
+				<input type="text" name="gravatar_email" value="<%== flash[:error] ? flash[:profile_gravatar_email] : @profile.gravatar_email %>" />
 			
 			
-			<label for="photo_path"><%= _('Photo') %> <%= flash[:error_profile_photo_big] %></label>
-			<input type="file" name="photo_path" value="" />
-		</fieldset>
+				<label for="photo_path"><%= _('Photo') %> <%= flash[:error_profile_photo_big] %></label>
+				<input type="file" name="photo_path" value="" />
+			</fieldset>
 		
-		<fieldset>
-			<label for="submit"></label>
-			<input type="submit"value="Continue &rarr;" />
-		</fieldset>
-	</form>
+			<fieldset>
+				<label for="submit"></label>
+				<input type="submit"value="Continue &rarr;" />
+			</fieldset>
+		</form>
+	</div>
+	<div style="float:right; padding: 5px">
+		<img src="<%= @profile.avatar_big %>" alt="Avatar" />
+	</div>
 </div>

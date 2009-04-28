@@ -86,6 +86,12 @@ class SettingsController < Controller
   def photos
     @photos = user.photos
   end
+  
+  def photo(photo_id = nil)
+    redirect_referer if photo_id.nil?
+    @photo = user.photo(photo_id)
+    redirect_referer if @photo.nil?
+  end
     
   before(:profile, :avatar, :password, :notifications, :url_alias, :location, 
     :photos, :delete, :discography, :elements, :agenda, :event, :index) { redirect_referer unless logged_in? }

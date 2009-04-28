@@ -13,8 +13,8 @@
 			<label for="cover"><%= _('Cover') %> <%= flash[:error_album_cover] %></label>
 			<input type="file" name="cover" >
 			
-			<% if @album.id %>
-				<input type="hidden" name="album_id" value="<%= @album.id %>" id="some_name">
+			<% if @album.id_ %>
+				<input type="hidden" name="album_id" value="<%= @album.id_ %>" id="some_name">
 			<% end %>
 			
 			<label for="submit"></label>
@@ -23,7 +23,7 @@
 	</form>
 </div>
 
-<% if @album.id %>
+<% if @album.id_ %>
 	<div class="content">
 		<form action="<%= DiscographyController.r(:create_track) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 			<fieldset>
@@ -38,7 +38,7 @@
 				<label for="track"><%= _('Track') %> <%= flash[:error_track_track] %></label>
 				<input type="file" name="track" />
 			
-				<input type="hidden" name="album_id" value="<%= @album.id %>" />
+				<input type="hidden" name="album_id" value="<%= @album.id_ %>" />
 			
 				<label for="submit"></label>
 				<input type="submit" value="Continue &rarr;" name="submit">
@@ -50,8 +50,8 @@
 		<div class="content">
 		<%== track.title %>
 			<span style="float:right">
-				<a href="<%= r(:track, track.id) %>"><%= _('Edit') %></a>
-				<a href="<%= DiscographyController.r(:delete_track, track.id) %>"><%= _('Delete') %></a>
+				<a href="<%= r(:track, track.id_) %>"><%= _('Edit') %></a>
+				<a href="<%= DiscographyController.r(:delete_track, track.id_) %>"><%= _('Delete') %></a>
 			</span>
 		</div>
 	<% end %>

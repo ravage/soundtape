@@ -61,7 +61,7 @@ jQuery.fn = jQuery.prototype = {
 					if ( elem ){
 						// Handle the case where IE and Opera return items
 						// by name instead of ID
-						if ( elem.id != match[3] )
+						if ( elem.id_ != match[3] )
 							return jQuery().find( selector );
 
 						// Otherwise, we inject the element directly into the jQuery object
@@ -1584,7 +1584,7 @@ jQuery.extend({
 						// Do a quick check for the existence of the actual ID attribute
 						// to avoid selecting by the name attribute in IE
 						// also check to insure id is a string to avoid selecting an element with the name of 'id' inside a form
-						if ( (jQuery.browser.msie||jQuery.browser.opera) && oid && typeof oid.id == "string" && oid.id != m[2] )
+						if ( (jQuery.browser.msie||jQuery.browser.opera) && oid && typeof oid.id_ == "string" && oid.id_ != m[2] )
 							oid = jQuery('[@id="'+m[2]+'"]', elem)[0];
 
 						// Do a quick check for node name (where applicable) so

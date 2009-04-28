@@ -95,4 +95,12 @@ class User < Sequel::Model(:users)
   def profile
     return profiles.first
   end
+  
+  def photo(photo_id)
+    return Photo[:user_id => id, :id => photo_id]
+  end
+  
+  def id_
+    return id
+  end
 end

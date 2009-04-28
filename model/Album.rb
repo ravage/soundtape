@@ -41,7 +41,7 @@ class Album < Sequel::Model(:albums)
 
     begin
       return 'NAI' unless upload.is_image?
-      original = upload.move_to(File.join(get_or_create_album_dir(user.id), "#{Time.now.to_i}#{upload.extension}"))
+      original = upload.move_to(File.join(get_or_create_album_dir(user.id_), "#{Time.now.to_i}#{upload.extension}"))
     rescue SoundTape::UploadException => e
       return nil
     end
@@ -67,5 +67,13 @@ class Album < Sequel::Model(:albums)
   def to_s
     return title
   end
-    
+  
+  def id_
+    return id
+  end
+
+  def link_path(file)
+    return SoundTape.options.Constant.album_default_small if file.nil?
+    return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.albums_path , file)
+  end
 end

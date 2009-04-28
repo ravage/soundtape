@@ -16,8 +16,8 @@
 			<label for="track"><%= _('Track') %> <%= flash[:error_track_track] %></label>
 			<input type="file" name="track" >
 			
-			<% if @track.id %>
-				<input type="hidden" name="track_id" value="<%= @track.id %>" />
+			<% if @track.id_ %>
+				<input type="hidden" name="track_id" value="<%= @track.id_ %>" />
 			<% end %>
 			
 			<label for="submit"></label>

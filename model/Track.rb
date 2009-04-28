@@ -14,4 +14,8 @@ class Track < Sequel::Model(:tracks)
     self.title = params[:title]
     self.lyrics = params[:lyrics]
   end
+  
+  def id_
+    return id
+  end
 end

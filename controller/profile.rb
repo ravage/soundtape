@@ -38,7 +38,7 @@ class ProfileController < Controller
     end
 
     if profile.valid?
-      redirect R(ProfileController, :view, user.alias)
+      redirect ProfileController.r(:view, user.alias)
     else
       prepare_flash(:errors => profile.errors, :prefix => 'profile')
       flash[:profile_use_gravatar] = 1 if request.params.has_key?('use_gravatar')
@@ -79,7 +79,8 @@ class ProfileController < Controller
   end
   
   def upload_photo
-    photo = Photo.prepare(request, user)
+    photo = Photo.new
+    photo.prepare(request, user)
 
     if photo.valid?
       begin
@@ -89,9 +90,29 @@ class ProfileController < Controller
       end
     else
       prepare_flash(:errors => photo.errors, :prefix => 'profile')
-      redirect SettingsController.r(:photos)
+      redirect_referer
     end
-    redirect Rs(:photos)
+    redirect SettingsController.r(:photos)
+  end
+  
+  def update_photo
+    redirect_referer unless request.params.has_key?('photo_id')
+    photo = user.photo(request[:photo_id])
+    redirect_referer if photo.nil?
+    begin
+      photo.update_title(request)
+    rescue Sequel::DatabaseError => e
+      oops(r(:update_photo), e)
+    end
+    redirect_referer
+  end
+  
+  def delete_photo(photo_id = nil)
+    redirect_referer if photo_id.nil?
+    photo = user.photo(photo_id)
+    redirect_referer if photo.nil?
+    photo.sane_delete unless photo.photo_path.nil?
+    redirect_referer
   end
   
   before(:update_profile, :update_avatar, :update_alias, :update_location, :upload_photo) {redirect_referer unless request.post? && logged_in?}

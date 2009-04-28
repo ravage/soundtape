@@ -44,7 +44,7 @@ class Event < Sequel::Model(:events)
       :flyer_path   => original || nil,
       :flyer_thumb  => thumb || nil,
       :currency_id  => params[:currency],
-      :user_id      => user.id)
+      :user_id      => user.id_)
     
     return event
   end
@@ -85,7 +85,7 @@ class Event < Sequel::Model(:events)
 
     begin
       return 'NAI' unless upload.is_image?
-      original = upload.move_to(File.join(get_or_create_event_dir(user.id), "#{Time.now.to_i}#{upload.extension}"))
+      original = upload.move_to(File.join(get_or_create_event_dir(user.id_), "#{Time.now.to_i}#{upload.extension}"))
     rescue SoundTape::UploadException => e
       return nil
     end
@@ -100,7 +100,7 @@ class Event < Sequel::Model(:events)
     thumb.extend(SoundTape::Helper::ImageResize::ImageScience)
 
     begin      
-      path = thumb.crop(SoundTape::Constant::thumbnail_size)
+      path = thumb.crop(SoundTape.options.Constant::thumbnail_size)
     rescue SoundTape::ImageResizeException => e
       return nil
     end
@@ -128,8 +128,21 @@ class Event < Sequel::Model(:events)
     return self.when.min unless self.when.nil?
   end
   
+  def sane_delete
+    SoundTape::Helper.remove_files(absolute_path(flyer_path), absolute_path(flyer_thumb))
+    delete
+  end
+  
+  def absolute_path(file)
+      return File.join(File::SEPARATOR, SoundTape.options.Constant.upload_path, user_id.to_s, SoundTape.options.Constant.events_path, file)
+    end
+  
   def link_path(file)
-    #/uploads/5/events/
+    return SoundTape.options.Constant.event_default_small if file.nil?
     return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.events_path , file)
+  end
+  
+  def id_
+    return id
   end
 end
