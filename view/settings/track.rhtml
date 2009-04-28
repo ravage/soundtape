@@ -1,0 +1,27 @@
+<div class="content">
+	<form action="<%= DiscographyController.r(@action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<fieldset>
+			<legend><%= _('Add Tracks') %></legend>
+			
+			<label for="Album"><%= _('Album') %></label>
+			<%= render_view(action.name, 
+				:album => flash[:track_album] || @track.album_id ) { |action| action.view = 'view/partials/albums.rhtml' } %>
+			
+			<label for="title"><%= _('Title') %> <%= flash[:error_track_title]%></label>
+			<input type="text" name="title" value="<%= flash[:error] ? flash[:track_title] : @track.title %>" />
+			
+			<label for="lyrics"><%= _('Lyrics') %> <%= flash[:error_track_lyrics] %></label>
+			<textarea name="lyrics" rows="8" cols="40"><%= flash[:track_lyrics] || @track.lyrics %></textarea>
+			
+			<label for="track"><%= _('Track') %> <%= flash[:error_track_track] %></label>
+			<input type="file" name="track" >
+			
+			<% if @track.id %>
+				<input type="hidden" name="track_id" value="<%= @track.id %>" />
+			<% end %>
+			
+			<label for="submit"></label>
+			<input type="submit" value="Continue &rarr;" name="submit">
+		</fieldset>
+	</form>
+</div>

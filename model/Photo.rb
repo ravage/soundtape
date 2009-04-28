@@ -25,7 +25,7 @@ class Photo < Sequel::Model(:user_photos)
         original = thumb = new_photo
       end
     end
-    Ramaze::Log.warn new_photo
+    
     photo = self.new(
       :photo_path => original || '',
       :thumb_path => thumb || ''

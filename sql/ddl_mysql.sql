@@ -98,6 +98,7 @@ CREATE TABLE albums (
 	user_id		INT UNSIGNED NOT NULL,
 	category_id	INT UNSIGNED NOT NULL,
 	cover		VARCAHR(60) NULL,
+	cover_thumb	VARCAHR(60) NULL,
 	
 	PRIMARY KEY	(id),
 	INDEX		(user_id),

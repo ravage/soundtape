@@ -1,5 +1,5 @@
 <select name="category">
-	<% Category.all.each do |category| %>
-		<option value="<%= category.id %>" <%= 'selected' if @category.to_i == category %>><%= category %></option>
+	<% Category.each do |category| %>
+		<option value="<%= category.id %>" <%= 'selected' if @category.to_i == category.id %>><%= category %></option>
 	<% end %>
 </select>

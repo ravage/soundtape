@@ -12,6 +12,10 @@ class Band < User
   end
   
   def album(album_id)
-     return Album[:user_id => user_id, :id = album_id]
-   end
+    return Album[:user_id => id, :id => album_id]
+  end
+   
+  def track(track_id)
+    return Track[track_id] if Band.eager_graph(:albums => :tracks).where('tracks.id'.lit => track_id.to_i).count == 1
+  end
 end

@@ -40,6 +40,12 @@ module Ramaze
         return path
       end
       
+      def get_or_create_album_dir(user_id)
+        path = File.join(SoundTape.options.Constant.upload_path, user_id.to_s, 'albums')
+        FileUtils.mkdir_p(path) unless File.exist?(path)
+        return path
+      end
+      
     end
   end
 end

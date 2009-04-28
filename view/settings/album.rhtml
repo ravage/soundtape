@@ -1,0 +1,58 @@
+<div class="content">
+	<form action="<%= DiscographyController.r(@action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+		<fieldset>
+			<legend><%= _('Album') %></legend>
+	
+			<label for="title"><%= _('Title') %> <%= flash[:error_album_title] %></label>
+			<input type="text" name="title" value="<%= flash[:error] ? flash[:album_title] : @album.title %>" />
+			
+			<label for="category"><%= _('Category') %></label>
+			<%= render_view(action.name, 
+				:category => flash[:album_category] || @album.category_id ) { |action| action.view = 'view/partials/categories.rhtml' } %>
+				
+			<label for="cover"><%= _('Cover') %> <%= flash[:error_album_cover] %></label>
+			<input type="file" name="cover" >
+			
+			<% if @album.id %>
+				<input type="hidden" name="album_id" value="<%= @album.id %>" id="some_name">
+			<% end %>
+			
+			<label for="submit"></label>
+			<input type="submit" value="Continue &rarr;" name="submit">
+		</fieldset>
+	</form>
+</div>
+
+<% if @album.id %>
+	<div class="content">
+		<form action="<%= DiscographyController.r(:create_track) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<fieldset>
+				<legend><%= _('Add Tracks') %></legend>
+			
+				<label for="title"><%= _('Title') %> <%= flash[:error_track_title]%></label>
+				<input type="text" name="title" value="<%= flash[:error] ? flash[:track_title] : @track.title %>" />
+			
+				<label for="lyrics"><%= _('Lyrics') %> <%= flash[:error_track_lyrics] %></label>
+				<textarea name="lyrics" rows="8" cols="40"><%= flash[:track_lyrics] || @track.lyrics %></textarea>
+			
+				<label for="track"><%= _('Track') %> <%= flash[:error_track_track] %></label>
+				<input type="file" name="track" />
+			
+				<input type="hidden" name="album_id" value="<%= @album.id %>" />
+			
+				<label for="submit"></label>
+				<input type="submit" value="Continue &rarr;" name="submit">
+			</fieldset>
+		</form>
+	</div>
+	
+	<% @album.tracks.each do |track| %>
+		<div class="content">
+		<%== track.title %>
+			<span style="float:right">
+				<a href="<%= r(:track, track.id) %>"><%= _('Edit') %></a>
+				<a href="<%= DiscographyController.r(:delete_track, track.id) %>"><%= _('Delete') %></a>
+			</span>
+		</div>
+	<% end %>
+<% end %>

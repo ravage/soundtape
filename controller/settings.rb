@@ -48,15 +48,32 @@ class SettingsController < Controller
     end
   end
   
-  def discography(album_id = nil)
-    if album_id.nil?
-        @action = 'create_album'
-        @album = Album.new
-      else
-        @action = 'update_album'
-        @album = user.album(album_id)
-    end
+  def discography
     @albums = user.albums
+  end
+  
+  def album(album_id = nil)
+    if album_id.nil?
+      @action = 'create_album'
+      @album = Album.new
+    else
+      @action = 'update_album'
+      @album = user.album(album_id)
+      redirect r(:discography) if @album.nil?
+      @track = Track.new
+    end
+  end
+
+  def track(track_id = nil)
+    if track_id.nil?
+      @action = 'create_track'
+      @track = Track.new
+    else
+      @action = 'update_track'
+      @track = user.track(track_id)
+      
+      redirect r(:discography) if @track.nil?
+    end
   end
   
   def elements
