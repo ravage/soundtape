@@ -130,6 +130,11 @@ label {
 
 #content_wrapper a {
 	border-bottom: 1px dotted #e64b1b;
+	text-decoration: none;
+}
+
+#content_wrapper a:visited {
+	text-decoration: none;
 }
 
 #content_wrapper a:hover {
@@ -174,9 +179,6 @@ label {
 }
 
 /* @profile_nav begin */
-.profile_nav a {
-	
-}
 
 .profile_nav a:hover {
 	color: #ccc;
@@ -213,3 +215,78 @@ body#agenda li.agenda, body#event li.agenda
 	background-color: #1d1d1d;
 }
 /* @profile_nav end */
+
+/* @settings photos begin */
+.out {
+	margin: 1px 0 0 1px;
+	float: left;
+	width: 100px;
+	padding: 3px;
+	background: #000;
+}
+
+.out:hover {
+	background: #ccc;
+}
+
+.out img {
+	margin-bottom: -28px;
+	position: relative;
+}
+
+div.in {
+	padding: 2px 5px 2px 5px;
+	background: url(../imgs/transparent_pixel.png);
+	color: white;
+	text-align: center;
+	position: relative;
+	height: 20px;
+}
+
+
+div.in li.delete a {
+	top: 5px;
+	left: 80px;
+}
+
+div.in a {
+	border-bottom: none;
+	text-decoration: none;
+}
+
+div.in li.edit a {
+	top: 5px;
+	left: 60px;
+}
+
+div.in li.delete a {
+	background: url(/imgs/edit_delete_sprite.png) 0px 0px no-repeat;
+}
+
+div.in li.delete a:hover {
+	background: url(/imgs/edit_delete_sprite.png) 0px -16px no-repeat;
+}
+
+div.in li.edit a {
+	background: url(/imgs/edit_delete_sprite.png) -16px 0px no-repeat;
+}
+
+div.in li.edit a:hover {
+	background: url(/imgs/edit_delete_sprite.png) -16px -16px no-repeat;
+}
+
+div.in a {
+	display: block;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	text-decoration: none;
+}
+
+.in a {
+	text-decoration: none;
+	border: none !important;
+}
+
+
+/* @settings photos begin */

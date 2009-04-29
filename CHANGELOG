@@ -1,0 +1,351 @@
+commit b7e087a166e0202b6ba609fe56fbfd301b408a64
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 28 18:55:30 2009 +0100
+
+    * Edit / Delete for Agenda, Photos, Discography
+    * Files associated with the entries, now also get deleted
+    * Some changes to views
+    * Minor database changes
+    * Multiple fixes
+    * Added default images for Events and Albums
+    * Fixed gravatar to work with new Ramaze
+    * Fixed some options to work with new Ramaze (need to re-think)
+
+commit 2443e859374314c8cd91b3677f113de297e1effb
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 28 02:37:02 2009 +0100
+
+    * Some work on discographies
+    * Changed events link into agenda
+    * Misc changes
+
+commit bb0e6f75f26febe3ac3e4c5e65d015a87ab96079
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 27 13:46:53 2009 +0100
+
+    * Added cover field to albums
+    * Added forms for albums and tracks
+
+commit 14165c999b0ca7bc1870b819586cd74fa996b4ba
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 27 11:32:47 2009 +0100
+
+    * Changed type of verification for Band
+    * Added albums as a relation to Band
+    * Added traks as a relation to Album
+    * Initial discography work
+
+commit bc95645754373118bcf32c87a4b8b60f3bc17fca
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Sun Apr 26 20:29:16 2009 +0100
+
+    * Make this work with new Ramaze 2009.04
+    * Some fixes
+
+commit c3dc46a122119b9f762a289b2c8e3e69022165c2
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Wed Apr 22 23:39:15 2009 +0100
+
+    * Moved some controller code around
+    * Added user_id field to events table
+    * Fixed some issues with file upload and directory creation
+    * Some fixes and minor changes Agenda and Events
+    * Added some band own links
+    * Big cleanup in SettingsController
+
+commit dc9d486253be98cfd2f20ab54b575527af1a4490
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Wed Apr 22 03:31:57 2009 +0100
+
+    * Some SQL changes relative to image paths
+    * Changed upload path to just filename
+    * Added some options to define paths
+    * Added some methods to resolve paths
+    * Fixes misc issues
+
+commit 59ecc30a3a2bbf331e8b019411362492adb7d85c
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 21 17:51:13 2009 +0100
+
+    * Added user_photos table
+    * Added some Band links
+
+commit 35279490040408ea2488abf9b68220ddd6321ecb
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 21 17:22:50 2009 +0100
+
+    * Divide some profile content
+    * Fix problems from separation
+    * Mix fixes
+
+commit fec1a367383127b110a3f99cd9534b2965270fbd
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 21 03:21:45 2009 +0100
+
+    * Some SettingsController changes
+    * Added templates according to controller changes
+
+commit 0bc3539d097771e73d3101353a0f04c37fb172e4
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Wed Apr 15 02:44:23 2009 +0100
+
+    * Added format JPEG2000 (jp2) to ImageFormat
+
+commit 72c7f89c37f0cd03856ba7a4c9c4b9883a848cee
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Wed Apr 15 01:35:45 2009 +0100
+
+    * Refactored ImageResize, should be be extensible by modules
+
+commit ac77816aef94a8f71b00cc5d28d9e88a22b9148d
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 13 19:59:49 2009 +0100
+
+    * Initial support for localization
+    * Refactored the upload.rb a bit
+    * Refactored image resize to easily support more libs
+    * Added more directories to .gitignore
+    * Misc fixes
+
+commit 4fc98ac2d3e2d5a23027b74722e96170ec7a1bd7
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 13 15:56:28 2009 +0100
+
+    * Gravatar support
+    * Some fixes
+
+commit cc43ebcde349a2fac8a5463c2041a593935169bb
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 13 02:30:43 2009 +0100
+
+    * Add database support for gravatar option
+    * Avatar uses local or gravatar (user choice)
+    * Added some validators
+    * Small fixes
+
+commit 02a6f9a9309c5c7d265c018a801db092cd27cc00
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 13 00:49:26 2009 +0100
+
+    * Upload support for profile avatar
+    * Auto resize for avatar with ImageScience
+    * Fixes in avatar url
+    * ImageResize class
+
+commit ee59eef964f7cea1f3530a55090d490664765f29
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Sun Apr 12 22:21:21 2009 +0100
+
+    * Added upload helper
+    * Made some database fixes in localization
+    * Added custom UploadException
+    * Organized code into modules a bit
+    * Misc fixes
+
+commit e1b9bdbbc2f84f32915b646a8a12c2903b3cc24e
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Sat Apr 11 17:19:25 2009 +0100
+
+    * Modified models to eliminate Sequel deprecation warnings
+
+commit 1a0591501ab37c893ef5ca00c7f8e49e6e9007bd
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Sat Apr 11 15:21:41 2009 +0100
+
+    * Some CSS and HTML changes
+    * Changed some action from profile to  setting controller
+    * Misc changes
+
+commit 1032ccb2d5bab39cb021d9180d83490faccc4518
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Fri Apr 10 14:57:07 2009 +0100
+
+    Fix name for file error.xhtml
+
+commit 4ec51c492d3514e3bbbc891c40215f094640e33b
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Fri Apr 10 14:54:12 2009 +0100
+
+    * Added some routes for 'better?' links
+    * Added settings controller
+      profile controller will serve as consult
+      settings controller will serve as modification
+
+commit 5eddee1176f1166a95e98e6514d53f2a7f3540ee
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Wed Apr 8 23:47:33 2009 +0100
+
+    Removed table map_markers since there's no point
+    in having it. A map marker isn intimate with the
+    event or user.
+    
+    Some event form error handling
+
+commit 5d7f59879893f218e21ad8d43b79b5616d7e9d45
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Wed Apr 8 22:16:14 2009 +0100
+
+    Changed event map_point_id field to allow null
+    Initial agenda events handling
+
+commit 6ce3b93774d66cccd2944c90dc72fac2d5c7221d
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Wed Apr 8 21:07:44 2009 +0100
+
+    Added sample options file
+    Changed mysql trigger to reflect bands and users
+
+commit ea113e8728bb6ed3730684d8308a81c3c7ba6232
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Wed Apr 8 20:35:55 2009 +0100
+
+    Fixed redirection from id or alias
+    Changed some file names to fix path
+    Misc fixes
+
+commit 163634698e29fb841df0848a227255a8bcd4608b
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Wed Apr 8 20:08:33 2009 +0100
+
+    Add band class inherits from user
+    Created User.factory method to get band or user
+    Changed some User self methods to reflect in the band also
+    Extra field in DB to support user types
+    Added options in Ramaze dsl format
+
+commit cf002199802a3fe4c3d70848a76647d5d3b418f8
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 7 23:52:25 2009 +0100
+
+    Refactor id or alias redirect
+
+commit a46e6b88906bd5f7e3cf66b4d257db56ea085bba
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 7 23:10:53 2009 +0100
+
+    Fix user alias mapping in the url
+
+commit 328cec83fd3ad662d16a1c88899a25a8e2fddca3
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 7 19:09:09 2009 +0100
+
+    Removes some fields form profiles table
+    Initial user_alias redirect for profile
+
+commit a5bab8059888633c1c0c6633f14a2027e70f3a20
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 7 17:53:55 2009 +0100
+
+    Some database fixes
+    Error handling on profile form
+    Misc stuff
+
+commit 6944eab5f2d8cc578136102aaa6f7db9d5926408
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 7 14:41:57 2009 +0100
+
+    Some database changes for user alias
+    Fix some form validations
+
+commit 417c5255bbb470874b7dd1f2ab60876c63d70b3c
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Tue Apr 7 11:55:07 2009 +0100
+
+    Added profile/view
+    Added profile/edit
+
+commit ab5a27f80be4873c487d49e31daa379fde5d755a
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 6 19:39:25 2009 +0100
+
+    Little cleanup
+
+commit 1cd9109ee20fb66276ce158ab2600b37b2e84353
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 6 18:55:41 2009 +0100
+
+    Added some Sequel associations
+    Added ProfileController
+    Added bio field to user
+    Misc fixes
+
+commit 66bff98ab4b20f9fa71379766dfc7f9e13d4af11
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 6 14:58:33 2009 +0100
+
+    User login now works as intended
+    Activation email is now sent
+    Account can be activated
+
+commit 83b0032de0b1cb04d52dc4c9e4bd7a8a39b57a4c
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 6 14:18:02 2009 +0100
+
+    Fixed user activation for already active accounts
+    Started on sending email verification
+
+commit b5be50760464eae89177ad37266327f0ccac948d
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 6 12:34:37 2009 +0100
+
+    Added user activation
+    Added password encryption
+    Added user login
+    Some database changes
+    Misc fixes
+
+commit 80f4d48873138fe8df2d19d28e83600963f0ff1b
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Mon Apr 6 02:51:14 2009 +0100
+
+    Exception helper to handle logging of exceptions
+    SQL fixes in normalization and integrity
+    Some work on user register facility
+
+commit bb3f2c0e95a814f3ed3d1739044922849a9c6c81
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Fri Apr 3 16:27:45 2009 +0100
+
+    Added SQL SCHEMA
+
+commit d39f7446bee002434cb8cd4908352778a2c4dcac
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Fri Apr 3 04:06:39 2009 +0100
+
+    Add CURRENT_TIMESTAMP by default on creation
+
+commit e2b0175eb631fd4d6393a542ba2dfd65aba454a8
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Fri Apr 3 01:50:35 2009 +0100
+
+    More database integrity
+
+commit ca8bbce76e040c9836551d88762efbbe7f08598f
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Thu Apr 2 23:17:20 2009 +0100
+
+    Database integrity on delete
+
+commit 2ad275f04de48c0897d19016d0120cc428aec534
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Thu Apr 2 21:51:26 2009 +0100
+
+    Added down method for migrations
+
+commit 63f68e8ffe32ee94b8d24c9c666b08e5086a60d1
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Thu Apr 2 18:16:50 2009 +0100
+
+    Main menu mouse over changes
+
+commit 6ef69d4ac1b8dbf2255536cdf234b2fa9e46ff1e
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Thu Apr 2 16:36:01 2009 +0100
+
+    Layout changes
+
+commit c099659114e4b6549265b6df59fc3959287e0db6
+Author: Rui Miguel <ravage@fragmentized.net>
+Date:   Thu Apr 2 14:23:45 2009 +0100
+
+    First take at css menu
