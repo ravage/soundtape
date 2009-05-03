@@ -6,7 +6,6 @@ class Agenda < Sequel::Model(:agendas)
     update(
       :description => params[:description]
     )
-    Ramaze::Log.warn 'PREPARE UPDATE'
   end
   
   def event(event_id)

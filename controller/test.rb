@@ -1,28 +1,22 @@
-
 require 'rubygems'
-#require '../helper/exceptions'
-require '../helper/image_resize'
-
-module Teste
-  OPT = 10
-  opt =10
-end
+require 'json/ext'
 
 class Person
-  include Teste
-  def output
-    puts OPT
+  attr_accessor :name, :age, :contact
+  
+  def to_json(*a)
+    {
+      'json_class'  => self.class.name,
+      :name        => @name,
+      'age'         => @contact
+    }.to_json(*a)
   end
 end
 
-#t = Person.new
-#t.output
+p = Person.new
 
-#puts Teste.constants
+p.name = "Rui"
+p.age = 15
+p.contact = "x@x.com"
 
-#puts Teste.opt
-#r = SoundTape::Helper::ImageResize.new('/home')
-#r.extend(SoundTape::Helper::ImageResize::ImageScience)
-#r.resize('dede', 1, 1
-
-puts "rui"[/^[a-z0-9]+$/]
+puts p.to_json

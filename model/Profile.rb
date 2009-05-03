@@ -142,4 +142,17 @@ class Profile < Sequel::Model(:profiles)
   def id_
     return id
   end
+  
+  def to_json
+    return {
+      :json_class => self.class.name,
+      :photo      => avatar_small,
+      :location   => location,
+      :profile    => ProfileController.r(:view, user_alias),
+      :name       => real_name,
+      :homepage   => homepage,
+      :lng        => longitude,
+      :lat        => latitude
+    }.to_json
+  end
 end
