@@ -1,3 +1,8 @@
+/**
+* A wrapper around Google Maps geocoding capabilities.
+* It allows easy integration of geocoding and reverse geocoding.
+* There is some marker functionality and event attachment.
+*/
 var GoogleMapsHelper = new Class({
 	Implements: Events,
 	
@@ -65,7 +70,6 @@ var GoogleMapsHelper = new Class({
 			marker.openInfoWindowHtml(this.getPlaceMarkAddress(place));
 			this.fireEvent('onMapInfo', [place, marker]);
 		}
-		this.fireEvent('infoComplete', marker);
 	},
 	
 	/**
@@ -146,7 +150,6 @@ var GoogleMapsHelper = new Class({
 			marker.openInfoWindowHtml(this.getPlaceMarkAddress(place));
 			this.fireEvent('onMapInfo', [place, marker]);
 		}
-		this.fireEvent('infoComplete', marker);
 	},
 	
 	addClickEvent: function(marker, info) {
@@ -177,3 +180,190 @@ var GoogleMapsHelper = new Class({
 	}
 
 });
+
+/**
+* A simple wrapper to glue together a Map and a Form.
+* It expects a form with:
+* 	search 		-> button
+* 	location 	-> text
+*	latitude 	-> text
+* 	longitude	-> text
+*	spinner		-> class
+* 
+* All the above parameters are configurable but if not given it will try to attach the defauls.
+* 
+* To ease on the map display of data it includes a getJSON to fetch data from a source and display it in the map.
+* The return from the JSON request expects at least:
+* 	latitude
+* 	longitude
+* 	location
+*
+* It relies in the Formatter to output proper html. The Formatter can be extended easily.
+*/
+var MapFormWrapper = new Class({
+	Implements: Options,
+	
+	options: {
+		search: 	null,
+		location: 	null,
+		latitude: 	null,
+		longitude: 	null,
+		spinner: 	null
+	},
+	
+	/**
+	* @param {String} bindForm Form to which we should attach
+	* @param {String} mapWrapper div that will hold the map
+	* @param {JSON} options Override the default form fields 
+	* @constructor
+	*/
+	initialize: function(bindForm, mapWrapper,  options) {
+		this.setOptions(options);
+		this.bindForm = $(bindForm);
+		this.mapHelper = new GoogleMapsHelper(mapWrapper);
+		this.bindFields();
+		this.addEvents();
+	},
+	
+	/**
+	* Get the default field names or override with the given ones
+	*/
+	bindFields: function() {
+		this.options.search 	= this.options.search || this.bindForm.getElement('input[name=search]');
+		this.options.location 	= this.options.location || this.bindForm.getElement('input[name=location]');
+		this.options.latitude 	= this.options.latitude || this.bindForm.getElement('input[name=latitude]');
+		this.options.longitude 	= this.options.longitude || this.bindForm.getElement('input[name=longitude]');
+		this.options.spinner	= this.options.spinner || 'spinner';
+	},
+	
+	/**
+	* Attach events for geocoding search
+	*/
+	addEvents: function() {
+		this.mapHelper.addEvent('onMapInfo', this.onMapInfo.bind(this));
+		this.options.search.addEvent('click', this.onSearch.bind(this));	
+	},
+	
+	/**
+	* Triggers when information from the map becomes available
+	* 
+	* @param {Placemark} info Information about a place. An element of Placemark
+	* @param {GMarker} marker A marker at the position found by geocoding or where it got dropped
+	*/
+	onMapInfo: function(info, marker) {
+		this.hideSpinner(this.options.search);
+		this.options.location.value = info.address;
+		this.options.latitude.value = marker.getLatLng().lat();
+		this.options.longitude.value = marker.getLatLng().lng();
+	},
+	
+	/**
+	* Triggers when the search button gets clicked
+	* 
+	* @param {Event} Event object from the sender
+	*/	
+	onSearch: function(event) {
+		event.stop();
+		this.mapHelper.geocode(this.options.location.value);
+		this.showSpinner(event.target);
+	},
+	
+	/**
+	* Just show the spinner so we know something is happening
+	* 
+	* @param {Element} Element that triggered the onSearch event.
+	*/
+	showSpinner: function(el) {
+		el.addClass(this.options.spinner);
+	},
+	
+	/**
+	* Just hide the spinner after the work is done
+	* 
+	* @param {Element} An Element representing the search button
+	*/
+	hideSpinner: function(el) {
+		el.removeClass(this.options.spinner);
+	},
+	
+	/**
+	* Provide a way to get information from a source and dump it directly in the map.
+	*  
+	* It expects the returned info to contain at least:
+	* 	latitude
+	* 	longitude
+	* 	location
+	* 
+	* If there are any coordinates a marker will be added to the map, showing a popup
+	* containing information returned by the Formatter.
+	*
+	* @param {String} url_ The url to where the request should be made.
+	*/
+	getJSON: function(url_) {
+		var req = new Request.JSON({url: url_,
+			onSuccess: function(info) {
+				if(info.latitude && info.longitude) {
+					var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(info.latitude, info.longitude), {draggable : true});
+					var html = Formatter.get(info);
+					this.mapHelper.addClickEvent(marker, html);
+					marker.openInfoWindowHtml(html);
+				}
+				else {
+					this.mapHelper.geocode(info.location);
+				}
+			}.bind(this)
+		}).get();
+	}
+});
+
+/**
+* Just provides formatters with HTML content for a Google Maps Marker PopUp or whatever
+*/
+var Formatter = new Class();
+
+/**
+* Format for an /settings/event/#.json
+*
+* @return A HTML element
+* @type Element
+*/
+Formatter.getEventMarkerPopUp = function(info) {
+	var div = new Element('div');
+	var name = new Element('p', {'text' : info.name});
+	var description = new Element('p', {'text' : info.description});
+	var location = new Element('p', {'text' : info.local});
+	var when = new Element('p', {'text' : info.when});
+	var price = new Element('p', {'text' : info.price});
+	var flyer = new Element('img', {'src' : info.thumb, 'style' : 'float: left; border: 1px solid red;'});
+	div.adopt(flyer, name, location, when, price);
+	return div;
+};
+
+/**
+* Format for a settings/location.json
+*
+* @return A HTML element
+* @type Element
+*/	
+Formatter.getLocationMarkerPopUp = function(info) {
+	var div = new Element('div');
+	var photo = new Element('img', {'src' : info.photo, 'style' : 'float: left; border: 1px solid red;'});
+	var name = new Element('p', {'text' : info.name});
+	var link = new Element('a', {'href' : info.profile, 'text' : info.profile});
+	var homepage = new Element('a', {'href' : info.homepage, 'text' : info.homepage});
+	var location = new Element('p', {'text' : info.location});
+	div.adopt(photo, name, homepage, location, link);
+	return div;
+};
+
+/**
+* Just decide which format to pass
+*
+* @param {JSON} info An object with the information to be formatted
+*/
+Formatter.get = function(info) {
+	if($('event'))
+		return Formatter.getEventMarkerPopUp(info);
+	else if($('location'))
+		return Formatter.getLocationMarkerPopUp(info);
+};

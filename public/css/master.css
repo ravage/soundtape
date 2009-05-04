@@ -173,7 +173,7 @@ label {
 
 .example {
 	display: block;
-	font-size: 0.5em;
+	font-size: 80%;
 	margin-left: 2px;
 	color: #ccc;
 }
@@ -291,8 +291,8 @@ div.in a {
 /* @settings photos end */
 
 .spinner {
-	height: 32px;
-	width: 32px;
+	height: 16px;
+	width: 16px;
 	border: none;
 	color: transparent;
 	background: url(/imgs/spinner.gif) no-repeat;

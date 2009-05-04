@@ -1,7 +1,7 @@
 class SettingsController < Controller
   helper :user, :utils, :aspect
   
-  provide(:json, :type => 'text/x-json'){ |action, value| value.to_json }
+  provide(:json, :type => 'application/json'){ |action, value| value.to_json }
   
   def index
     redirect Rs(:profile)

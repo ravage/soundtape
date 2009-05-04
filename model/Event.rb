@@ -146,6 +146,10 @@ class Event < Sequel::Model(:events)
     return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.events_path , file)
   end
   
+  def thumb
+    return link_path(flyer_thumb)
+  end
+  
   def id_
     return id
   end
@@ -155,11 +159,12 @@ class Event < Sequel::Model(:events)
       :json_class   => self.class.name,
       :name         => name,
       :description  => description,
-      :local        => local,
+      :location     => local,
       :longitude    => longitude,
       :latitude     => latitude,
       :when         => self.when,
-      :price        => price
+      :price        => price,
+      :thumb        => thumb
     }.to_json
   end
 end
