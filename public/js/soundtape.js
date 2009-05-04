@@ -63,6 +63,7 @@ var GoogleMapsHelper = new Class({
 		//check for a valid response
 		if (!response || response.Status.code != 200) {
 			alert("Sorry, we were unable to geocode that address");
+			this.fireEvent('onGeocodeFail');
 		} else {
 			var place = response.Placemark[0];
 			var marker = this.addMarker(this.getLatLngFromPoint(place.Point), {draggable: true});
@@ -144,6 +145,7 @@ var GoogleMapsHelper = new Class({
 	addressFromMap: function(response, marker) {
 		if (!response || response.Status.code != 200) {
 			marker.openInfoWindowHtml("Sorry, we were unable to geocode that address");
+			this.fireEvent('onGeocodeFail');
 		} else {
 			place = response.Placemark[2];
 			this.addClickEvent(marker, this.getPlaceMarkAddress(place));
@@ -241,6 +243,7 @@ var MapFormWrapper = new Class({
 	*/
 	addEvents: function() {
 		this.mapHelper.addEvent('onMapInfo', this.onMapInfo.bind(this));
+		this.mapHelper.addEvent('onGeocodeFail', this.onGeocodeFail.bind(this));
 		this.options.search.addEvent('click', this.onSearch.bind(this));	
 	},
 	
@@ -255,6 +258,13 @@ var MapFormWrapper = new Class({
 		this.options.location.value = info.address;
 		this.options.latitude.value = marker.getLatLng().lat();
 		this.options.longitude.value = marker.getLatLng().lng();
+	},
+	
+	/**
+	* Triggers when geocoding fails
+	*/
+	onGeocodeFail: function() {
+		this.hideSpinner(this.options.search);
 	},
 	
 	/**
