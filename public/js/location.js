@@ -7,8 +7,8 @@ function initialize() {
 	gmaps.addEvent('infoComplete', infoComplete);
 	
 	$('geocode').getElement('input[name=search]').addEvent('click', onSearch);
-	
-	var req = new Request.JSON({url: '/api/getuser/',
+
+	var req = new Request.JSON({url: location.href + '.json',
 		onSuccess: function(info) {
 			if(info.latitude && info.longitude) {
 				var marker = gmaps.addMarker(gmaps.getPoint(info.latitude, info.longitude), {draggable : true});

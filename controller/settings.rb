@@ -1,6 +1,7 @@
 class SettingsController < Controller
   helper :user, :utils, :aspect
-  #layout '/mastersettings'
+  
+  provide(:json, :type => 'text/x-json'){ |action, value| value.to_json }
   
   def index
     redirect Rs(:profile)
@@ -46,6 +47,7 @@ class SettingsController < Controller
       
       flash[:event_not_found] = 'The event you are looking for doesn\'t exist!' if @event.nil?
     end
+    @event
   end
   
   def discography

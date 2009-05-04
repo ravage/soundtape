@@ -6,21 +6,28 @@
 
 <% unless flash[:event_not_found] %>
 <div class="content">
-	<form action="<%= AgendaController.r(@action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<form id="geocode" action="<%= AgendaController.r(@action) %>" method="post" accept-charset="utf-8" id="event" enctype="multipart/form-data">
 		<fieldset>
-			<legend><%= _('Events') %></legend>
+			<legend><%= _('Event Location') %></legend>
 			<label for="name"><%= _('Name') %> <%= flash[:error_event_name] %></label>
 			<input type="text" name="name" value="<%= flash[:error] ? flash[:event_name] : @event.name %>" maxlength="100" />
 			<span class="example"><%= _('Ex: Concert to myself') %></span>
 			
 			<label for="local"><%= _('Local') %> <%= flash[:error_event_local] %></label>
-			<input type="text" name="local" value="<%= flash[:error] ? flash[:event_local] : @event.local %>" maxlength="100" />
+			<input type="text" name="location" value="<%= flash[:error] ? flash[:event_local] : @event.local %>" maxlength="100" />
+			<input type="button" name="search" value="<%= _('Search') %>" /> 
 			<span class="example"><%= _('Ex: 500 E Cesar Chavez St, Austin, Texas') %></span>
+			
+			<input type="hidden" name="latitude" value="<%== flash[:error] ? flash[:event_latitude] : @event.latitude %>" />
+			<input type="hidden" name="longitude" value="<%== flash[:error] ? flash[:event_longitude] : @event.longitude %>" />
 	
 			<label for="building"><%= _('Building') %> <%= flash[:error_event_building] %></label>
 			<input type="text" name="building" value="<%= flash[:error] ? flash[:event_building] : @event.building %>" maxlength="100" />
 			<span class="example"><%= _('Ex: Austin Convention Center') %></span>
-
+		</fieldset>
+		
+		<fieldset>
+			<legend><%= _('Time and Price') %></legend>
 			<label for="day"><%= _('Date') %> <%= flash[:error_event_when] %></label>
 			<%= render_view(action.name, 
 				:day => flash[:event_day] || @event.day, 
@@ -37,21 +44,28 @@
 			<%= render_view(action.name, 
 				:currency => flash[:event_currency] || @event.currency_id) { |action| action.view = 'view/partials/currency.rhtml' } %>
 			<span class="example"><%= _('Ex: 15.5') %></span>
-			
+		</fieldset>
+		
+		<fieldset>
+			<legend><%= _('Extra Info') %></legend>
 			<label for="flyer"><%= _('Flyer') %> <%= flash[:error_event_flyer_path] %></label>
 			<input type="file" name="flyer" />
 	
 			<label for="description"><%= _('Description') %> <%= flash[:error_event_description] %></label>
 			<textarea name="description" rows="8" cols="40"><%== flash[:event_description] || @event.description %></textarea>
-			
+		</fieldset>
 			<input type="hidden" name="event_id" value="<%= @event.id_ unless @event.nil? %>" />
 			<label for="submit"></label>
 			<input type="submit" value="Continue &rarr;">
-		</fieldset>
+		
 	</form>
 	
 	<% unless @event.flyer_thumb.nil?%>
 		<img src="<%= @event.link_path(@event.flyer_thumb) %>">
 	<% end %>
+</div>
+
+<div class="content">
+	<div id="map_wrapper"></div>
 </div>
 <% end %>

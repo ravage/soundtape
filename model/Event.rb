@@ -6,7 +6,7 @@ class Event < Sequel::Model(:events)
   
   validations.clear
   validates do
-    presence_of     :name, :description, :local, :building, :when
+    presence_of     :name, :local, :building, :when
     numericality_of :price
     length_of       :name, :local, :building, :within => 3..100
     
@@ -37,7 +37,9 @@ class Event < Sequel::Model(:events)
     event = self.new(
       :name         => params[:name],
       :description  => params[:description],
-      :local        => params[:local],
+      :local        => params[:location],
+      :latitude     => params[:latitude],
+      :longitude    => params[:longitude],
       :building     => params[:building],
       :when         => date_time,
       :price        => params[:price],
@@ -65,7 +67,9 @@ class Event < Sequel::Model(:events)
     update(
       :name         => params[:name],
       :description  => params[:description],
-      :local        => params[:local],
+      :local        => params[:location],
+      :latitude     => params[:latitude],
+      :longitude    => params[:longitude],
       :building     => params[:building],
       :when         => date_time,
       :price        => params[:price],
@@ -144,5 +148,18 @@ class Event < Sequel::Model(:events)
   
   def id_
     return id
+  end
+  
+  def to_json
+    return {
+      :json_class   => self.class.name,
+      :name         => name,
+      :description  => description,
+      :local        => local,
+      :longitude    => longitude,
+      :latitude     => latitude,
+      :when         => self.when,
+      :price        => price
+    }.to_json
   end
 end

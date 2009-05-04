@@ -1,9 +1,8 @@
 <div class="content">
-	<div style="width:200px; height:200px; float: left;">
 		<form action="<%= ProfileController.r(:update_location) %>" method="post" accept-charset="utf-8" id="geocode">
 			<fieldset>
 				<label for="location"><%= _('Location') %> <%= flash[:error_profile_location] %></label>
-				<input style="width:98%" type="text" name="location" value="<%== flash[:error] ? flash[:profile_location] : @profile.location %>" />
+				<input type="text" name="location" value="<%== flash[:error] ? flash[:profile_location] : @profile.location %>" />
 				
 				<input type="hidden" name="latitude" value="<%== flash[:error] ? flash[:profile_latitude] : @profile.latitude %>" />
 				<input type="hidden" name="longitude" value="<%== flash[:error] ? flash[:profile_longitude] : @profile.longitude %>" />
@@ -13,8 +12,9 @@
 				<input type="button" name="search" value="<%= _('Search') %>" />
 			</fieldset>
 		</form>
-	</div>
-	
-	<div id="map_wrapper" style="width:322px; height:300px; border: 2px solid #ccc; float:right;">
+</div>
+
+<div class="content">
+	<div id="map_wrapper">
 	</div>
 </div>
