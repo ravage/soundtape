@@ -1,8 +1,8 @@
 class ApiController < Controller
-  
-  def getuser(user_id)
-    profile = Profile.filter({:user_id => user_id} & ~{:latitude => nil}).first
-    Ramaze::Log.warn profile
+  helper :user
+  def getuser(user_id = nil)
+    profile = Profile.filter({:user_id => user_id}).first unless user_id.nil?
+    profile = user.profile if user_id.nil?
     respond profile.to_json unless profile.nil?
     respond "failure"
   end

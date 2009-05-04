@@ -33,5 +33,10 @@ class MainController < Controller
   def master
     
   end
+  layout(:master){|path, wish| path != 'testjs' }
+  def testjs
+    pp request
+  end
+  
 
 end

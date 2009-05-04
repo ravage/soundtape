@@ -62,7 +62,11 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def update_location(params)
-    update(:location => params[:location])
+    update(
+      :location   => params[:location],
+      :longitude  => params[:longitude],
+      :latitude   => params[:latitude]
+    )
   end
    
   def self.by_id_or_alias(value)
@@ -151,8 +155,8 @@ class Profile < Sequel::Model(:profiles)
       :profile    => ProfileController.r(:view, user_alias),
       :name       => real_name,
       :homepage   => homepage,
-      :lng        => longitude,
-      :lat        => latitude
+      :longitude  => longitude,
+      :latitude   => latitude
     }.to_json
   end
 end

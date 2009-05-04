@@ -288,5 +288,12 @@ div.in a {
 	border: none !important;
 }
 
-
 /* @settings photos begin */
+
+.spinner {
+	height: 32px;
+	width: 32px;
+	border: none;
+	color: transparent;
+	background: url(/imgs/spinner.gif) no-repeat;
+}

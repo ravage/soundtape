@@ -1,6 +1,6 @@
 <% unless logged_in? %>
 	<div class="block"> 
-		<%= render_view(Current.actions.first.name) {|action| action.view = 'view/partials/form_login.rhtml' } %>
+		<%= render_view(actions.first.name) {|action| action.view = 'view/partials/form_login.rhtml' } %>
 	</div>
 <% end %>
 
