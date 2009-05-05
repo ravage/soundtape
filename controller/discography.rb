@@ -22,7 +22,7 @@ class DiscographyController < Controller
     album.prepare(request, user)
     if album.valid?
       begin
-        album.save
+        album.save_changes
       rescue Sequel::DatabaseError => e
         oops(r(:update_album), e)
       end
@@ -57,7 +57,7 @@ class DiscographyController < Controller
     track.prepare(request, user)
     if track.valid?
       begin
-        track.save
+        track.save_changes
       rescue Sequel::DatabaseError => e
         oops(r(:update_track), e)
       end

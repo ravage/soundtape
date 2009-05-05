@@ -14,7 +14,7 @@ class AccountController < Controller
       klass = klass.new
       klass.prepare(request.params)
       request[:real_name].strip!
-      if klass.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
+      if klass.valid?
         begin
           klass.save 
           Profile[:user_id => klass.id_].update(:real_name => request[:real_name])

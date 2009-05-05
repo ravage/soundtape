@@ -20,7 +20,7 @@
 <% @events.each do |event| %>
 	<div class="content">
 		<div style="float: left; margin-right: 10px;">
-			<img src="<%== event.link_path(event.flyer_thumb) %>" alt="<%= event.name %>" />
+			<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
 		</div>
 		<ul>
 			<li><%= event.name %>

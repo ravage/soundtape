@@ -1,5 +1,5 @@
 <div class="content">
-	<form action="<%= DiscographyController.r(@action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<form style="float:left;" action="<%= DiscographyController.r(@action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 		<fieldset>
 			<legend><%= _('Album') %></legend>
 	
@@ -21,6 +21,10 @@
 			<input type="submit" value="Continue &rarr;" name="submit">
 		</fieldset>
 	</form>
+	
+	<% if @album.thumbnail %>
+	<img src="<%= @album.thumbnail %>" alt="<%= @album.title %>"style="float:right;" />
+	<% end %>
 </div>
 
 <% if @album.id_ %>

@@ -29,7 +29,7 @@ class AgendaController < Controller
 
     if event.valid?
       begin
-        event.save
+        event.save_changes
       rescue Sequel::DatabaseError => e
         oops(r(:update_event), e)
       end

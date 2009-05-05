@@ -1,13 +1,8 @@
 class Track < Sequel::Model(:tracks)
-  self.plugin(:validation_class_methods)
-
-  validations.clear
-  validates do
-    presence_of :title
-    length_of   :title, :within => 3..255
-    #each :cover do |validation, field, value|
-    #  validation.errors[field] << 'not an image' if value == 'NAI'
-    #end
+  
+  def validate
+    validates_presence      :title
+    validates_length_range  3..255, :title
   end
   
   def prepare(params, user)

@@ -105,7 +105,7 @@ class Event < Sequel::Model(:events)
     return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.events_path , file)
   end
   
-  def thumb
+  def thumbnail
     return link_path(flyer_thumb)
   end
   

@@ -67,7 +67,11 @@ class Album < Sequel::Model(:albums)
   def id_
     return id
   end
-
+  
+  def thumbnail
+    return link_path(cover_thumb)
+  end
+  
   def link_path(file)
     return SoundTape.options.Constant.album_default_small if file.nil?
     return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.albums_path , file)
