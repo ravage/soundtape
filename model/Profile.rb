@@ -1,31 +1,21 @@
 class Profile < Sequel::Model(:profiles)
   include Ramaze::Helper::Gravatar
   include Ramaze::Helper::Utils
-  
-  self.raise_on_save_failure = false
-  self.plugin(:validation_class_methods)
+
   many_to_one :country, :join_table => :countries, :class => :Country
   many_to_one :user, :join_table => :users, :class => :User
   
-  validations.clear
-  validates do 
-    presence_of     :real_name, :user_alias
-    length_of       :real_name, :user_alias, :within => 3..100
-    uniqueness_of   :user_alias
-    format_of       :real_name, :with => /^[\w\s]+$/
-    format_of       :user_alias, :with => /^[a-z0-9]+$/
+  def validate
+    validates_presence      [:real_name, :user_alias]
+    validates_length_range  1..100, [:real_name, :user_alias]
+    validates_unique        :user_alias
+    validates_format        /^[\w\s]+$/, :real_name
+    validates_format        /^[a-z0-9]+$/, :user_alias
+    validates_format        /^[a-zA-Z]([.]?([[:alnum:]_-]+)*)?@([[:alnum:]\-_]+\.)+[a-zA-Z]{2,4}$/, :gravatar_email unless gravatar_email.empty?
     
-    each :photo_big, :photo_small do |validation, field, value|
-      validation.errors[field] << 'not an image' if value == 'NAI'
-    end
-    
-    each :gravatar_email, :allow_blank => true do |validation, field, value|
-       validation.errors[field] << 'invalid e-mail' unless value =~ /^[a-zA-Z]([.]?([[:alnum:]_-]+)*)?@([[:alnum:]\-_]+\.)+[a-zA-Z]{2,4}$/ 
-    end
-
-    each :use_gravatar do |validation, field, value|
-      validation.errors[field] << 'need gravatar e-mail' if validation.values[:gravatar_email].empty? && value
-    end
+    errors.add(:use_gravatar, 'need gravatar e-mail') if gravatar_email.empty? && use_gravatar
+    errors.add(:photo_big, 'not an image') if photo_big == 'NAI'
+    errors.add(:photo_small, 'not an image') if photo_small == 'NAI'
   end
   
   def update_profile(params)
@@ -116,6 +106,7 @@ class Profile < Sequel::Model(:profiles)
   
   def avatar_big
     default = SoundTape.options.Constant.avatar_default_big
+    Ramaze::Log.warn default
     if use_gravatar
       return gravatar(gravatar_email, :size => SoundTape.options.Constant.avatar_big_size, :default => default)
     else

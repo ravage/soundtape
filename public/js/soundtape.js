@@ -320,8 +320,18 @@ var MapFormWrapper = new Class({
 	getJSON: function(url_) {
 		var req = new Request.JSON({url: url_,
 			onSuccess: function(info) {
-				if(info.latitude && info.longitude) {
-					var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(info.latitude, info.longitude), {draggable : true});
+				var latitude = null;
+				var longitude = null;
+				if(this.options.latitude.value && this.options.longitude.value) {
+					latitude = this.options.latitude.value;
+					longitude = this.options.longitude.value;
+				}
+				else if (info.latitude && info.longitude) {
+					latitude = info.latitude;
+					longitude = info.longitude;
+				}
+				if(longitude && latitude) {
+					var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(latitude, longitude), {draggable : true});
 					var html = Formatter.get(info);
 					this.mapHelper.addClickEvent(marker, html);
 					marker.openInfoWindowHtml(html);

@@ -1,12 +1,12 @@
 <div class="content">
 	<form action="/account/create/<%= @type %>" method="post" accept-charset="utf-8">
-		<label for="real_name"><%= _('Name') %></label>
-		<input type="text" name="real_name" value="<%= flash[:real_name] %>" id="real_name" />
+		<label for="real_name"><%= _('Name') %> <%= flash[:error_account_name] %></label>
+		<input type="text" name="real_name" value="<%= flash[:account_real_name] %>" id="real_name" />
 
-		<label for="email"><%= _('E-Mail') %></label>
-		<input type="text" name="email" value="<%= flash[:email] %>" id="email" />
+		<label for="email"><%= _('E-Mail') %> <%= flash[:error_account_email] %></label>
+		<input type="text" name="email" value="<%= flash[:account_email] %>" id="email" />
 
-		<label for="password"><%= _('Password') %></label>
+		<label for="password"><%= _('Password') %> <%= flash[:error_account_password] %></label>
 		<input type="password" name="password" value="" id="password" />
 
 		<label for="password_confirmation"><%= _('Password') %></label>

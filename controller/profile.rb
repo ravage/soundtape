@@ -58,7 +58,7 @@ class ProfileController < Controller
        redirect ProfileController.r(:view, user.alias)
      else
        prepare_flash(:errors => profile.errors, :prefix => 'profile')
-       redirect r(:url_alias)
+       redirect_referer
      end
   end
   

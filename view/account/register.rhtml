@@ -1,4 +1,3 @@
 <div class="content">
-
-	<!-- render_template('../partials/form_register') -->
+	<%= render_view(action.name){|action| action.view = 'view/partials/form_register.rhtml' } %>
 </div>

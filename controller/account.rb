@@ -8,25 +8,26 @@ class AccountController < Controller
   
   def create(type = nil)
     redirect :/ unless valid_user_type(type) && request.post?
-  
+
     if request.post?
-       klass = get_klass(type)
-       klass = klass.prepare(request.params)
-       request[:real_name].strip!
-       if klass.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
-         begin
-           klass.save 
-           Profile[:user_id => klass.id_].update(:real_name => request[:real_name])
-         rescue Sequel::DatabaseError => e
-           oops(r(:create), e)
-         end
-         send_activation_mail(klass)
-         flash[:success] = _('successfully created account')
-       else
-         flash[:email]     = request[:email]
-         flash[:real_name] = request[:real_name]
-       end
-     end
+      klass = get_klass(type)
+      klass = klass.new
+      klass.prepare(request.params)
+      request[:real_name].strip!
+      if klass.valid? && !request[:real_name].empty? && request[:real_name].length > 3 && request[:real_name].length < 100
+        begin
+          klass.save 
+          Profile[:user_id => klass.id_].update(:real_name => request[:real_name])
+        rescue Sequel::DatabaseError => e
+          oops(r(:create), e)
+        end
+        send_activation_mail(klass)
+        flash[:success] = _('successfully created account')
+      else
+        prepare_flash(:errors => klass.errors, :prefix => 'account')
+        redirect_referer
+      end
+    end
   end
   
   def login
@@ -40,6 +41,22 @@ class AccountController < Controller
       end
     end
   end
+  
+  def update_password
+    redirect_referer unless request.post? && logged_in?
+    begin
+      user.update_password(request)
+    rescue Sequel::DatabaseError => e
+      oops(r(:update_password), e)
+    end
+    
+    if user.valid?
+      redirect ProfileController.r(:view, user.alias)
+    else
+      prepare_flash(:errors => user.errors, :prefix => 'account')
+      redirect_referer
+    end
+  end
 
   def index
     redirect r(:login) unless logged_in?
@@ -49,7 +66,7 @@ class AccountController < Controller
   
   def activate(key = nil)
     redirect :/ if key.nil? || key.empty?
-    if User.activate(key)
+    if ::User.activate(key)
       flash[:active] = true
     else
       flash[:active] = false
@@ -61,7 +78,7 @@ class AccountController < Controller
   def send_activation_mail(userds)
     msg = _('Please activate your account')
     msg += "\nhttp://localhost:7000#{r(:activate)}/#{userds.activation_key}"
-    ret = Thread.new do
+    Ramaze.defer do
       begin
         Ramaze::EmailHelper.send(userds.email, _('Account Activation'), msg)
       rescue Exception => e

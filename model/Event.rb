@@ -1,25 +1,18 @@
 class Event < Sequel::Model(:events)
-  extend Ramaze::Helper::Utils
-  self.raise_on_save_failure = false
+  include Ramaze::Helper::Utils
   many_to_one :agenda, :join_table => :agendas, :class => :Agenda
-  self.plugin(:validation_class_methods)
   
-  validations.clear
-  validates do
-    presence_of     :name, :local, :building, :when
-    numericality_of :price
-    length_of       :name, :local, :building, :within => 3..100
+  def validate
+    validates_presence      [:name, :local, :building, :when]
+    validates_numeric       :price
+    validates_length_range  3..100, [:name, :local, :building]
     
-    each :flyer_path do |validation, field, value|
-      validation.errors[field] << 'not an image' if value == 'NAI'
-    end
-    
-    each :when do |validation, field, value|
-      validation.errors[field] << 'should be in the future' unless value > Time.now
-    end
+    errors.add(:flyer_path, 'not an image') if flyer_path == 'NAI'
+    errors.add(:when, 'should be in the future') unless self.when > Time.now 
   end
   
-  def self.prepare_insert(params, user)
+  
+  def prepare(params, user)
     @user = user
     
     date_time = "#{params[:year]}-#{params[:month]}-#{params[:day]} #{params[:hour]}:#{params[:minute]}:00"
@@ -34,55 +27,21 @@ class Event < Sequel::Model(:events)
       end
     end
 
-    event = self.new(
-      :name         => params[:name],
-      :description  => params[:description],
-      :local        => params[:location],
-      :latitude     => params[:latitude],
-      :longitude    => params[:longitude],
-      :building     => params[:building],
-      :when         => date_time,
-      :price        => params[:price],
-      :flyer_path   => original || nil,
-      :flyer_thumb  => thumb || nil,
-      :currency_id  => params[:currency],
-      :user_id      => user.id_)
-    
-    return event
-  end
-  
-  def prepare_update(params, user)
-    @user = user
-    date_time = "#{params[:year]}-#{params[:month]}-#{params[:day]} #{params[:hour]}:#{params[:minute]}:00"
-    if(params[:flyer])
-      flyer = upload(params[:flyer], @user)
-      if(flyer.respond_to?(:map!))
-        flyer.map! { |file| file = File.basename(file) }
-        original, thumb =  *flyer
-      else
-        original = thumb = flyer
-      end
-    end
-
-    update(
-      :name         => params[:name],
-      :description  => params[:description],
-      :local        => params[:location],
-      :latitude     => params[:latitude],
-      :longitude    => params[:longitude],
-      :building     => params[:building],
-      :when         => date_time,
-      :price        => params[:price],
-      :flyer_path   => original || flyer_path,
-      :flyer_thumb  => thumb || flyer_thumb,
-      :currency_id  => params[:currency])
+    self.name         = params[:name]
+    self.description  = params[:description]
+    self.local        = params[:location]
+    self.latitude     = params[:latitude]
+    self.longitude    = params[:longitude]
+    self.building     = params[:building]
+    self.when         = date_time
+    self.price        = params[:price]
+    self.flyer_path   = original || nil
+    self.flyer_thumb  = thumb || nil
+    self.currency_id  = params[:currency]
+    self.user_id      = user.id_
   end
   
   def upload(file_info, user)
-    self.class.upload(file_info, user)
-  end
-  
-  def self.upload(file_info, user)
     upload = SoundTape::Helper::Upload.new(file_info)
 
     return nil unless upload.is_uploaded?
@@ -99,7 +58,7 @@ class Event < Sequel::Model(:events)
     return [original, thumb]
   end
 
-  def self.create_thumbnail(path)
+  def create_thumbnail(path)
     thumb = SoundTape::Helper::ImageResize.new(path)
     thumb.extend(SoundTape::Helper::ImageResize::ImageScience)
 

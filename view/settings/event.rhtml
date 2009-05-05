@@ -14,7 +14,7 @@
 			<span class="example"><%= _('Ex: Concert to myself') %></span>
 			
 			<label for="local"><%= _('Local') %> <%= flash[:error_event_local] %></label>
-			<input type="text" name="location" value="<%= flash[:error] ? flash[:event_local] : @event.local %>" maxlength="100" />
+			<input type="text" name="location" value="<%= flash[:error] ? flash[:event_location] : @event.local %>" maxlength="100" />
 			<input type="button" name="search" value="<%= _('Search') %>" /> 
 			<span class="example"><%= _('Ex: 500 E Cesar Chavez St, Austin, Texas') %></span>
 			

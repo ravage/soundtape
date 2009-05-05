@@ -23,7 +23,8 @@ DB = Sequel.mysql(SoundTape.options.Database.name,
   :host     => SoundTape.options.Database.host, 
   :socket   => SoundTape.options.Database.socket, 
   :charset  => SoundTape.options.Database.charset)
-  
+
+Ramaze::Log.warn SoundTape.options.Email.host
 Ramaze::EmailHelper.trait(
   :smtp_server      => SoundTape.options.Email.host,
   :smtp_helo_domain => SoundTape.options.Email.hello,
@@ -31,8 +32,11 @@ Ramaze::EmailHelper.trait(
   :smtp_password    => SoundTape.options.Email.password,
   :sender_full      => SoundTape.options.Email.from,
   :subject_prefix   => SoundTape.options.Email.prefix)
-  
-DB.loggers << Logger.new($stdout)
+
+
+Sequel::Model.raise_on_save_failure = false
+Sequel::Model.plugin(:validation_helpers)
+DB.loggers << Logger.new('sql.output')
 
 require 'data/countries'
 require 'data/languages'

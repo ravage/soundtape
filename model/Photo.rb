@@ -1,17 +1,11 @@
 class Photo < Sequel::Model(:user_photos)
   include Ramaze::Helper::Utils
   
-  self.raise_on_save_failure = false
-  self.plugin(:validation_class_methods)
-  
   many_to_one :user, :join_table => :users, :class => :User
   
-  validations.clear
-  validates do
-    presence_of :photo_path, :thumb_path
-    each :photo_path do |validation, field, value|
-      validation.errors[field] << 'not an image' if value == 'NAI' || value.nil?
-    end
+  def validate
+    validates_presence  [:photo_path, :thumb_path]
+    errors.add(:photo_path, 'not an image') if photo_path == 'NAI' || photo_path.nil?
   end
   
   def prepare(params, user)

@@ -25,7 +25,7 @@ class AgendaController < Controller
 
     redirect :/ if event.nil?
 
-    event.prepare_update(request, user)
+    event.prepare(request, user)
 
     if event.valid?
       begin

@@ -1,57 +1,38 @@
 class User < Sequel::Model(:users)
-  self.raise_on_save_failure = false
-  self.plugin(:validation_class_methods)
   self.plugin(:single_table_inheritance, :user_type)
   self.set_dataset(dataset.filter({:user_type => name}))
 
   one_to_many :profiles, :unique => true, :join_table => :profiles, :class => :Profile
   one_to_many :photos, :join_table => :photos, :class => :Photo
 
-  validations.clear
-  validates do
-    uniqueness_of   :email
-    presence_of     :email, :password
-    format_of       :email, :with => /^[a-zA-Z]([.]?([[:alnum:]_-]+)*)?@([[:alnum:]\-_]+\.)+[a-zA-Z]{2,4}$/
-  end
-
-  attr_accessor :password_confirmation
-
-  def self.prepare(values)
-
-    user = self.new(
-      :email                  => values['email'],
-      :password               => encrypt(values['password']),
-      :password_confirmation  => encrypt(values['password_confirmation']),
-      :activation_key         => encrypt(values['email']).slice(1..64)
-    )
-    return user
+  def validate
+    if changed_columns.include?(:email) || new?
+      validates_presence  [:email, :name]
+      errors.add(:email, 'is already taken') if DB['SELECT * FROM users WHERE email = ?', email].count == 1
+      validates_format    /^[a-zA-Z]([.]?([[:alnum:]_-]+)*)?@([[:alnum:]\-_]+\.)+[a-zA-Z]{2,4}$/, :email
+    end    
+    
+    if changed_columns.include?(:password) || new?
+      errors.add(:password, 'is not present') if encrypt('') == password
+      errors.add(:password, 'mismatch') if password_confirmation != password
+    end
   end
   
-  def update_password
-    #TODO implement in the controller
-    # if request[:password] != request[:password_confirmation]
-    #      flash[:error_profile_password] = _('Passwords mismatch')
-    #      redirect r(:password)
-    #    elsif request[:password].strip.empty?
-    #      flash[:error_profile_password] = _('Password required')
-    #      redirect r(:password)
-    #    elsif request[:password].length < 6
-    #      flash[:error_profile_password] = _('Passwords too short')
-    #      redirect r(:password)
-    #    end
+  attr_accessor :password_confirmation, :name
 
-    # begin
-    #       user.update_password(request)
-    #     rescue Sequel::DatabaseError => e
-    #       oops(r(:update_password), e)
-    #     end
-    #     
-    #     if user.valid?
-    #       redirect ProfileController.r(view, user.alias)
-    #     else
-    #       prepare_flash(:errors => user.errors, :prefix => 'profile')
-    #       redirect r(:password)
-    #     end
+  def prepare(values)
+    self.email                  = values['email']
+    self.password               = encrypt(values['password'])
+    self.password_confirmation  = encrypt(values['password_confirmation'])
+    self.activation_key         = encrypt(values['email']).slice(1..64)
+    self.name                   = values['real_name']
+  end
+  
+  def update_password(params)
+    update(
+      :password => encrypt(params[:password]), 
+      :password_confirmation => encrypt(params[:password_confirmation])
+    )
   end
 
   def self.authenticate(credentials)

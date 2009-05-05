@@ -3,15 +3,11 @@ class Album < Sequel::Model(:albums)
   one_to_many :tracks, :join_table => :tracks, :class => :Track
   many_to_one :band, :join_table => :users, :class => :Band
   many_to_one :category, :join_table => :categories, :class => :Category
-  self.plugin(:validation_class_methods)
-
-  validations.clear
-  validates do
-    presence_of :title
-    length_of   :title, :within => 3..255
-    each :cover do |validation, field, value|
-      validation.errors[field] << 'not an image' if value == 'NAI'
-    end
+  
+  def validate
+    validates_presence :title
+    validates_length_range 3..255, :title
+    errors.add(:cover, 'not an image') if cover == 'NAI'
   end
 
   def prepare(params, user)
