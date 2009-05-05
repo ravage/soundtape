@@ -4,7 +4,7 @@ class SettingsController < Controller
   provide(:json, :type => 'application/json'){ |action, value| value.to_json }
   
   def index
-    redirect Rs(:profile)
+    redirect r(:profile)
   end
   
   def profile

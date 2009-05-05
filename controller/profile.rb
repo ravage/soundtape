@@ -21,7 +21,7 @@ class ProfileController < Controller
     end
     
     if profile.valid? && user.valid?
-      redirect R(ProfileController, :view, user.alias)
+      redirect ProfileController.r(:view, user.alias)
     else
       prepare_flash(:errors => profile.errors.merge(user.errors), :prefix => 'profile')
       redirect SettingsController.r(:profile)
@@ -51,14 +51,14 @@ class ProfileController < Controller
       profile = user.profile
       profile.update_alias(request)
     rescue Sequel::DatabaseError => e
-      oops(Rs(:update_alias), e)
+      oops(r(:update_alias), e)
     end
     
     if profile.valid?
-       redirect R(ProfileController, :view, user.alias)
+       redirect ProfileController.r(:view, user.alias)
      else
        prepare_flash(:errors => profile.errors, :prefix => 'profile')
-       redirect Rs(:url_alias)
+       redirect r(:url_alias)
      end
   end
   
@@ -67,14 +67,14 @@ class ProfileController < Controller
       profile = user.profile
       profile.update_location(request)
     rescue Sequel::DatabaseError => e
-      oops(Rs(:update_location), e)
+      oops(r(:update_location), e)
     end
 
     if profile.valid?
-      redirect R(ProfileController, :view, user.alias)
+      redirect ProfileController.r(:view, user.alias)
     else
       prepare_flash(:errors => profile.errors, :prefix => 'profile')
-      redirect Rs(:location)
+      redirect r(:location)
     end
   end
   
@@ -86,7 +86,7 @@ class ProfileController < Controller
       begin
         user.add_photo(photo)
       rescue Sequel::DatabaseError => e
-        oops(Rs(:upload_photo), e)
+        oops(r(:upload_photo), e)
       end
     else
       prepare_flash(:errors => photo.errors, :prefix => 'profile')

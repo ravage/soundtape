@@ -2,12 +2,12 @@ class AccountController < Controller
   helper :utils, :user, :aspect
   
   def register(type = nil)
-    redirect Rs(:register, :user) unless valid_user_type(type)
+    redirect r(:register, :user) unless valid_user_type(type)
     @type = get_klass(type).name.downcase
   end
   
   def create(type = nil)
-    redirect R(:/) unless valid_user_type(type) && request.post?
+    redirect :/ unless valid_user_type(type) && request.post?
   
     if request.post?
        klass = get_klass(type)
@@ -18,7 +18,7 @@ class AccountController < Controller
            klass.save 
            Profile[:user_id => klass.id_].update(:real_name => request[:real_name])
          rescue Sequel::DatabaseError => e
-           oops(Rs(:create), e)
+           oops(r(:create), e)
          end
          send_activation_mail(klass)
          flash[:success] = _('successfully created account')
@@ -42,7 +42,7 @@ class AccountController < Controller
   end
 
   def index
-    redirect Rs(:login) unless logged_in?
+    redirect r(:login) unless logged_in?
     
     @user = user
   end
@@ -60,7 +60,7 @@ class AccountController < Controller
   
   def send_activation_mail(userds)
     msg = _('Please activate your account')
-    msg += "\nhttp://localhost:7000#{Rs(:activate)}/#{userds.activation_key}"
+    msg += "\nhttp://localhost:7000#{r(:activate)}/#{userds.activation_key}"
     ret = Thread.new do
       begin
         Ramaze::EmailHelper.send(userds.email, _('Account Activation'), msg)

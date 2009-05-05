@@ -1,4 +1,12 @@
 /**
+* @name        SoundTape Google Maps Helper Classes
+* @description Provide abstraction to Google Maps Geocoding and other functionality
+* @author      Rui Miguel <ravage@fragmentized.net>
+* @required    MooTools (http://mootools.net/)
+* @web         http://www.fragmentized.net
+*/
+
+/**
 * A wrapper around Google Maps geocoding capabilities.
 * It allows easy integration of geocoding and reverse geocoding.
 * There is some marker functionality and event attachment.

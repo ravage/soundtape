@@ -28,30 +28,30 @@ class User < Sequel::Model(:users)
   end
   
   def update_password
-    #FIXME: should go into Model?
-    if request[:password] != request[:password_confirmation]
-      flash[:error_profile_password] = _('Passwords mismatch')
-      redirect Rs(:password)
-    elsif request[:password].strip.empty?
-      flash[:error_profile_password] = _('Password required')
-      redirect Rs(:password)
-    elsif request[:password].length < 6
-      flash[:error_profile_password] = _('Passwords too short')
-      redirect Rs(:password)
-    end
+    #TODO implement in the controller
+    # if request[:password] != request[:password_confirmation]
+    #      flash[:error_profile_password] = _('Passwords mismatch')
+    #      redirect r(:password)
+    #    elsif request[:password].strip.empty?
+    #      flash[:error_profile_password] = _('Password required')
+    #      redirect r(:password)
+    #    elsif request[:password].length < 6
+    #      flash[:error_profile_password] = _('Passwords too short')
+    #      redirect r(:password)
+    #    end
 
-    begin
-      user.update_password(request)
-    rescue Sequel::DatabaseError => e
-      oops(Rs(:update_password), e)
-    end
-
-    if user.valid?
-      redirect R(ProfileController, :view, user.alias)
-    else
-      prepare_flash(:errors => user.errors, :prefix => 'profile')
-      redirect Rs(:password)
-    end
+    # begin
+    #       user.update_password(request)
+    #     rescue Sequel::DatabaseError => e
+    #       oops(r(:update_password), e)
+    #     end
+    #     
+    #     if user.valid?
+    #       redirect ProfileController.r(view, user.alias)
+    #     else
+    #       prepare_flash(:errors => user.errors, :prefix => 'profile')
+    #       redirect r(:password)
+    #     end
   end
 
   def self.authenticate(credentials)
