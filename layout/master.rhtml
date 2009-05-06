@@ -5,13 +5,6 @@
 <head>
 	<link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 	<link rel="stylesheet" href="/css/master.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-	<script src="/js/mootools-1.2.2-core-yc.js" type="text/javascript"></script>
-	<script src="/js/soundtape.js" type="text/javascript"></script>
-	
-	<% if actions.first.name == 'location' || actions.first.name == 'event' %>
-	<script src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQFTizf9MzXXYBNRffHgfAjFLU99w"></script>
-	<script type="text/javascript" charset="utf-8" src="/js/location.js"></script>
-	<% end %>
 	
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>master</title>
@@ -41,5 +34,12 @@
 			footer
 		</div>
 	</div>
+	<script src="/js/mootools-1.2.2-core-yc.js" type="text/javascript"></script>
+	<script src="/js/soundtape.js" type="text/javascript"></script>
+	
+	<% if actions.first.name == 'location' || actions.first.name == 'event' %>
+	<script src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQFTizf9MzXXYBNRffHgfAjFLU99w"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/location.js"></script>
+	<% end %>
 </body>
 </html>
