@@ -97,8 +97,8 @@ CREATE TABLE albums (
 	title		VARCHAR(255) NOT NULL,
 	user_id		INT UNSIGNED NOT NULL,
 	category_id	INT UNSIGNED NOT NULL,
-	cover		VARCAHR(60) NULL,
-	cover_thumb	VARCAHR(60) NULL,
+	cover		VARCHAR(60) NULL,
+	cover_thumb	VARCHAR(60) NULL,
 	
 	PRIMARY KEY	(id),
 	INDEX		(user_id),
@@ -114,30 +114,6 @@ CREATE TABLE band_elements (
 	PRIMARY KEY	(user_id, element_id),
 	FOREIGN	KEY	(user_id) REFERENCES users(id) ON DELETE CASCADE,
 	FOREIGN KEY (element_id) REFERENCES users(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE events (
-	id				INT UNSIGNED AUTO_INCREMENT,
-	name			VARCHAR(100) NOT NULL,
-	description		LONGTEXT NOT NULL,
-	agenda_id		INT UNSIGNED NOT NULL,
-	user_id			INT UNSIGNED NOT NULL,
-	local			VARCHAR(100) NULL,
-	building		VARCHAR(100) NULL,
-	longitude		DOUBLE NULL,
-	latitude		DOUBLE NULL,
-	when			DATETIME NULL,
-	price			DECIMAL NULL,
-	flyer_path		VARCHAR(100) NULL,
-	flyer_thumb		VARCHAR(100) NULL,
-	currency_id		INT UNSIGNED NOT NULL,
-	
-	PRIMARY KEY		(id),
-	INDEX			(agenda_id),
-	INDEX			(currency_id),
-	FOREIGN KEY		(agenda_id)	REFERENCES agendas(id) ON DELETE CASCADE
-	FOREIGN KEY		(currency_id) REFERENCES currencies(ref_id) ON DELETE CASCADE
-	
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE mailing_list_messages (
@@ -202,6 +178,30 @@ CREATE TABLE currencies (
 	INDEX		(ref_id),
 	FOREIGN KEY (language_id) REFERENCES languages(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE events (
+	id				INT UNSIGNED AUTO_INCREMENT,
+	name			VARCHAR(100) NOT NULL,
+	description		LONGTEXT NOT NULL,
+	agenda_id		INT UNSIGNED NOT NULL,
+	user_id			INT UNSIGNED NOT NULL,
+	local			VARCHAR(100) NULL,
+	building		VARCHAR(100) NULL,
+	longitude		DOUBLE NULL,
+	latitude		DOUBLE NULL,
+	`when`			DATETIME NULL,
+	price			DECIMAL NULL,
+	flyer_path		VARCHAR(100) NULL,
+	flyer_thumb		VARCHAR(100) NULL,
+	currency_id		INT UNSIGNED NOT NULL,
+	
+	PRIMARY KEY		(id),
+	INDEX			(agenda_id),
+	INDEX			(currency_id),
+	FOREIGN KEY		(agenda_id)	REFERENCES agendas(id) ON DELETE CASCADE,
+	FOREIGN KEY		(currency_id) REFERENCES currencies(ref_id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE months (
 	id			INT UNSIGNED AUTO_INCREMENT,
