@@ -1,0 +1,2 @@
+#!/bin/sh
+thin -C /etc/thin/soundtape.yaml
