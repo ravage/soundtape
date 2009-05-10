@@ -2,7 +2,7 @@
 soundtape.db
 options.rb
 /public/uploads
-/public/images
+/public/system
 sql.output
 start.rb
 live_options.rb
