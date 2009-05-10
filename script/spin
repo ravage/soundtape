@@ -1,2 +1,2 @@
 #!/bin/sh
-thin -C /etc/thin/soundtape.yaml
+thin -C /etc/thin/soundtape.yaml start
