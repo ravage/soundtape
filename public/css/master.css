@@ -221,6 +221,7 @@ body#agenda li.agenda, body#event li.agenda
 	margin: 1px 0 0 1px;
 	float: left;
 	width: 100px;
+	height: 100px;
 	padding: 3px;
 	background: #000;
 }
@@ -311,4 +312,8 @@ div.in a {
 #map_wrapper {
 	height:300px; 
 	border: 2px solid #ccc;
+}
+
+.album, .event {
+	overflow: auto;
 }

@@ -68,7 +68,7 @@ class User < Sequel::Model(:users)
     return User[:id => params[:key]] if params[:type] == SoundTape.options.Constant.user_types[:user]
     return nil
   end
-
+  
   def alias
     return profile.user_alias
   end

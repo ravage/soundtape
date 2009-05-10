@@ -4,3 +4,5 @@ options.rb
 /public/uploads
 /public/images
 sql.output
+start.rb
+config.ru

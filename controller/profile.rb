@@ -4,11 +4,12 @@ class ProfileController < Controller
   def view(userid = session[:user_alias])
     redirect :/ if userid.nil?
     @user = Profile.by_id_or_alias(userid)
-    
     @agenda = @user.agenda if @user.respond_to?(:agenda)
+    @albums = @user.albums if @user.respond_to?(:albums)
+    @profile = @user.profile if @user.respond_to?(:profile)
+    @photos = @user.photos
     #TODO redirect to not found
     redirect :/ if @user.nil?
-    
   end
   
   def update_profile

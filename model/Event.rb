@@ -109,6 +109,10 @@ class Event < Sequel::Model(:events)
     return link_path(flyer_thumb)
   end
   
+  def seo
+    name.gsub(/\s/, '-')
+  end
+  
   def id_
     return id
   end
@@ -123,7 +127,7 @@ class Event < Sequel::Model(:events)
       :latitude     => latitude,
       :when         => self.when,
       :price        => price,
-      :thumb        => thumb
+      :thumb        => thumbnail
     }.to_json
   end
 end

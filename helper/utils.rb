@@ -20,7 +20,7 @@ module Ramaze
       end
       
       def settings?
-        return action.instance.kind_of?(SettingsController)
+        return action.instance.kind_of?(SettingsController) && logged_in?
       end
       
       def get_or_create_avatar_dir(user_id)

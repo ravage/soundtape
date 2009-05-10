@@ -1,30 +1,81 @@
-<% @user.profiles.each do |profile| %>
-	<p><%= _('Name') %>
-	<%== profile.real_name %></p>
-	
-	<p><%= _('Alias') %>
-	<%== profile.user_alias %></p>
-
-	<p><%= _('Photo') %>
-	<%== profile.photo_big %></p>
-
-	<p><%= _('Country') %>
-	<%== profile.location %></p>
-
-	<p><%= _('E-Mail') %>
-	<%== @user.email %></p>
-	
-	<p><%= _('Bio') %>
-	<%== profile.bio %></p>
+<% if user.email == @user.email %>
+	<div class="content">
+		<p>Welcome back <%== @profile.real_name %>, you may wish to <a href="<%= SettingsController.r(:profile) %>">change your profile</a>.</p>
+	</div>
 <% end %>
 
-<% if @agenda %>
-	<p><%= _('Agenda') %>
-	<%== @agenda.description %></p>
+<div class="content">
+	<div style="float: left;">
+		<p><%= _('Band') %>: 
+		<%== @profile.real_name %></p>
+
+		<p><%= _('Permalink') %>:
+		<a href="<%= ProfileController.r(:view, @user.id_) %>"><%== @profile.real_name %></a></p>
+
+		<p><%= _('Location') %>:
+		<%== @profile.location %></p>
+
+		<p><%= _('Bio') %>:</p>
+		<p><%== @user.profile.bio %></p>
+	</div>
 	
-	<%= _('Events') %>
-	<% @agenda.events.each do |event| %>
-		<p><%== event.name %>
-		<%== event.description %></p>
+	<div style="float: right;">
+		<img src="<%== @user.profile.avatar_big %>" alt="Avatar" />
+	</div>
+</div>
+
+<% if @user.instance_of?(Band) %>
+<div class="content">
+	<% @albums.each do |album| %>
+	<div class="album">
+		<div style="margin-right: 10px; float: left;">
+			<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
+		</div>
+		<ul>
+			<li><%== album.title %> (<%== album.category %>)
+			<% album.tracks.each do |track| %>
+				<li><%== track.title %></li>
+			<% end %>
+			</li>
+		</ul>
+	</div>
 	<% end %>
+</div>
+
+<div class="content">
+	<% @agenda.upcoming_events.each do |event| %>
+		<div class="event">
+			<div style="float: left; margin-right: 10px;">
+				<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
+			</div>
+			<ul>
+				<li><%= event.name %>
+					<span style="float: right;"><a href="<%= AgendaController.r(:event, @user.alias, event.seo) %>"><%= _('More') %></a></span>
+					<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
+					<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
+					<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
+				</li>
+			</ul>
+		</div>
+	<% end %>
+</div>
 <% end %>
+
+<div class="content">
+	<% @photos.each do |photo| %>
+		<div class="out">
+			<a href="<%== photo.photo %>"><img src="<%== photo.thumbnail %>" alt="<%= photo.title %>"/></a>
+		</div>
+	<% end %>
+</div>
+
+<div class="content">
+	Map with band location and upcoming events
+	<div class="map_wrapper">
+		<noscript>
+			<p style="position:relative; top:50%; text-align: center; vertical-align: middle;">
+				<%= _('Enable javascript to get map functionality!') %>
+			</p>
+		</noscript>
+	</div>
+</div>

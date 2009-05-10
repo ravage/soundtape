@@ -42,6 +42,11 @@ class AccountController < Controller
     end
   end
   
+  def logout
+    user_logout
+    session.clear
+  end
+  
   def update_password
     redirect_referer unless request.post? && logged_in?
     begin

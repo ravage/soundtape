@@ -1,6 +1,9 @@
 class AgendaController < Controller
   helper :user, :aspect, :utils
   
+  def event(user_id = nil, event_id = nil)
+  end
+  
   def update_agenda
     redirect :/ unless user.respond_to?(:agenda)
       
