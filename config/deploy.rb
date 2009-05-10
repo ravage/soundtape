@@ -6,10 +6,10 @@ set :deploy_via, :remote_cache
 server 'soundtape.net', :app, :web
 set :use_sudo, false
 
-after 'deploy', 'options'
+after 'deploy:symlink', 'options'
 
 task :options do
-  system("scp options.rb ravage@soundtape.net:/#{deploy_to}/current/.")
+  system("scp live_options.rb ravage@soundtape.net:/#{deploy_to}/current/options.rb")
 end
 
 namespace :deploy do
