@@ -5,4 +5,3 @@ options.rb
 /public/images
 sql.output
 start.rb
-config.ru
