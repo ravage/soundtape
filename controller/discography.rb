@@ -1,6 +1,7 @@
 class DiscographyController < Controller
   helper :utils, :user
   def create_album
+    @title = _('Create Album')
     album = Album.new
     album.prepare(request, user)
     if album.valid?
@@ -16,6 +17,7 @@ class DiscographyController < Controller
   end
   
   def update_album
+    @title = _('Update Album')
     redirect SettingsController.r(:discography) unless request.params.has_key?('album_id')
     album = user.album(request[:album_id])
     redirect SettingsController(:discography) if album.nil?
@@ -33,6 +35,7 @@ class DiscographyController < Controller
   end
   
   def create_track
+    @title = _('Create Track')
     track = Track.new
     track.prepare(request, user)
     if track.valid?
@@ -51,6 +54,7 @@ class DiscographyController < Controller
   end
   
   def update_track
+    @title = _('Update Track')
     redirect SettingsController.r(:discography) unless request.params.has_key?('track_id')
     track = user.track(request[:track_id])
     redirect SettingsController(:discography) if track.nil?
@@ -69,6 +73,7 @@ class DiscographyController < Controller
   end
   
   def delete_track(track_id = nil)
+    @title = _('Delete Track')
     redirect SettingsController.r(:discography) if track_id.nil?
     track = user.track(track_id)
     track.delete
@@ -76,6 +81,7 @@ class DiscographyController < Controller
   end
   
   def delete_album(album_id = nil)
+    @title = _('Delete Album')
      redirect SettingsController.r(:discography) if album_id.nil?
      album = user.album(album_id)
      album.delete

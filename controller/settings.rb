@@ -4,40 +4,49 @@ class SettingsController < Controller
   provide(:json, :type => 'application/json'){ |action, value| value.to_json }
   
   def index
+    @title = _('Settings')
     redirect r(:profile)
   end
   
   def profile
+    @title = _('Profile')
     @user = user
     @profile = user.profile
   end
   
   def avatar
+    @title = _('Avatar')
     @profile = user.profile
   end
   
   def password
+    @title = _('Password')
     @profile = user.profile
   end
   
   def notifications
+    @title = _('Notifications')
     @profile = user.profile
   end
   
   def url_alias
+    @title = _('URL Alias')
     @profile = user.profile
   end
   
   def location
+    @title = _('Location')
     @profile = user.profile
   end
   
   def agenda
+    @title = _('Agenda')
     @agenda = user.agenda
     @events = user.agenda.events
   end
   
   def event(event_id = nil)
+    @title = _('Event')
     if event_id.nil?
       @action = 'create_event'
       @event = Event.new
@@ -51,10 +60,12 @@ class SettingsController < Controller
   end
   
   def discography
+    @title = _('Discography')
     @albums = user.albums
   end
   
   def album(album_id = nil)
+    @title = _('Album')
     if album_id.nil?
       @action = 'create_album'
       @album = Album.new
@@ -67,6 +78,7 @@ class SettingsController < Controller
   end
 
   def track(track_id = nil)
+    @title = _('Track')
     if track_id.nil?
       @action = 'create_track'
       @track = Track.new
@@ -79,17 +91,20 @@ class SettingsController < Controller
   end
   
   def elements
-    
+    @title = _('Elements')
   end
   
   def delete
+    @title = _('Delete')
   end
   
   def photos
+    @title = _('Photos')
     @photos = user.photos
   end
   
   def photo(photo_id = nil)
+    @title = _('Photo')
     redirect_referer if photo_id.nil?
     @photo = user.photo(photo_id)
     redirect_referer if @photo.nil?

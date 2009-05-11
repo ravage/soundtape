@@ -2,9 +2,11 @@ class AgendaController < Controller
   helper :user, :aspect, :utils
   
   def event(user_id = nil, event_id = nil)
+    @title = _('Event')
   end
   
   def update_agenda
+    @title = _('Update Agenda')
     redirect :/ unless user.respond_to?(:agenda)
       
     agenda = user.agenda
@@ -23,7 +25,7 @@ class AgendaController < Controller
   end
   
   def update_event
-    Ramaze::Log.warn "ID: " + request[:event_id]
+    @title = _('Update Event')
     event = user.agenda.event(request[:event_id])
 
     redirect :/ if event.nil?
@@ -44,6 +46,7 @@ class AgendaController < Controller
   end
   
   def create_event
+    @title = _('Create Event')
     event = Event.prepare_insert(request, user)
     if event.valid?
       begin
@@ -59,6 +62,7 @@ class AgendaController < Controller
   end
   
   def delete_event(event_id = nil)
+    @title = _('Delete Event')
     redirect SettingsController.r(:agenda) if event_id.nil?
     event = user.agenda.event(event_id)
     redirect SettingsController.r(:agenda) if event.nil?

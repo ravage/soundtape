@@ -2,13 +2,15 @@ class AccountController < Controller
   helper :utils, :user, :aspect
   
   def register(type = nil)
+    @title = _('Register')
     redirect r(:register, :user) unless valid_user_type(type)
     @type = get_klass(type).name.downcase
   end
   
   def create(type = nil)
+    @title = _('Create')
     redirect :/ unless valid_user_type(type) && request.post?
-
+    
     if request.post?
       klass = get_klass(type)
       klass = klass.new
@@ -31,6 +33,7 @@ class AccountController < Controller
   end
   
   def login
+    @title = _('Login')
     if request.post?
       if !user_login(request.params)
         flash[:error] = true;
@@ -43,12 +46,14 @@ class AccountController < Controller
   end
   
   def logout
+    @title = _('Logout')
     user_logout
     session.clear
     redirect :/
   end
   
   def update_password
+    @title = _('Update Password')
     redirect_referer unless request.post? && logged_in?
     begin
       user.update_password(request)
@@ -65,12 +70,14 @@ class AccountController < Controller
   end
 
   def index
+    @title = _('Account')
     redirect r(:login) unless logged_in?
     
     @user = user
   end
   
   def activate(key = nil)
+    @title = _('Activate')
     redirect :/ if key.nil? || key.empty?
     if ::User.activate(key)
       flash[:active] = true

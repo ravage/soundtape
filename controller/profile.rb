@@ -2,6 +2,7 @@ class ProfileController < Controller
   helper :user, :utils, :aspect
   
   def view(userid = session[:user_alias])
+    @title = _('Profile')
     redirect :/ if userid.nil?
     @user = Profile.by_id_or_alias(userid)
     @agenda = @user.agenda if @user.respond_to?(:agenda)
@@ -13,6 +14,7 @@ class ProfileController < Controller
   end
   
   def update_profile
+    @title = _('Update Profile')
     begin
       profile = user.profile
       profile.update_profile(request)
@@ -30,6 +32,7 @@ class ProfileController < Controller
   end
   
   def update_avatar
+    @title = _('Update Avatar')
     pp request
     begin
       profile = user.profile
@@ -48,6 +51,7 @@ class ProfileController < Controller
   end
   
   def update_alias
+    @title = _('Update Alias')
     begin
       profile = user.profile
       profile.update_alias(request)
@@ -64,6 +68,7 @@ class ProfileController < Controller
   end
   
   def update_location
+    @title = _('Update Location')
     begin
       profile = user.profile
       profile.update_location(request)
@@ -80,6 +85,7 @@ class ProfileController < Controller
   end
   
   def upload_photo
+    @title = _('Upload Photo')
     photo = Photo.new
     photo.prepare(request, user)
 
@@ -97,6 +103,7 @@ class ProfileController < Controller
   end
   
   def update_photo
+    @title = _('Update Photo')
     redirect_referer unless request.params.has_key?('photo_id')
     photo = user.photo(request[:photo_id])
     redirect_referer if photo.nil?
@@ -109,6 +116,7 @@ class ProfileController < Controller
   end
   
   def delete_photo(photo_id = nil)
+    @title = _('Delete Photo')
     redirect_referer if photo_id.nil?
     photo = user.photo(photo_id)
     redirect_referer if photo.nil?

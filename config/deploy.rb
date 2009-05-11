@@ -14,11 +14,11 @@ end
 
 namespace :deploy do
   task :start, :roles => [:web, :app] do
-    run "thin -C /etc/thin/soundtape.yml start" 
+    sudo "thin -C /etc/thin/soundtape.yml start" 
   end
   
   task :stop, :roles => [:web, :app] do
-    run "thin -C /etc/thin/soundtape.yml stop" 
+    sudo "thin -C /etc/thin/soundtape.yml stop" 
   end
   
   task :restart, :roles => [:web, :app] do
