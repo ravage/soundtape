@@ -14,6 +14,7 @@ include GetText
 #Locale.default = "en"
 #puts Ramaze::Global.public_root
 #pp Ramaze.options.roots
+Ramaze.options.cache.session = Ramaze::Cache::MemCache
 
 require 'options'
 
@@ -58,5 +59,6 @@ Ramaze::acquire 'model/*'
 # any other working path
 $LOAD_PATH.unshift(__DIR__)
 
+Ramaze.options.cache.session = Ramaze::Cache::MemCache
 #Ramaze.start :adapter => :webrick, :port => 7000
 

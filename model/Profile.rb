@@ -106,7 +106,6 @@ class Profile < Sequel::Model(:profiles)
   
   def avatar_big
     default = SoundTape.options.Constant.avatar_default_big
-    Ramaze::Log.warn default
     if use_gravatar
       return gravatar(gravatar_email, :size => SoundTape.options.Constant.avatar_big_size, :default => default)
     else

@@ -12,10 +12,11 @@
 <body id="<%= actions.first.name %>">
 	<div id="wrapper">
 		<div id="header">
-			<!--header content-->
+			<img class="alpha" src="/imgs/alpha.png" alt="Alpha Version" title="Alpha Version" />
 		</div>
 		<div id="top_menu">
 			<ul>
+				<li><a href="/"><span><%= _('Home') %></a></span></li>
 				<% unless logged_in? %>
 				<li class="first"><a href="<%= AccountController.r(:register, 'band') %>"><span><%= _('Register as Band') %></span></a></li>
 				<li><a href="<%= AccountController.r(:register, 'user') %>"><span><%= _('Register as User') %></span></a></li>
@@ -40,7 +41,10 @@
 			<%= render_view(actions.first.name){|action| action.view = 'view/partials/sidebar.rhtml'} %>
 		</div>
 		<div id="footer">
-			footer
+			<a href="http://www.soundtape.net/">SoundTape</a> is powered by 
+			<a href="http://www.ramaze.net/">Ramaze</a>
+			| <a href="http://sequel.rubyforge.org/">Sequel</a>
+			| <a href="http://mootools.net/">Mootools</a>
 		</div>
 	</div>
 	

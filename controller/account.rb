@@ -37,7 +37,7 @@ class AccountController < Controller
       else
         session[:user_id] = user.id_
         session[:user_alias] = user.profile.user_alias
-        redirect '/settings/profile'
+        redirect ProfileController.r(:view, user.profile.user_alias)
       end
     end
   end
@@ -45,6 +45,7 @@ class AccountController < Controller
   def logout
     user_logout
     session.clear
+    redirect :/
   end
   
   def update_password

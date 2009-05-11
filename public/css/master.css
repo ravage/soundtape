@@ -58,6 +58,12 @@ label {
 	background-image: url(../imgs/banner.png);
 }
 
+#header .alpha {
+	position: absolute;
+	left: 800px;
+	top: -1px;
+}
+
 /* @top_menu begin */
 #top_menu {
 	overflow: auto;
@@ -128,16 +134,16 @@ label {
 	float: left;
 }
 
-#content_wrapper a {
+#content_wrapper a, #footer a {
 	border-bottom: 1px dotted #e64b1b;
 	text-decoration: none;
 }
 
-#content_wrapper a:visited {
+#content_wrapper a:visited, #footer a:visited {
 	text-decoration: none;
 }
 
-#content_wrapper a:hover {
+#content_wrapper a:hover, #footer a:hover {
 	border-bottom: 1px dotted #ccc;
 }
 
@@ -154,7 +160,8 @@ label {
 /* @content wrappers end */
 
 #footer {
-	height: 50px;
+	text-align: center;
+	font-size: 80%;
 	padding: 10px;
 	background-color: #101010;
 	clear: both;
@@ -224,6 +231,10 @@ body#agenda li.agenda, body#event li.agenda
 	height: 100px;
 	padding: 3px;
 	background: #000;
+}
+
+.out a {
+	border-bottom: none !important;
 }
 
 .out:hover {
