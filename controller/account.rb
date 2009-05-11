@@ -90,7 +90,7 @@ class AccountController < Controller
   
   def send_activation_mail(userds)
     msg = _('Please activate your account')
-    msg += "\nhttp://localhost:7000#{r(:activate)}/#{userds.activation_key}"
+    msg += "\nhttp://www.soundtape.net/#{r(:activate)}/#{userds.activation_key}"
     Ramaze.defer do
       begin
         Ramaze::EmailHelper.send(userds.email, _('Account Activation'), msg)
