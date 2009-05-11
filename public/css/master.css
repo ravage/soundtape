@@ -59,9 +59,9 @@ label {
 }
 
 #header .alpha {
-	position: absolute;
-	left: 800px;
-	top: -1px;
+	position: relative;
+	left: 700px;
+	top: -10px;
 }
 
 /* @top_menu begin */

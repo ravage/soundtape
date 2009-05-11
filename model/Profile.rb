@@ -107,7 +107,7 @@ class Profile < Sequel::Model(:profiles)
   def avatar_big
     default = SoundTape.options.Constant.avatar_default_big
     if use_gravatar
-      return gravatar(gravatar_email, :size => SoundTape.options.Constant.avatar_big_size, :default => default)
+      return gravatar(gravatar_email, :size => SoundTape.options.Constant.avatar_big_size, :default => 'identicon')
     else
       return link_path(photo_big) unless photo_big.nil? || photo_big.empty?
     end
@@ -117,7 +117,7 @@ class Profile < Sequel::Model(:profiles)
   def avatar_small
     default = SoundTape.options.Constant.avatar_default_small
     if use_gravatar
-       return gravatar(gravatar_email, :size => SoundTape.options.Constant.avatar_small_size, :default => default)
+       return gravatar(gravatar_email, :size => SoundTape.options.Constant.avatar_small_size, :default => 'identicon')
      else
        return link_path(photo_small) unless photo_small.nil? || photo_small.empty?
      end
