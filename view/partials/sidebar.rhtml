@@ -29,7 +29,9 @@
 <div class="block">
 	<h3><Dummy Block><%= _('Latest Members') %></h3>
 	<% Profile.limit(9).each do |u| %>
-	<a href="<%== ProfileController.r(:view, u.user_alias) %>"><img style="float: left; padding: 1px;" src="<%== u.avatar_small %>" alt="<%== u.real_name %>" /></a>
+	<div class="out_60">
+		<a href="<%== ProfileController.r(:view, u.user_alias) %>"><img style="float: left; padding: 1px;" src="<%== u.avatar_small %>" alt="<%== u.real_name %>" /></a>
+	</div>
 	<% end %>
 </div>
 

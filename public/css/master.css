@@ -223,6 +223,22 @@ body#agenda li.agenda, body#event li.agenda
 }
 /* @profile_nav end */
 
+
+.out_60 {
+	text-align: center;
+	float: left;
+	border: none;
+}
+
+.out_60 a {
+	border-bottom: none !important;
+}
+
+.out_60:hover {
+	background: #ccc;
+}
+
+
 /* @settings photos begin */
 .out {
 	margin: 1px 0 0 1px;
