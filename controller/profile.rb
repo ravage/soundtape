@@ -23,12 +23,13 @@ class ProfileController < Controller
       oops(r(:update_profile), e)
     end
     
-    if profile.valid? && user.valid?
-      redirect ProfileController.r(:view, user.alias)
-    else
+    unless profile.valid? && user.valid?
       prepare_flash(:errors => profile.errors.merge(user.errors), :prefix => 'profile')
-      redirect SettingsController.r(:profile)
+      flash['error'] = 'There was a problem with your request!'
+    else
+      flash['success'] = 'Profile Settings Saves!'
     end
+    redirect_referer
   end
   
   def update_avatar
@@ -42,12 +43,12 @@ class ProfileController < Controller
     end
 
     if profile.valid?
-      redirect ProfileController.r(:view, user.alias)
+      flash['success'] = 'Avatar Updated'
     else
       prepare_flash(:errors => profile.errors, :prefix => 'profile')
       flash[:profile_use_gravatar] = 1 if request.params.has_key?('use_gravatar')
-      redirect SettingsController.r(:avatar)
     end
+    redirect_referer
   end
   
   def update_alias
@@ -60,11 +61,11 @@ class ProfileController < Controller
     end
     
     if profile.valid?
-       redirect ProfileController.r(:view, user.alias)
+       flash['success'] = 'URL Alias updated!'
      else
        prepare_flash(:errors => profile.errors, :prefix => 'profile')
-       redirect_referer
      end
+     redirect_referer
   end
   
   def update_location
@@ -77,11 +78,11 @@ class ProfileController < Controller
     end
 
     if profile.valid?
-      redirect ProfileController.r(:view, user.alias)
+      flash[:success] = 'Location updated!'
     else
       prepare_flash(:errors => profile.errors, :prefix => 'profile')
-      redirect r(:location)
     end
+    redirect_referer
   end
   
   def upload_photo
@@ -95,11 +96,11 @@ class ProfileController < Controller
       rescue Sequel::DatabaseError => e
         oops(r(:upload_photo), e)
       end
+      flash[:success] = 'Photo uploaded'
     else
       prepare_flash(:errors => photo.errors, :prefix => 'profile')
-      redirect_referer
     end
-    redirect SettingsController.r(:photos)
+    redirect_referer
   end
   
   def update_photo
@@ -112,6 +113,7 @@ class ProfileController < Controller
     rescue Sequel::DatabaseError => e
       oops(r(:update_photo), e)
     end
+    flash[:success] = 'Photo uploaded'
     redirect_referer
   end
   
@@ -121,6 +123,7 @@ class ProfileController < Controller
     photo = user.photo(photo_id)
     redirect_referer if photo.nil?
     photo.sane_delete unless photo.photo_path.nil?
+    flash[:success] = 'Photo deleted'
     redirect_referer
   end
   

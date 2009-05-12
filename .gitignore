@@ -6,3 +6,5 @@ options.rb
 sql.output
 start.rb
 live_options.rb
+/tmp
+/log

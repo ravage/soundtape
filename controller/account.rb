@@ -40,7 +40,7 @@ class AccountController < Controller
       else
         session[:user_id] = user.id_
         session[:user_alias] = user.profile.user_alias
-        redirect ProfileController.r(:view, user.profile.user_alias)
+        redirect(ProfileController.r(:view, user.profile.user_alias), :scheme => 'https', :port => 443)
       end
     end
   end
@@ -62,11 +62,11 @@ class AccountController < Controller
     end
     
     if user.valid?
-      redirect ProfileController.r(:view, user.alias)
+      flash['success'] = 'Password Saved!'
     else
       prepare_flash(:errors => user.errors, :prefix => 'account')
-      redirect_referer
     end
+    redirect_referer
   end
 
   def index
@@ -109,5 +109,5 @@ class AccountController < Controller
     return !SoundTape.options.Constant.user_types.keys.index(type.to_sym).nil?
   end
 
-  before(:activate, :login, :register) {redirect r(:/) if logged_in?}
+  before(:activate, :login, :register) {redirect ProfileController.r(:view, session[:user_alias]) if logged_in?}
 end

@@ -1,6 +1,11 @@
 <% unless logged_in? %>
-	<div class="block"> 
-		<%= render_view(actions.first.name) {|action| action.view = 'view/partials/form_login.rhtml' } %>
+	<div class="block profile_nav"> 
+		<h3><%= _('Welcome') %></h3>
+		<ul>
+			<li class="login first"><a href="<%= AccountController.r(:login) %>">Login</a></li>
+			<li class="band"><a href="<%= AccountController.r(:register, 'band') %>"><%= _('Register a Band') %></a></li>
+			<li class="user"><a href="<%= AccountController.r(:register, 'user') %>"><%= _('Register a User') %></a></li>
+		</ul>
 	</div>
 <% end %>
 

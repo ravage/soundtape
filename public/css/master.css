@@ -216,11 +216,16 @@ body#delete li.delete,
 body#photos li.photos, body#photo li.photos,
 body#discography li.discography, body#album li.discography, body#track li.discography,
 body#elements li.elements,
-body#agenda li.agenda, body#event li.agenda
+body#agenda li.agenda, body#event li.agenda,
+body#login li.login,
+body#register_band li.band,
+body#register_user li.user
  {
 	font-weight: bold;
 	background-color: #1d1d1d;
 }
+
+
 /* @profile_nav end */
 
 

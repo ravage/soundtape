@@ -9,7 +9,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>SoundTape :: <%= @title %></title>
 </head>
-<body id="<%= actions.first.name %>">
+<body id="<%= actions.first.name %><%= '_band' if (/register\/band/) =~ request.request_uri %><%= '_user' if (/register\/user/) =~ request.request_uri %>">
 	<div class="feedback">
 		<a href="<%= MainController.r(:feedback) %>"></a>
 	</div>
@@ -20,10 +20,6 @@
 		<div id="top_menu">
 			<ul>
 				<li><a href="/"><span><%= _('Home') %></a></span></li>
-				<% unless logged_in? %>
-				<li class="first"><a href="<%= AccountController.r(:register, 'band') %>"><span><%= _('Register as Band') %></span></a></li>
-				<li><a href="<%= AccountController.r(:register, 'user') %>"><span><%= _('Register as User') %></span></a></li>
-				<% end %>
 				<% if logged_in? %>
 				<li class="first"><a href="<%= ProfileController.r(:view, user.alias) %>"><span><%= _('Your Profile') %></span></a></li>
 				<% end %>
