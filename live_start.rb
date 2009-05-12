@@ -14,7 +14,10 @@ include GetText
 #Locale.default = "en"
 #puts Ramaze::Global.public_root
 #pp Ramaze.options.roots
-Ramaze.options.cache.session = Ramaze::Cache::MemCache
+Ramaze.options.cache.default = Ramaze::Cache::MemCache
+Ramaze.options.session.secure = true;
+Ramaze.options.session.ttl = 86400;
+Ramaze.options.session.domain = 'soundtape.net'
 
 require 'options'
 
@@ -58,7 +61,5 @@ Ramaze::acquire 'model/*'
 # Add directory start.rb is in to the load path, so you can run the app from
 # any other working path
 $LOAD_PATH.unshift(__DIR__)
-
-Ramaze.options.cache.session = Ramaze::Cache::MemCache
 #Ramaze.start :adapter => :webrick, :port => 7000
 
