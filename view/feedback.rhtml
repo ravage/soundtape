@@ -1,0 +1,36 @@
+<% if flash[:success] %>
+<div class="content">
+	<%= flash[:success] %>
+</div>
+<% end %>
+<div class="content">
+	<div style="float: left;">
+	<form action="<%= MainController.r(:feedback) %>" method="post" accept-charset="utf-8">
+		<fieldset>
+			<legent>Feedback</legent>
+			<label for="name"><%= _('Name') %></label>
+			<input type="text" name="name" value="<%= @profile.real_name unless @profile.nil? %>" />
+			
+			<label for="email"><%= _('E-Mail') %></label>
+			<input type="text" name="email" value="<%= @user.email unless @user.nil? %>" />
+			
+			<label for="feedback"></label>
+			<textarea name="feedback" rows="10" cols="42"></textarea>
+
+			<label for="submit"></label>
+			<input type="submit" name="submit" value="<%= _('Send') %>" />
+		</fieldset>
+	</form>
+	</div>
+	<div style="float: right; text-align: left; width: 250px;">
+		<ul>
+			<li><%= _('Found a bug?') %></li>
+			<li><%= _('Got any issue?') %></li>
+			<li><%= _('A suggestion?') %></li>
+			<li><%= _('Think we suck?') %></li>
+		</ul>
+		<br />
+		<p><%= _("Just tell us all about it! We won't even bother you with form validations... Well, at least for now.") %></p>
+		
+	</div>	
+</div>

@@ -10,6 +10,9 @@
 	<title>SoundTape :: <%= @title %></title>
 </head>
 <body id="<%= actions.first.name %>">
+	<div class="feedback">
+		<a href="<%= MainController.r(:feedback) %>"></a>
+	</div>
 	<div id="wrapper">
 		<div id="header">
 			<img class="alpha" src="/imgs/alpha.png" alt="Alpha Version" title="Alpha Version" />

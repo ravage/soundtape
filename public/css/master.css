@@ -344,3 +344,14 @@ div.in a {
 .album, .event {
 	overflow: auto;
 }
+
+.feedback a {
+	background: url(../imgs/feedback.png) no-repeat 0 0;
+	width: 31px;
+	height: 125px;
+	position: fixed;
+	top: 160px;
+}
+.feedback a:hover {
+	background: url(../imgs/feedback.png) no-repeat 0 -125px;
+}
