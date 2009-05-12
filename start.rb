@@ -15,9 +15,9 @@ include GetText
 #puts Ramaze::Global.public_root
 #pp Ramaze.options.roots
 
-Ramaze.options.session.secure = true;
+#Ramaze.options.session.secure = true;
 Ramaze.options.session.ttl = 86400;
-Ramaze.options.session.domain = 'soundtape.net'
+#Ramaze.options.session.domain = 'soundtape.net'
 
 
 require 'options'
