@@ -3,14 +3,14 @@ class ProfileController < Controller
   
   def view(userid = session[:user_alias])
     @title = _('Profile')
-    redirect :/ if userid.nil?
+    redirect_referer if userid.nil?
     @user = Profile.by_id_or_alias(userid)
+    #TODO redirect to not found
+    redirect_referer if @user.nil?
     @agenda = @user.agenda if @user.respond_to?(:agenda)
     @albums = @user.albums if @user.respond_to?(:albums)
     @profile = @user.profile if @user.respond_to?(:profile)
     @photos = @user.photos
-    #TODO redirect to not found
-    redirect :/ if @user.nil?
   end
   
   def update_profile
@@ -43,6 +43,7 @@ class ProfileController < Controller
 
     if profile.valid?
       flash['success'] = 'Avatar Updated'
+      profile.delete_old_avatar if request[:photo_path]
     else
       prepare_flash(:errors => profile.errors, :prefix => 'profile')
       flash[:profile_use_gravatar] = 1 if request.params.has_key?('use_gravatar')

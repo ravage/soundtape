@@ -28,9 +28,9 @@ class Profile < Sequel::Model(:profiles)
   
   def update_avatar(params)
     if(params[:photo_path])
-      SoundTape::Helper.remove_files(absolute_path(photo_big), absolute_path(photo_small)) unless photo_big.nil?
       avatar =  avatar(params[:photo_path]) 
-      
+      @old_avatar_big = photo_big
+      @old_avatar_small = photo_small
       if(avatar.respond_to?(:map!))
         avatar.map! { |val| val = File.basename(val) }
         big, small = *avatar
@@ -132,6 +132,10 @@ class Profile < Sequel::Model(:profiles)
   def absolute_path(file)
     return File.join(File::SEPARATOR, SoundTape.options.Constant.upload_path, user_id.to_s, SoundTape.options.Constant.avatar_path, file)
   end
+  
+  def delete_old_avatar
+     SoundTape::Helper.remove_files(absolute_path(@old_avatar_big), absolute_path(@old_avatar_small))
+   end
   
   def id_
     return id
