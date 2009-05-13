@@ -109,5 +109,5 @@ class AccountController < Controller
     return !SoundTape.options.Constant.user_types.keys.index(type.to_sym).nil?
   end
 
-  before(:activate, :login, :register) {redirect(ProfileController.r(:view, session[:user_alias])) { |uri| uri.scheme = 'https'; uri.port = 443 } if logged_in?}
+  before(:activate, :login, :register) {redirect(ProfileController.r(:view, session[:user_alias]), :scheme => 'https', :port => 443) if logged_in?}
 end
