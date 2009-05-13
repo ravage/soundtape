@@ -40,7 +40,7 @@ class AccountController < Controller
       else
         session[:user_id] = user.id_
         session[:user_alias] = user.profile.user_alias
-        redirect(ProfileController.r(:view, user.profile.user_alias), :scheme => 'https', :port => 443)
+        redirect(ProfileController.r(:view, user.profile.user_alias))
       end
     end
   end
@@ -109,5 +109,5 @@ class AccountController < Controller
     return !SoundTape.options.Constant.user_types.keys.index(type.to_sym).nil?
   end
 
-  before(:activate, :login, :register) {redirect(ProfileController.r(:view, session[:user_alias]), :scheme => 'https', :port => 443) if logged_in?}
+  before(:activate, :login, :register) {redirect(ProfileController.r(:view, session[:user_alias])) if logged_in?}
 end

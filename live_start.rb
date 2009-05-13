@@ -15,7 +15,7 @@ include GetText
 #puts Ramaze::Global.public_root
 #pp Ramaze.options.roots
 Ramaze.options.cache.default = Ramaze::Cache::MemCache
-Ramaze.options.session.secure = true;
+#Ramaze.options.session.secure = true;
 Ramaze.options.session.ttl = 86400;
 
 require 'options'
