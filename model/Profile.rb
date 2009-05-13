@@ -126,11 +126,11 @@ class Profile < Sequel::Model(:profiles)
   
   def link_path(file)
     #/uploads/5/avatar/
-    return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.avatar_path , file)
+    return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.avatar_path , file) unless file.nil?
   end
   
   def absolute_path(file)
-    return File.join(File::SEPARATOR, SoundTape.options.Constant.upload_path, user_id.to_s, SoundTape.options.Constant.avatar_path, file)
+    return File.join(File::SEPARATOR, SoundTape.options.Constant.upload_path, user_id.to_s, SoundTape.options.Constant.avatar_path, file) unless file.nil?
   end
   
   def delete_old_avatar

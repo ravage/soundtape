@@ -45,6 +45,7 @@ require 'data/countries'
 require 'data/languages'
 require 'data/currencies'
 require 'data/months'
+require 'data/categories'
 
 # Initialize controllers and models
 require 'controller/init'

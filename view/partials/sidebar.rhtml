@@ -7,6 +7,15 @@
 			<li class="user"><a href="<%= AccountController.r(:register, 'user') %>"><%= _('Register a User') %></a></li>
 		</ul>
 	</div>
+<% else %>
+	<div class="block profile_nav">
+		<h3><%= "#{_('Hello')} #{user.profile.real_name}" %></h3>
+		<ul>
+			<li class="box_profile"><a href="<%= ProfileController.r(:view, user.alias) %>"><%= _('Your Profile') %></a></li>
+			<li class="box_settings"><a href="<%= SettingsController.r(:profile) %>"><%= _('Settings') %></a></li>
+			<li class="box_logout"><a href="<%= AccountController.r(:logout) %>"><%= _('Logout') %></a></li>
+		</ul>
+	</div>
 <% end %>
 
 <% if settings? %>

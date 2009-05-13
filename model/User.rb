@@ -8,6 +8,7 @@ class User < Sequel::Model(:users)
   def validate
     if changed_columns.include?(:email) || new?
       validates_presence  [:email, :name]
+      validates_format    /^[\w\s]+$/, :name
       errors.add(:email, 'is already taken') if DB['SELECT * FROM users WHERE email = ?', email].count == 1
       validates_format    /^[a-zA-Z]([.]?([[:alnum:]_-]+)*)?@([[:alnum:]\-_]+\.)+[a-zA-Z]{2,4}$/, :email
     end    

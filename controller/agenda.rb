@@ -17,10 +17,10 @@ class AgendaController < Controller
     end
     
     if agenda.valid?
-      redirect ProfileController.r(:view, user.alias)
+      redirect SettingsController.r(:agenda)
     else
       prepare_flash(agenda.errors, 'agenda')
-      redirect SettingsController.r(:agenda)
+      redirect_referer
     end
   end
   
@@ -38,11 +38,11 @@ class AgendaController < Controller
       rescue Sequel::DatabaseError => e
         oops(r(:update_event), e)
       end
+      redirect SettingsController.r(:agenda)
     else
       prepare_flash(:errors => event.errors, :prefix => 'event')
-      redirect SettingsController.r(:event, event.id_)
+      redirect_referer
     end
-    redirect ProfileController.r(:view)
   end
   
   def create_event
@@ -55,10 +55,11 @@ class AgendaController < Controller
       rescue Sequel::DatabaseError => e
         oops(r(:create_event), e)
       end
+      redirect SettingsController.r(:agenda)
     else
       prepare_flash(:errors => event.errors, :prefix => 'event')
+      redirect_referer
     end
-    redirect_referer
   end
   
   def delete_event(event_id = nil)

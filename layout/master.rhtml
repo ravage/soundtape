@@ -20,17 +20,11 @@
 		<div id="top_menu">
 			<ul>
 				<li><a href="/"><span><%= _('Home') %></a></span></li>
-				<% if logged_in? %>
-				<li class="first"><a href="<%= ProfileController.r(:view, user.alias) %>"><span><%= _('Your Profile') %></span></a></li>
-				<% end %>
 				<li><a href="#"><span><%= _('News') %></a></span></li>
 				<li><a href="#"><span><%= _('Events') %></a></span></li>
 				<li><a href="#"><span><%= _('Search') %></a></span></li>
 				<li><a href="#"><span><%= _('Bands') %></a></span></li>
 				<li><a href="#"><span><%= _('Users') %></span></a></li>
-				<% if logged_in? %>
-				<li style="float: right;"><a href="<%= AccountController.r(:logout) %>"><span><%= _('Logout') %></span></a></li>
-				<% end %>
 			</ul>
 		</div>
 		<div id="content_wrapper">

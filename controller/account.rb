@@ -24,7 +24,9 @@ class AccountController < Controller
           oops(r(:create), e)
         end
         send_activation_mail(klass)
-        flash[:success] = _('successfully created account')
+        flash[:success] = _('successfully created account. A message containing information on how to 
+        activate your account was sent to the email address you provided when registering.
+        After the activation process is complete, you may login into your account.')
       else
         prepare_flash(:errors => klass.errors, :prefix => 'account')
         redirect_referer
@@ -63,10 +65,11 @@ class AccountController < Controller
     
     if user.valid?
       flash['success'] = 'Password Saved!'
+      redirect SettingsController.r(:password)
     else
       prepare_flash(:errors => user.errors, :prefix => 'account')
+      redirect_referer
     end
-    redirect_referer
   end
 
   def index

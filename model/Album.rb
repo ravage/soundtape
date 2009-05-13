@@ -5,7 +5,7 @@ class Album < Sequel::Model(:albums)
   many_to_one :category, :join_table => :categories, :class => :Category
   
   def validate
-    validates_presence :title
+    validates_presence :title, :category_id
     validates_length_range 3..255, :title
     errors.add(:cover, 'not an image') if cover == 'NAI'
   end

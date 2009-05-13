@@ -24,6 +24,7 @@ CREATE TABLE blocks (
 	title		VARCHAR(80) NOT NULL,
 	content		LONGTEXT NULL,
 	parent		INT UNSIGNED NOT NULL,
+	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY	(id),
 	INDEX		(parent),
@@ -33,8 +34,13 @@ CREATE TABLE blocks (
 CREATE TABLE categories (
 	id			INT UNSIGNED AUTO_INCREMENT,
 	description	VARCHAR(20) NOT NULL,
-	
-	PRIMARY KEY (id)
+	language_id	INT UNSIGNED NOT NULL,
+	ref_id		INT UNSIGNED NOT NULL,
+
+	PRIMARY KEY (id),
+	INDEX		(language_id),
+	INDEX		(ref_id),
+	FOREIGN KEY	(language_id) REFERENCES languages(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE mailing_lists (
@@ -99,6 +105,7 @@ CREATE TABLE albums (
 	category_id	INT UNSIGNED NOT NULL,
 	cover		VARCHAR(60) NULL,
 	cover_thumb	VARCHAR(60) NULL,
+	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY	(id),
 	INDEX		(user_id),
@@ -110,6 +117,7 @@ CREATE TABLE albums (
 CREATE TABLE band_elements (
 	user_id		INT UNSIGNED NOT NULL,
 	element_id	INT UNSIGNED NOT NULL,
+	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY	(user_id, element_id),
 	FOREIGN	KEY	(user_id) REFERENCES users(id) ON DELETE CASCADE,
@@ -133,6 +141,7 @@ CREATE TABLE tracks (
 	lyrics		TEXT NULL,
 	track_path	VARCHAR(100) NOT NULL,
 	album_id	INT UNSIGNED NOT NULL,
+	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY	(id),
 	INDEX		(album_id),
@@ -142,6 +151,7 @@ CREATE TABLE tracks (
 CREATE TABLE user_favs (
 	user_id		INT UNSIGNED NOT NULL,
 	band_id		INT UNSIGNED NOT NULL,
+	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY	(user_id, band_id),
 	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
@@ -194,6 +204,7 @@ CREATE TABLE events (
 	flyer_path		VARCHAR(100) NULL,
 	flyer_thumb		VARCHAR(100) NULL,
 	currency_id		INT UNSIGNED NOT NULL,
+	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY		(id),
 	INDEX			(agenda_id),
@@ -236,7 +247,7 @@ CREATE TRIGGER user_tables AFTER INSERT ON users
 	FOR EACH ROW BEGIN
 		DECLARE lastid INT;
 		SET lastid 	= LAST_INSERT_ID();
-		INSERT INTO profiles(user_id, real_name, user_alias, gravatar_email) VALUES(lastid, NEW.email, lastid + '', New.email);
+		INSERT INTO profiles(user_id, real_name, user_alias, gravatar_email) VALUES(lastid, 'SoundTape', lastid + '', New.email);
 		IF New.user_type = 'Band' THEN
 			INSERT INTO agendas(user_id) VALUES(lastid);
 			INSERT INTO mailing_lists(user_id, state) VALUES(lastid, FALSE);

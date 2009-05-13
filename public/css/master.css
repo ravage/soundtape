@@ -206,20 +206,23 @@ label {
 	background-color: #1d1d1d;
 }
 
-body#profile li.profile,
-body#avatar li.avatar,
-body#password li.password,
-body#notifications li.notifications,
-body#url_alias li.url_alias,
-body#location li.location,
-body#delete li.delete, 
-body#photos li.photos, body#photo li.photos,
+body#profile li.profile, body#profile .box_settings,
+body#avatar li.avatar, body#avatar .box_settings,
+body#password li.password, body#password .box_settings,
+body#notifications li.notifications, body#notifications .box_settings,
+body#url_alias li.url_alias, body#url_alias .box_settings,
+body#location li.location, body#location .box_settings,
+body#delete li.delete, body#delete .box_settings,
+body#photos li.photos, body#photo li.photos, body#photos .box_settings,
 body#discography li.discography, body#album li.discography, body#track li.discography,
-body#elements li.elements,
+body#discography .box_settings, body#album .box_settings, body#track .box_settings,
+body#elements li.elements, body#elements .box_settings,
 body#agenda li.agenda, body#event li.agenda,
+body#agenda .box_settings, body#event .box_settings,
 body#login li.login,
 body#register_band li.band,
-body#register_user li.user
+body#register_user li.user,
+body#view .box_profile
  {
 	font-weight: bold;
 	background-color: #1d1d1d;
