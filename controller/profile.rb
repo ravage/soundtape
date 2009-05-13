@@ -34,7 +34,6 @@ class ProfileController < Controller
   
   def update_avatar
     @title = _('Update Avatar')
-    pp request
     begin
       profile = user.profile
       profile.update_avatar(request)

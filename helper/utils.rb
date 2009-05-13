@@ -11,12 +11,10 @@ module Ramaze
         redirect '/oops'
       end
       
-      def prepare_flash(args = {})
-        #pp errors
+      def prepare_flash(args = {})     
         flash[:error] = true
         args[:errors].each { |key, message| flash["error_#{args[:prefix]}_#{key.to_s}".to_sym] = message.first }
-        request.params.each { |key, value| flash["#{args[:prefix]}_#{key}".to_sym] = value }
-        pp flash
+        request.params.each { |key, value| flash["#{args[:prefix]}_#{key}".to_sym] = value if value.is_a?(String) }
       end
       
       def settings?
