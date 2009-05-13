@@ -1,5 +1,6 @@
 <select name="category">
-	<% Category.each do |category| %>
+	<!-- FIXME: do not hardcode language -->
+	<% Category.filter(:language_id => 1).each do |category| %>
 		<option value="<%= category.id_ %>" <%= 'selected' if @category.to_i == category.id_ %>><%= category %></option>
 	<% end %>
 </select>
