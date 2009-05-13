@@ -1,13 +1,16 @@
 class ApiController < Controller
-  helper :user
-  def getuser(user_id = nil)
-    profile = Profile.filter({:user_id => user_id}).first unless user_id.nil?
-    profile = user.profile if user_id.nil?
-    respond profile.to_json unless profile.nil?
-    respond "failure"
+  provide(:json, :type => 'application/json') { |action, value| value.to_json }
+  provide(:html, :type => 'text/html') { |action, value| '' }
+  
+  def get_user(user_id = nil)
+    profile = Profile[:user_id => user_id] unless user_id.nil?
+    return profile unless profile.nil?
+    'failure'
   end
   
-  def getevent(event_if = nil)
-    Ramaze::Log.warn 'WEEEEEEEEEEEEEEEEEEEEE!'
+  def get_events(user_id = nil)
+    events = Event.filter(:user_id => user_id).all unless user_id.nil?
+    return  events unless events.nil?
+    'failure'
   end
 end

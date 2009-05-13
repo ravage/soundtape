@@ -47,7 +47,8 @@ class AgendaController < Controller
   
   def create_event
     @title = _('Create Event')
-    event = Event.prepare_insert(request, user)
+    event = Event.new
+    event.prepare(request, user)
     if event.valid?
       begin
         user.agenda.add_event(event)
@@ -56,9 +57,8 @@ class AgendaController < Controller
       end
     else
       prepare_flash(:errors => event.errors, :prefix => 'event')
-      redirect r(SettingsController, :event)
     end
-    redirect r(ProfileController, :view)
+    redirect_referer
   end
   
   def delete_event(event_id = nil)

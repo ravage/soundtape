@@ -360,3 +360,16 @@ div.in a {
 .feedback a:hover {
 	background: url(../imgs/feedback.png) no-repeat 0 -125px;
 }
+
+#event_scroller, .teste, .collapse {
+	width: 100%;
+	float: left;
+	position: relative;
+	color: red;
+	z-index: 2;
+	background: url(/imgs/transparent_pixel.png);
+}
+
+.teste {
+	height: 300px;
+}

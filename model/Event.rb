@@ -92,7 +92,7 @@ class Event < Sequel::Model(:events)
   end
   
   def sane_delete
-    SoundTape::Helper.remove_files(absolute_path(flyer_path), absolute_path(flyer_thumb))
+    SoundTape::Helper.remove_files(absolute_path(flyer_path), absolute_path(flyer_thumb)) unless flyer_path.nil?
     delete
   end
   

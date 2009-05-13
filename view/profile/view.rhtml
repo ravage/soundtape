@@ -6,7 +6,7 @@
 
 <div class="content">
 	<div style="float: left;">
-		<p><%= _('Band') %>: 
+		<p><%= @user.respond_to?(:albums) ? _('Band') : _('User') %>: 
 		<%== @profile.real_name %></p>
 
 		<p><%= _('Permalink') %>:
@@ -62,6 +62,18 @@
 <% end %>
 
 <div class="content">
+	<div id="event_scroller"><a href="#" id="close_" style="width: 10px;border: 1px solid red;">Event Scroller</a></div>
+	<div id="map_wrapper">
+		<noscript>
+			<p style="position: relative; top:50%; text-align: center; vertical-align: middle;">
+				<%= _('Enable javascript to get map functionality!') %>
+			</p>
+		</noscript>
+	</div>
+	
+</div>
+
+<div class="content">
 	<% @photos.each do |photo| %>
 		<div class="out">
 			<a href="<%== photo.photo %>"><img src="<%== photo.thumbnail %>" alt="<%= photo.title %>"/></a>
@@ -69,13 +81,3 @@
 	<% end %>
 </div>
 
-<div class="content">
-	Map with band location and upcoming events
-	<div class="map_wrapper">
-		<noscript>
-			<p style="position:relative; top:50%; text-align: center; vertical-align: middle;">
-				<%= _('Enable javascript to get map functionality!') %>
-			</p>
-		</noscript>
-	</div>
-</div>
