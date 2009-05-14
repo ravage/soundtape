@@ -20,7 +20,7 @@ class MainController < Controller
       #{request[:feedback]}|
       Ramaze.defer do
         begin
-          Ramaze::EmailHelper.send(request[:email], '[SoundTape]: Feedback', msg)
+          Ramaze::EmailHelper.send(SoundTape.options.Constant.feedback_email, '[SoundTape]: Feedback', msg)
         rescue Exception => e
           oops(r(:feedback), e)
         end
