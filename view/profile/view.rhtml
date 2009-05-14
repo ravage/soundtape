@@ -62,8 +62,16 @@
 <% end %>
 
 <div class="content">
-	<div id="event_scroller"><a href="#" id="close_" style="width: 10px;border: 1px solid red;">Event Scroller</a></div>
+	<div id="overlay">	
+		<a href="#" id="toggle">Open/Close</a>
+		<p><a id="<%= @profile.id_ %>" href="#"><%=  _('User location') %></a></p>
+		
+		<% @agenda.upcoming_events.each do |event| %>
+			<p><a id="<%= event.id_ %>" href="#"><%== event.name %></a></p>
+		<% end if @agenda %>
+	</div>
 	<div id="map_wrapper">
+
 		<noscript>
 			<p style="position: relative; top:50%; text-align: center; vertical-align: middle;">
 				<%= _('Enable javascript to get map functionality!') %>

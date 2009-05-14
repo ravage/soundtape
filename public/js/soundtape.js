@@ -344,6 +344,70 @@ var MapFormWrapper = new Class({
 	}
 });
 
+var FillMap = new Class({
+	Implements: Options,
+	
+	options: {
+
+	},
+	
+	initialize: function(mapWrapper, options) {
+		this.setOptions(options);
+		this.mapHelper = new GoogleMapsHelper(mapWrapper);
+	},
+
+	mapProfile: function(uri) {
+		var req = new Request.JSON({url: uri,
+			onSuccess: function(profile) {
+				var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(profile.latitude, profile.longitude));
+				this.mapHelper.addClickEvent(marker, Formatter.get(profile));
+				this.linkMarker(marker, profile);
+			}.bind(this)
+		}).get();		
+	},
+
+	mapEvents: function(uri) {
+		var req = new Request.JSON({url: uri,
+			onSuccess: function(events) {
+				if(events instanceof Array) {
+					events.each(function(el){
+						var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(el.latitude, el.longitude));
+						this.mapHelper.addClickEvent(marker, Formatter.get(el));
+						this.linkMarker(marker, el);
+					}.bind(this));
+				}
+				else {
+					var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(i.latitude, i.longitude));
+					this.mapHelper.addClickEvent(marker, Formatter.get(events));
+					this.linkMarker(marker, events);
+				}
+			}.bind(this)
+			}).get();
+		},
+	
+	linkMarker: function(marker, info) {
+		$(info.id.toString()).addEvent('click', function(e) {
+			e.stop();
+			this.mapHelper.map.setCenter(marker.getLatLng(), 8);
+			marker.openInfoWindowHtml(Formatter.get(info));
+		}.bind(this));
+	}
+});
+
+var ParseUri = new Class();
+
+ParseUri.getDomain = function(uri) {
+	var uri = new URI(uri);
+	return uri.get('port') ? uri.get('host') + ':' + uri.get('port') : uri.get('host');
+};
+
+ParseUri.getParams = function(uri) {
+	var params = uri.replace(/^[^\?]+\??/,'').parseQueryString();
+	return params;
+};
+
+
+
 /**
 * Just provides formatters with HTML content for a Google Maps Marker PopUp or whatever
 */
@@ -390,8 +454,8 @@ Formatter.getLocationMarkerPopUp = function(info) {
 * @param {JSON} info An object with the information to be formatted
 */
 Formatter.get = function(info) {
-	if($('event'))
+	if(info.json_class == 'Event')
 		return Formatter.getEventMarkerPopUp(info);
-	else if($('location'))
+	else if(info.json_class == 'Profile')
 		return Formatter.getLocationMarkerPopUp(info);
 };

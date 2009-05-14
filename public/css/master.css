@@ -349,6 +349,19 @@ div.in a {
 	border: 2px solid #ccc;
 }
 
+#overlay {
+	position: relative;
+	z-index: 2;
+	background: #333;
+	overflow: hidden;
+	float: left;
+	left: 2px;
+	top: 2px;
+	width: 531px;
+	background: url(/imgs/transparent_pixel.png);
+	height: 20px;
+}
+
 .album, .event {
 	overflow: auto;
 }
@@ -364,15 +377,3 @@ div.in a {
 	background: url(../imgs/feedback.png) no-repeat 0 -125px;
 }
 
-#event_scroller, .teste, .collapse {
-	width: 100%;
-	float: left;
-	position: relative;
-	color: red;
-	z-index: 2;
-	background: url(/imgs/transparent_pixel.png);
-}
-
-.teste {
-	height: 300px;
-}

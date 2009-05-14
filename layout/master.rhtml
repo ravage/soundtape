@@ -50,7 +50,7 @@
 	
 	<% if actions.first.name == 'view' %>
 		<script src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hRb4M3c0FaL2mmPX8y3utMpVmobshSrG7V522W8K3oBTyzrdWNyn-WKvA"></script>
-		<script type="text/javascript" charset="utf-8" src="/js/teste.js"></script>
+		<script id="profile_js" type="text/javascript" charset="utf-8" src="/js/teste.js?user=<%= @user.id_ %>"></script>
 	<% end %>
 	
 	<% if actions.first.name == 'location' || actions.first.name == 'event' %>

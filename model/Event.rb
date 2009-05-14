@@ -127,7 +127,8 @@ class Event < Sequel::Model(:events)
       :latitude     => latitude,
       :when         => self.when,
       :price        => price,
-      :thumb        => thumbnail
+      :thumb        => thumbnail,
+      :id           => id
     }.to_json
   end
 end

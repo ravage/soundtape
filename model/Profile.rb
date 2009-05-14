@@ -150,7 +150,8 @@ class Profile < Sequel::Model(:profiles)
       :name       => real_name,
       :homepage   => homepage,
       :longitude  => longitude,
-      :latitude   => latitude
+      :latitude   => latitude,
+      :id         => id
     }.to_json
   end
 end
