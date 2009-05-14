@@ -1,7 +1,7 @@
 class MainController < Controller
   helper :user, :gravatar, :utils
   
-  def index
+  def index()
     @title = _('Home')
   end
   

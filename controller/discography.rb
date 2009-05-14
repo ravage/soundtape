@@ -75,7 +75,7 @@ class DiscographyController < Controller
     end
   end
   
-  def delete_track(track_id = nil)
+  def delete_track(track_id)
     @title = _('Delete Track')
     redirect SettingsController.r(:discography) if track_id.nil?
     track = user.track(track_id)
@@ -83,7 +83,7 @@ class DiscographyController < Controller
     redirect_referer
   end
   
-  def delete_album(album_id = nil)
+  def delete_album(album_id)
     @title = _('Delete Album')
      redirect SettingsController.r(:discography) if album_id.nil?
      album = user.album(album_id)

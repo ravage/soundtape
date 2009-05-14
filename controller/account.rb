@@ -1,13 +1,13 @@
 class AccountController < Controller
   helper :utils, :user, :aspect
   
-  def register(type = nil)
+  def register(type)
     @title = _('Register')
     redirect r(:register, :user) unless valid_user_type(type)
     @type = get_klass(type).name.downcase
   end
   
-  def create(type = nil)
+  def create(type)
     @title = _('Create')
     redirect :/ unless valid_user_type(type) && request.post?
     
@@ -79,7 +79,7 @@ class AccountController < Controller
     @user = user
   end
   
-  def activate(key = nil)
+  def activate(key)
     @title = _('Activate')
     redirect :/ if key.nil? || key.empty?
     if ::User.activate(key)

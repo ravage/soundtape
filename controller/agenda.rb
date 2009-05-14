@@ -1,7 +1,7 @@
 class AgendaController < Controller
   helper :user, :aspect, :utils
   
-  def event(user_id = nil, event_id = nil)
+  def event(user_id, event_id)
     @title = _('Event')
   end
   
@@ -62,7 +62,7 @@ class AgendaController < Controller
     end
   end
   
-  def delete_event(event_id = nil)
+  def delete_event(event_id)
     @title = _('Delete Event')
     redirect SettingsController.r(:agenda) if event_id.nil?
     event = user.agenda.event(event_id)

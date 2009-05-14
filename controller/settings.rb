@@ -45,7 +45,7 @@ class SettingsController < Controller
     @events = user.agenda.events
   end
   
-  def event(event_id = nil)
+  def event(event_id)
     @title = _('Event')
     if event_id.nil?
       @action = 'create_event'
@@ -64,7 +64,7 @@ class SettingsController < Controller
     @albums = user.albums
   end
   
-  def album(album_id = nil)
+  def album(album_id)
     @title = _('Album')
     if album_id.nil?
       @action = 'create_album'
@@ -77,7 +77,7 @@ class SettingsController < Controller
     end
   end
 
-  def track(track_id = nil)
+  def track(track_id)
     @title = _('Track')
     if track_id.nil?
       @action = 'create_track'
@@ -103,7 +103,7 @@ class SettingsController < Controller
     @photos = user.photos
   end
   
-  def photo(photo_id = nil)
+  def photo(photo_id)
     @title = _('Photo')
     redirect_referer if photo_id.nil?
     @photo = user.photo(photo_id)

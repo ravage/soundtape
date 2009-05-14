@@ -6,7 +6,13 @@ class Controller < Ramaze::Controller
   map_layouts '/'
   engine :Erubis
   #layout(:master){|path, wish| wish !~ /rss|atom/ }
- 
+  def self.action_missing(path)
+    try_resolve('/lost')
+  end
+  
+  def lost
+    render_view(action.name){|action| action.view = 'view/lost.rhtml' }
+  end
 end
 
 # Here go your requires for subclasses of Controller:

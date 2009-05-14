@@ -117,7 +117,7 @@ class ProfileController < Controller
     redirect_referer
   end
   
-  def delete_photo(photo_id = nil)
+  def delete_photo(photo_id)
     @title = _('Delete Photo')
     redirect_referer if photo_id.nil?
     photo = user.photo(photo_id)
