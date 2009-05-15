@@ -7,7 +7,7 @@
 				<input type="hidden" name="latitude" value="<%== flash[:error] ? flash[:profile_latitude] : @profile.latitude %>" />
 				<input type="hidden" name="longitude" value="<%== flash[:error] ? flash[:profile_longitude] : @profile.longitude %>" />
 				
-				<label for="submit"></label>
+				<label  class="submit" for="submit">Submit</label>
 				<input type="submit" name="submit" value="<%= _('Save') %>" />
 				<input type="button" name="search" value="<%= _('Search') %>" />
 			</fieldset>

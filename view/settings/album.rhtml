@@ -11,14 +11,14 @@
 				:category => flash[:album_category] || @album.category_id ) { |action| action.view = 'view/partials/categories.rhtml' } %>
 				
 			<label for="cover"><%= _('Cover') %> <%= flash[:error_album_cover] %></label>
-			<input type="file" name="cover" >
+			<input type="file" name="cover" />
 			
 			<% if @album.id_ %>
 				<input type="hidden" name="album_id" value="<%= @album.id_ %>" id="some_name">
 			<% end %>
 			
-			<label for="submit"></label>
-			<input type="submit" value="Continue &rarr;" name="submit">
+			<label class="submit" for="submit">Submit</label>
+			<input type="submit" value="Continue &rarr;" name="submit" />
 		</fieldset>
 	</form>
 	

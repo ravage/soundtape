@@ -44,6 +44,11 @@ label {
 	margin-bottom: 2px;
 	display: block;
 }
+
+textarea {
+	width: 250px;
+	border: 2px solid #ccc;
+}
 /* @main tags end */
 
 /* @main structure begin */
@@ -377,3 +382,6 @@ div.in a {
 	background: url(../imgs/feedback.png) no-repeat 0 -125px;
 }
 
+.submit {
+	color: transparent;
+}

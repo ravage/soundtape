@@ -15,12 +15,12 @@
 			</fieldset>
 		
 			<fieldset>
-				<label for="submit"></label>
+				<label class="submit" for="submit">Submit</label>
 				<input type="submit"value="Continue &rarr;" />
 			</fieldset>
 		</form>
 	</div>
 	<div style="float:right; padding: 5px">
-		<img src="<%= @profile.avatar_big %>" alt="Avatar" />
+		<img src="<%= h(@profile.avatar_big) %>" alt="Avatar" />
 	</div>
 </div>

@@ -14,14 +14,14 @@
 			<textarea name="lyrics" rows="8" cols="40"><%= flash[:track_lyrics] || @track.lyrics %></textarea>
 			
 			<label for="track"><%= _('Track') %> <%= flash[:error_track_track] %></label>
-			<input type="file" name="track" >
+			<input type="file" name="track" />
 			
 			<% if @track.id_ %>
 				<input type="hidden" name="track_id" value="<%= @track.id_ %>" />
 			<% end %>
 			
-			<label for="submit"></label>
-			<input type="submit" value="Continue &rarr;" name="submit">
+			<label class="submit" for="submit">Submit</label>
+			<input type="submit" value="Continue &rarr;" name="submit" />
 		</fieldset>
 	</form>
 </div>

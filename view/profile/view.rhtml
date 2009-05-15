@@ -14,9 +14,11 @@
 
 		<p><%= _('Location') %>:
 		<%== @profile.location %></p>
-
+		
+		<% unless @user.profile.bio %>
 		<p><%= _('Bio') %>:</p>
 		<p><%== @user.profile.bio %></p>
+		<% end %>
 	</div>
 	
 	<div style="float: right;">
@@ -51,9 +53,11 @@
 			<ul>
 				<li><%= event.name %>
 					<span style="float: right;"><a href="<%= AgendaController.r(:event, @user.alias, event.seo) %>"><%= _('More') %></a></span>
-					<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
-					<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
-					<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
+					<ul>
+						<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
+						<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
+						<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
+					</ul>
 				</li>
 			</ul>
 		</div>
@@ -64,10 +68,10 @@
 <div class="content">
 	<div id="overlay">	
 		<a href="#" id="toggle">Open/Close</a>
-		<p><a id="<%= @profile.id_ %>" href="#"><%=  _('User location') %></a></p>
+		<p><a id="link_<%= @profile.id_ %>" href="#"><%=  _('User location') %></a></p>
 		
 		<% @agenda.upcoming_events.each do |event| %>
-			<p><a id="<%= event.id_ %>" href="#"><%== event.name %></a></p>
+			<p><a id="link_<%= event.id_ %>" href="#"><%== event.name %></a></p>
 		<% end if @agenda %>
 	</div>
 	<div id="map_wrapper">

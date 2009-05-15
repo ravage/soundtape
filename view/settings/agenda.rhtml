@@ -10,8 +10,8 @@
 			<input type="text" name="description" value="<%= @agenda.description %>" />
 			<span class="example"><%= _('Ex: My Uber band events') %></span>
 
-			<label for="submit"></label>
-			<input type="submit" value="Continue &rarr;">
+			<label class="submit" for="submit">Submit</label>
+			<input type="submit" value="Continue &rarr;" />
 		</fieldset>	
 	</form>
 </div>
@@ -28,9 +28,11 @@
 					<a href="<%= r(:event, event.id_) %>"><%= _('Edit') %></a>
 					<a href="<%= AgendaController.r(:delete_event, event.id_) %>"><%= _('Delete') %></a>
 				</span>
-				<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
-				<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
-				<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
+				<ul>
+					<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
+					<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
+					<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
+				</ul>
 			</li>
 		</ul>
 	</div>

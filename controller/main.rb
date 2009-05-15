@@ -16,8 +16,8 @@ class MainController < Controller
     @user = user
     @profile = user.profile
     if request.post?
-      msg = %|#{request[:name]} - #{request[:email]} says:
-      #{request[:feedback]}|
+      msg = %|#{h(request[:name])} - #{h(request[:email])} says:
+      #{h(request[:feedback])}|
       Ramaze.defer do
         begin
           Ramaze::EmailHelper.send(SoundTape.options.Constant.feedback_email, '[SoundTape]: Feedback', msg)

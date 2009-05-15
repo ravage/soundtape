@@ -55,7 +55,7 @@
 			<textarea name="description" rows="8" cols="40"><%== flash[:event_description] || @event.description %></textarea>
 		</fieldset>
 			<input type="hidden" name="event_id" value="<%= @event.id_ unless @event.nil? %>" />
-			<label for="submit"></label>
+			<label class="submit" for="submit">Submit</label>
 			<input type="submit" value="Continue &rarr;">
 		
 	</form>

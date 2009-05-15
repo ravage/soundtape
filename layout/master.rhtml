@@ -19,11 +19,11 @@
 		</div>
 		<div id="top_menu">
 			<ul>
-				<li><a href="/"><span><%= _('Home') %></a></span></li>
-				<li><a href="#"><span><%= _('News') %></a></span></li>
-				<li><a href="#"><span><%= _('Events') %></a></span></li>
-				<li><a href="#"><span><%= _('Search') %></a></span></li>
-				<li><a href="#"><span><%= _('Bands') %></a></span></li>
+				<li><a href="/"><span><%= _('Home') %></span></a></li>
+				<li><a href="#"><span><%= _('News') %></span></a></li>
+				<li><a href="#"><span><%= _('Events') %></span></a></li>
+				<li><a href="#"><span><%= _('Search') %></span></a></li>
+				<li><a href="#"><span><%= _('Bands') %></span></a></li>
 				<li><a href="#"><span><%= _('Users') %></span></a></li>
 			</ul>
 		</div>
@@ -49,13 +49,13 @@
 	
 	
 	<% if actions.first.name == 'view' %>
-		<script src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hRb4M3c0FaL2mmPX8y3utMpVmobshSrG7V522W8K3oBTyzrdWNyn-WKvA"></script>
+		<script type="text/javascript"  src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hRb4M3c0FaL2mmPX8y3utMpVmobshSrG7V522W8K3oBTyzrdWNyn-WKvA"></script>
 		<script id="profile_js" type="text/javascript" charset="utf-8" src="/js/teste.js?user=<%= @user.id_ %>"></script>
 	<% end %>
 	
 	<% if actions.first.name == 'location' || actions.first.name == 'event' %>
 	<!--ABQIAAAAflhq-wFxwgZJ8KnRVd363hRb4M3c0FaL2mmPX8y3utMpVmobshSrG7V522W8K3oBTyzrdWNyn-WKvA - soundtape.net-->
-	<script src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hRb4M3c0FaL2mmPX8y3utMpVmobshSrG7V522W8K3oBTyzrdWNyn-WKvA"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hRb4M3c0FaL2mmPX8y3utMpVmobshSrG7V522W8K3oBTyzrdWNyn-WKvA"></script>
 	<script type="text/javascript" charset="utf-8" src="/js/location.js"></script>
 	<% end %>
 	<!-- javascript end-->

@@ -3,7 +3,7 @@
 		<label for="title"><%= _('Title') %> <%= flash[:error_profile_title] %></label>
 		<input type="text" name="title" value="<%= flash[:profile_title] || @photo.title %>"/>
 		<input type="hidden" name="photo_id" value="<%= @photo.id_ %>" />
-		<label for="submit"></label>
+		<label class="submit" for="submit">Submit</label>
 		<input type="submit" value="Continue &rarr;">
 	</form>
 	

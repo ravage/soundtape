@@ -64,7 +64,7 @@ class SettingsController < Controller
     @albums = user.albums
   end
   
-  def album(album_id)
+  def album(album_id = nil)
     @title = _('Album')
     if album_id.nil?
       @action = 'create_album'
@@ -77,7 +77,7 @@ class SettingsController < Controller
     end
   end
 
-  def track(track_id)
+  def track(track_id = nil)
     @title = _('Track')
     if track_id.nil?
       @action = 'create_track'
@@ -111,7 +111,7 @@ class SettingsController < Controller
   end
     
   before(:profile, :avatar, :password, :notifications, :url_alias, :location, 
-    :photos, :delete, :discography, :elements, :agenda, :event, :index) { redirect_referer unless logged_in? }
+    :photos, :delete, :discography, :elements, :agenda, :event, :index, :album) { redirect_referer unless logged_in? }
     
   before(:discography, :elements, :agenda, :events) {redirect_referer unless user.kind_of?(Band)}
 end

@@ -386,7 +386,7 @@ var FillMap = new Class({
 		},
 	
 	linkMarker: function(marker, info) {
-		$(info.id.toString()).addEvent('click', function(e) {
+		$('link_' + info.id).addEvent('click', function(e) {
 			e.stop();
 			this.mapHelper.map.setCenter(marker.getLatLng(), 8);
 			marker.openInfoWindowHtml(Formatter.get(info));

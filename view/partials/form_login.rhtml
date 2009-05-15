@@ -5,8 +5,8 @@
 
 	<label for="password"><%= _('Password') %></label>
 	<input type="password" name="password" value="" />
-
-	<label for="submit"></label>
-	<input type="submit" name="submit" value="<%= _('Continue') %> &rarr;">
+	
+	<label class="submit" for="submit">Submit</label>
+	<input type="submit" name="submit" value="<%= _('Continue') %> &rarr;" />
 </form>
 <%= _('Forgot your password?') %> <a href="<%= AccountController.r(:reset) %>"><%= _('Reset')%></a>
