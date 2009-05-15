@@ -30,9 +30,9 @@
 			<li class="location"><a href="<%= SettingsController.r(:location) %>"><%= _('Location') %></a></li>
 			<li class="photos"><a href="<%= SettingsController.r(:photos) %>"><%= _('Photos') %></a></li>
 			<% if user.kind_of?(Band) %>
-			<li class="agenda"><a href="<%= SettingsController.r(:agenda) %>"><%= _('Agenda') %></a></li>
-			<li class="discography"><a href="<%= SettingsController.r(:discography) %>"><%= _('Discography') %></a></li>
-			<li class="elements"><a href="<%= SettingsController.r(:elements) %>"><%= _('Elements') %></a></li>
+				<li class="agenda"><a href="<%= SettingsController.r(:agenda) %>"><%= _('Agenda') %></a></li>
+				<li class="discography"><a href="<%= SettingsController.r(:discography) %>"><%= _('Discography') %></a></li>
+				<li class="elements"><a href="<%= SettingsController.r(:elements) %>"><%= _('Elements') %></a></li>
 			<% end %>
 			
 			<li class="delete"><a href="<%= SettingsController.r(:delete) %>"><%= _('Delete Account') %></a></li>
@@ -42,7 +42,7 @@
 
 <div class="block">
 	<h3><%= _('Latest Members') %></h3>
-	<% Profile.limit(9).each do |u| %>
+	<% Profile.members.limit(9).each do |u| %>
 	<div class="out_60">
 		<a href="<%== ProfileController.r(:view, u.user_alias) %>"><img style="float: left; padding: 1px;" src="<%== u.avatar_small %>" alt="<%== u.real_name %>" /></a>
 	</div>

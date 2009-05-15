@@ -8,3 +8,4 @@ start.rb
 live_options.rb
 /tmp
 /log
+/controller/test.rb

@@ -124,6 +124,10 @@ class Profile < Sequel::Model(:profiles)
      return default
   end
   
+  def self.members
+    Profile.join(:users, :id => :user_id).filter(:users__active => TRUE).select(:profiles__*)
+  end
+  
   def link_path(file)
     #/uploads/5/avatar/
     return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.avatar_path , file) unless file.nil?
