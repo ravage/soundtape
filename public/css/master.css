@@ -335,7 +335,6 @@ div.in a {
 	height: 16px;
 	width: 16px;
 	border: none;
-	color: transparent;
 	background: url(/imgs/spinner.gif) no-repeat;
 }
 
@@ -383,5 +382,5 @@ div.in a {
 }
 
 .submit {
-	color: transparent;
+	color: #1d1d1d;
 }
