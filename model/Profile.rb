@@ -11,7 +11,7 @@ class Profile < Sequel::Model(:profiles)
     validates_unique        :user_alias
     validates_format        /^[\w\s]+$/, :real_name
     validates_format        /^[a-z0-9]+$/, :user_alias
-    validates_format        /^[a-zA-Z]([.]?([[:alnum:]_-]+)*)?@([[:alnum:]\-_]+\.)+[a-zA-Z]{2,4}$/, :gravatar_email unless gravatar_email.empty?
+    validates_format        RFC822::EmailAddress, :gravatar_email unless gravatar_email.empty?
     
     errors.add(:use_gravatar, 'need gravatar e-mail') if gravatar_email.empty? && use_gravatar
     errors.add(:photo_big, 'not an image') if photo_big == 'NAI'

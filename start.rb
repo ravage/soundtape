@@ -7,6 +7,7 @@ require 'digest/sha1'
 require 'ramaze/contrib/email'
 require 'image_science'
 require 'json/ext'
+require 'vendor/rfc822'
 
 include GetText
 #bindtextdomain('soundtape', :path => 'locale')

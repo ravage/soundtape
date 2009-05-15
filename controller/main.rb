@@ -28,5 +28,4 @@ class MainController < Controller
       flash[:success] = _('Thank you for taking the time to give us some feedback!')
     end
   end
-  
 end
