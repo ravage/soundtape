@@ -125,7 +125,7 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def self.members
-    Profile.join(:users, :id => :user_id).filter(:users__active => TRUE).select(:profiles__*)
+    Profile.join(:users, :id => :user_id).filter(:users__active => TRUE).select('profiles.*'.lit)
   end
   
   def link_path(file)

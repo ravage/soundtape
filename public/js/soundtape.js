@@ -354,16 +354,35 @@ var FillMap = new Class({
 	initialize: function(mapWrapper, options) {
 		this.setOptions(options);
 		this.mapHelper = new GoogleMapsHelper(mapWrapper);
+		
 	},
 
 	mapProfile: function(uri) {
 		var req = new Request.JSON({url: uri,
 			onSuccess: function(profile) {
-				var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(profile.latitude, profile.longitude));
-				this.mapHelper.addClickEvent(marker, Formatter.get(profile));
-				this.linkMarker(marker, profile);
+				if(profile.latitude && profile.longitude) {
+					this.setMarkerAtLatLng(profile);
+				} else if(profile.location) {
+					this.setMarkerAtGeocode(profile);
+				}
 			}.bind(this)
 		}).get();		
+	},
+	
+	setMarkerAtLatLng: function(info) {
+		var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(info.latitude, info.longitude));
+		this.mapHelper.addClickEvent(marker, Formatter.get(info));
+		this.linkMarker(marker, info);
+	},
+	
+	setMarkerAtGeocode: function(info) {
+		this.mapHelper.addEvent('onMapInfo', function(_info, marker){
+			GEvent.clearListeners(marker);
+			this.mapHelper.addClickEvent(marker, Formatter.get(info));
+			this.linkMarker(marker, info);
+			marker.closeInfoWindow();
+		}.bind(this));
+		this.mapHelper.geocode(info.location);
 	},
 
 	mapEvents: function(uri) {
@@ -371,19 +390,24 @@ var FillMap = new Class({
 			onSuccess: function(events) {
 				if(events instanceof Array) {
 					events.each(function(el){
-						var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(el.latitude, el.longitude));
-						this.mapHelper.addClickEvent(marker, Formatter.get(el));
-						this.linkMarker(marker, el);
+						if(el.latitude && el.longitude) {
+							this.setMarkerAtLatLng(el);
+						} else if(el.location) {
+							this.setMarkerAtGeocode(el);
+						}
+
 					}.bind(this));
 				}
 				else {
-					var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(i.latitude, i.longitude));
-					this.mapHelper.addClickEvent(marker, Formatter.get(events));
-					this.linkMarker(marker, events);
+					if(el.latitude && el.longitude) {
+						this.setMarkerAtLatLng(events);
+					} else if(events.location) {
+						this.setMarkerAtGeocode(events);
+					}
 				}
 			}.bind(this)
-			}).get();
-		},
+		}).get();
+	},
 	
 	linkMarker: function(marker, info) {
 		$('link_' + info.id).addEvent('click', function(e) {
