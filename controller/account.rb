@@ -7,7 +7,7 @@ class AccountController < Controller
     @type = get_klass(type).name.downcase
   end
   
-  def create(type)
+  def create(type = nil)
     @title = _('Create')
     redirect :/ unless valid_user_type(type) && request.post?
     
@@ -21,7 +21,7 @@ class AccountController < Controller
           klass.save 
           Profile[:user_id => klass.id_].update(:real_name => request[:real_name])
         rescue Sequel::DatabaseError => e
-          oops(r(:create), e)
+          oops(r(:create, type), e)
         end
         send_activation_mail(klass)
         flash[:success] = _('successfully created account. A message containing information on how to 
