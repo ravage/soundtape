@@ -1,7 +1,7 @@
 class AgendaController < Controller
   helper :user, :aspect, :utils
   
-  def event(user_id, event_id)
+  def event(user_id = nil, event_id = nil)
     @title = _('Event')
   end
   

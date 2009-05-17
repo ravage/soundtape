@@ -1,4 +1,4 @@
-<% if user.email == @user.email %>
+<% if user.id_ == @user.id_ %>
 	<div class="content">
 		<p>Welcome back <%== @profile.real_name %>, you may wish to <a href="<%= SettingsController.r(:profile) %>">change your profile</a>.</p>
 	</div>
@@ -25,6 +25,20 @@
 		<img src="<%== @user.profile.avatar_big %>" alt="Avatar" />
 	</div>
 </div>
+
+
+<!-- -->
+<div>
+<ul style="display: inline;">
+	<li style="display: inline; background: red;">123</li>
+	<li style="display: inline; background: red;">123</li>
+</ul>
+
+</div>
+<div class="content">
+	...
+</div>
+<!-- -->
 
 <% if @user.instance_of?(Band) %>
 <div class="content">

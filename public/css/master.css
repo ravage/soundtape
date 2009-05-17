@@ -348,6 +348,7 @@ div.in a {
 
 /* @settings events form end */
 
+/* @profile map begin */
 #map_wrapper {
 	height:300px; 
 	border: 2px solid #ccc;
@@ -365,11 +366,13 @@ div.in a {
 	background: url(/imgs/transparent_pixel.png);
 	height: 20px;
 }
+/* @profile map end */
 
 .album, .event {
 	overflow: auto;
 }
 
+/* @feedback img begin */
 .feedback a {
 	background: url(../imgs/feedback.png) no-repeat 0 0;
 	width: 31px;
@@ -380,7 +383,9 @@ div.in a {
 .feedback a:hover {
 	background: url(../imgs/feedback.png) no-repeat 0 -125px;
 }
+/* @feedback img end */
 
 .submit {
 	color: #1d1d1d;
 }
+

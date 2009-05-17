@@ -45,7 +45,7 @@ class SettingsController < Controller
     @events = user.agenda.events
   end
   
-  def event(event_id)
+  def event(event_id = nil)
     @title = _('Event')
     if event_id.nil?
       @action = 'create_event'
@@ -111,7 +111,7 @@ class SettingsController < Controller
   end
     
   before(:profile, :avatar, :password, :notifications, :url_alias, :location, 
-    :photos, :delete, :discography, :elements, :agenda, :event, :index, :album) { redirect_referer unless logged_in? }
+    :photos, :delete, :discography, :elements, :agenda, :event, :index, :album, :track) { redirect_referer unless logged_in? }
     
   before(:discography, :elements, :agenda, :events) {redirect_referer unless user.kind_of?(Band)}
 end

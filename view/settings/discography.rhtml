@@ -1,6 +1,8 @@
 <div class="content">
 	<a href="<%= r(:album) %>"><%= _('Add Albums') %></a>
-	<a href="<%= r(:track) %>"><%= _('Add Tracks') %></a>
+	<% if Album.count > 0 %>
+		<a href="<%= r(:track) %>"><%= _('Add Tracks') %></a>
+	<% end%>
 </div>
 
 
