@@ -13,11 +13,14 @@ include GetText
 #bindtextdomain('soundtape', :path => 'locale')
 #Locale.clear_all
 #Locale.default = "en"
-#puts Ramaze::Global.public_root
-#pp Ramaze.options.roots
+
 Ramaze.options.cache.default = Ramaze::Cache::MemCache
-#Ramaze.options.session.secure = true;
 Ramaze.options.session.ttl = 86400;
+Ramaze.options.mode = :live
+
+#routes
+Rack::RouteExceptions.route(/.*/, '/lost') if Ramaze.options.mode == :live 
+
 
 require 'options'
 
@@ -62,5 +65,4 @@ Ramaze::acquire 'model/*'
 # Add directory start.rb is in to the load path, so you can run the app from
 # any other working path
 $LOAD_PATH.unshift(__DIR__)
-#Ramaze.start :adapter => :webrick, :port => 7000
 

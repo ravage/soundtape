@@ -12,5 +12,5 @@
 # the same configuration.
 
 require File.expand_path('live_start', File.dirname(__FILE__))
-Ramaze.start(:file => __FILE__, :started => true, :mode => :live)
+Ramaze.start(:file => __FILE__, :started => true)
 run Ramaze
