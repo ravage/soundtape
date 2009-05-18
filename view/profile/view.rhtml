@@ -61,6 +61,11 @@
 				</ul>
 			</div>
 		<% end %>
+		<% if @agenda.upcoming_events.empty? %>
+			<p class="center_warning">
+				<%= _('No events scheduled yet.') %>
+			</p>
+		<% end %>
 	<% elsif flash[:top_tab] == 'photos' %>
 		<% @photos.each do |photo| %>
 			<div class="out">
@@ -74,20 +79,25 @@
 		<% end %>
 	<% elsif flash[:top_tab] == 'discography' %>
 		<% @albums.each do |album| %>
-		<div class="album">
-			<div style="margin-right: 10px; float: left;">
-				<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
+			<div class="album">
+				<div style="margin-right: 10px; float: left;">
+					<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
+				</div>
+				<ul>
+					<li><%== album.title %> (<%== album.category %>)
+						<ul>
+					<% album.tracks.each do |track| %>
+						<li><%== track.title %></li>
+					<% end %>
+						</ul>
+					</li>
+				</ul>
 			</div>
-			<ul>
-				<li><%== album.title %> (<%== album.category %>)
-					<ul>
-				<% album.tracks.each do |track| %>
-					<li><%== track.title %></li>
-				<% end %>
-					</ul>
-				</li>
-			</ul>
-		</div>
+		<% end %>
+		<% if @albums.empty? %>
+			<p class="center_warning">
+				<%= _('No albums submitted yet') %>
+			</p>
 		<% end %>
 	<% end %>
 </div>
