@@ -21,8 +21,10 @@ class ProfileController < Controller
       flash[:top_tab] = 'events'
     when 'discography'
       flash[:top_tab] = 'discography'
+    when 'elements'
+      flash[:top_tab] = 'elements'
     else
-      flash[:top_tab] = 'photos'
+      flash[:top_tab] = 'elements'
     end
     
     case args[2]

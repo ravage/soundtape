@@ -29,17 +29,22 @@
 <!-- Top Tab Begin -->
 <div class="content_tabs">
 	<ul>
-		<li <%= 'class="active"' if flash[:top_tab] == 'photos' %>>
-			<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'photos', flash[:bottom_tab]) %>"><%= _('Photos') %></a>
-		</li>
 		<% if @user.is_a?(Band) %>
-			<li <%= 'class="active"' if flash[:top_tab] == 'events' %>>
-				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'events', flash[:bottom_tab]) %>"><%= _('Events') %></a>
+			<li <%= 'class="active"' if flash[:top_tab] == 'elements' %>>
+				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'elements', flash[:bottom_tab]) %>"><%= _('Elements') %></a>
 			</li>
+			
 			<li <%= 'class="active"' if flash[:top_tab] == 'discography' %>>
 				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'discography', flash[:bottom_tab]) %>"><%= _('Discography') %></a>
 			</li>
+			
+			<li <%= 'class="active"' if flash[:top_tab] == 'events' %>>
+				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'events', flash[:bottom_tab]) %>"><%= _('Events') %></a>
+			</li>
 		<% end %>
+		<li <%= 'class="active"' if flash[:top_tab] == 'photos' %>>
+			<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'photos', flash[:bottom_tab]) %>"><%= _('Photos') %></a>
+		</li>
 	</ul>
 </div>
 <div class="content">
@@ -99,6 +104,12 @@
 				<%= _('No albums submitted yet') %>
 			</p>
 		<% end %>
+	<% elsif flash[:top_tab] == 'elements' %>
+		<% if @elements.nil? %>
+			<p class="center_warning">
+				<%= _("Hey, it's the invisible man band!") %>
+			</p>
+		<% end %>
 	<% end %>
 </div>
 <!-- Top Tab End -->
@@ -106,14 +117,14 @@
 <!-- Bottom Tab Begin -->
 <div class="content_tabs">
 	<ul>
+		<li <%= 'class="active"' if flash[:bottom_tab] == 'shouts' %>>
+			<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, flash[:top_tab], 'shouts') %>"><%= _('Shouts') %></a>
+		</li>
 		<% if @user.is_a?(Band) %>
 			<li <%= 'class="active"' if flash[:bottom_tab] == 'fans' %>>
 				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, flash[:top_tab], 'fans') %>"><%= _('Fans') %></a>
 			</li>
 		<% end %>
-		<li <%= 'class="active"' if flash[:bottom_tab] == 'shouts' %>>
-			<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, flash[:top_tab], 'shouts') %>"><%= _('Shouts') %></a>
-		</li>
 	</ul>
 </div>
 
