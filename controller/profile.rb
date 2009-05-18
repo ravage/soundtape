@@ -1,12 +1,39 @@
 class ProfileController < Controller
   helper :user, :utils, :aspect
   
-  def view(userid = session[:user_alias])
+  #0 => user, 1 => 1st tab, 2 => 2nd tab
+  #/someone/photos/fans
+  def view(*args)
     @title = _('Profile')
-    redirect_referer if userid.nil?
-    @user = Profile.by_id_or_alias(userid)
+    
+    redirect ProfileController.r(:view, session[:user_alias], 'photos', 'fans') if args.empty?
+  
+    @user = Profile.by_id_or_alias(args[0])
     #TODO redirect to not found
     redirect_referer if @user.nil?
+    
+    flash[:user] = @user.alias
+    
+    case args[1]
+    when 'photos'
+      flash[:top_tab] = 'photos'
+    when 'events'
+      flash[:top_tab] = 'events'
+    when 'discography'
+      flash[:top_tab] = 'discography'
+    else
+      flash[:top_tab] = 'photos'
+    end
+    
+    case args[2]
+    when 'fans'
+      flash[:bottom_tab] = 'fans'
+    when 'shouts'
+      flash[:bottom_tab] = 'shouts'
+    else
+      flash[:bottom_tab] = 'shouts'
+    end
+    
     @agenda = @user.agenda if @user.respond_to?(:agenda)
     @albums = @user.albums if @user.respond_to?(:albums)
     @profile = @user.profile if @user.respond_to?(:profile)

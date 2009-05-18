@@ -26,59 +26,111 @@
 	</div>
 </div>
 
-
-<!-- -->
-<div>
-<ul style="display: inline;">
-	<li style="display: inline; background: red;">123</li>
-	<li style="display: inline; background: red;">123</li>
-</ul>
-
-</div>
-<div class="content">
-	...
-</div>
-<!-- -->
-
-<% if @user.instance_of?(Band) %>
-<div class="content">
-	<% @albums.each do |album| %>
-	<div class="album">
-		<div style="margin-right: 10px; float: left;">
-			<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
-		</div>
-		<ul>
-			<li><%== album.title %> (<%== album.category %>)
-			<% album.tracks.each do |track| %>
-				<li><%== track.title %></li>
-			<% end %>
+<!-- Top Tab Begin -->
+<div class="content_tabs">
+	<ul>
+		<li <%= 'class="active"' if flash[:top_tab] == 'photos' %>>
+			<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'photos', flash[:bottom_tab]) %>"><%= _('Photos') %></a>
+		</li>
+		<% if @user.is_a?(Band) %>
+			<li <%= 'class="active"' if flash[:top_tab] == 'events' %>>
+				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'events', flash[:bottom_tab]) %>"><%= _('Events') %></a>
 			</li>
-		</ul>
-	</div>
-	<% end %>
+			<li <%= 'class="active"' if flash[:top_tab] == 'discography' %>>
+				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'discography', flash[:bottom_tab]) %>"><%= _('Discography') %></a>
+			</li>
+		<% end %>
+	</ul>
 </div>
-
 <div class="content">
-	<% @agenda.upcoming_events.each do |event| %>
-		<div class="event">
-			<div style="float: left; margin-right: 10px;">
-				<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
+	<% if flash[:top_tab] == 'events' %>
+		<% @agenda.upcoming_events.each do |event| %>
+			<div class="event">
+				<div style="float: left; margin-right: 10px;">
+					<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
+				</div>
+				<ul>
+					<li><%= event.name %>
+						<span style="float: right;"><a href="<%= AgendaController.r(:event, @user.alias, event.seo) %>"><%= _('More') %></a></span>
+						<ul>
+							<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
+							<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
+							<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		<% end %>
+	<% elsif flash[:top_tab] == 'photos' %>
+		<% @photos.each do |photo| %>
+			<div class="out">
+				<a href="<%== photo.photo %>"><img src="<%== photo.thumbnail %>" alt="<%= photo.title %>"/></a>
+			</div>
+		<% end %>
+		<% if @photos.empty? %>
+			<p class="center_warning">
+				<%= _('No photos were submitted yet') %>
+			</p>
+		<% end %>
+	<% elsif flash[:top_tab] == 'discography' %>
+		<% @albums.each do |album| %>
+		<div class="album">
+			<div style="margin-right: 10px; float: left;">
+				<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
 			</div>
 			<ul>
-				<li><%= event.name %>
-					<span style="float: right;"><a href="<%= AgendaController.r(:event, @user.alias, event.seo) %>"><%= _('More') %></a></span>
+				<li><%== album.title %> (<%== album.category %>)
 					<ul>
-						<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
-						<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
-						<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
+				<% album.tracks.each do |track| %>
+					<li><%== track.title %></li>
+				<% end %>
 					</ul>
 				</li>
 			</ul>
 		</div>
+		<% end %>
 	<% end %>
 </div>
-<% end %>
+<!-- Top Tab End -->
 
+<!-- Bottom Tab Begin -->
+<div class="content_tabs">
+	<ul>
+		<% if @user.is_a?(Band) %>
+			<li <%= 'class="active"' if flash[:bottom_tab] == 'fans' %>>
+				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, flash[:top_tab], 'fans') %>"><%= _('Fans') %></a>
+			</li>
+		<% end %>
+		<li <%= 'class="active"' if flash[:bottom_tab] == 'shouts' %>>
+			<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, flash[:top_tab], 'shouts') %>"><%= _('Shouts') %></a>
+		</li>
+	</ul>
+</div>
+
+<div class="content">
+	<% if flash[:bottom_tab] == 'fans' %>
+		<% if @fans.nil? %>
+			<p class="center_warning">
+				<%= _('Are we that bad?') %>
+			</p>
+		<% end %>
+	<% elsif flash[:bottom_tab] == 'shouts' %>
+		<% if @shouts.nil? %>
+			<p class="center_warning">
+				<%= _('Come on, scream for us!') %>
+			</p>
+		<% end %>
+	<% end %>
+</div>
+<!-- Bottom Tab End -->
+
+<div class="content_tabs">
+	<ul>
+		<li class="active">
+			<span><%= _('Location') %></span>
+		</li>
+	</ul>
+</div>
 <div class="content">
 	<div id="overlay">	
 		<a href="#" id="toggle">Open/Close</a>
@@ -91,19 +143,9 @@
 	<div id="map_wrapper">
 
 		<noscript>
-			<p style="position: relative; top:50%; text-align: center; vertical-align: middle;">
+			<p class="center_warning">
 				<%= _('Enable javascript to get map functionality!') %>
 			</p>
 		</noscript>
 	</div>
-	
 </div>
-
-<div class="content">
-	<% @photos.each do |photo| %>
-		<div class="out">
-			<a href="<%== photo.photo %>"><img src="<%== photo.thumbnail %>" alt="<%= photo.title %>"/></a>
-		</div>
-	<% end %>
-</div>
-

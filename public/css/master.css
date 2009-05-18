@@ -49,6 +49,7 @@ textarea {
 	width: 250px;
 	border: 2px solid #ccc;
 }
+
 /* @main tags end */
 
 /* @main structure begin */
@@ -70,8 +71,16 @@ textarea {
 }
 
 /* @top_menu begin */
+#top_menu:after {
+	content: "."; 
+    display: block; 
+    height: 0; 
+    font-size:0;	
+    clear: both; 
+    visibility:hidden;
+}
+
 #top_menu {
-	overflow: auto;
 	background-color: #101010;
 }
 #top_menu a {
@@ -179,7 +188,16 @@ textarea {
 	background-color: #1d1d1d;
 	padding: 10px;
 	margin-bottom: 10px;
-	overflow: auto;
+/*	overflow: auto;*/
+}
+
+.content:after, .block:after {
+	content: "."; 
+    display: block; 
+    height: 0; 
+    font-size:0;	
+    clear: both; 
+    visibility:hidden;
 }
 /* @blocks end */
 
@@ -387,5 +405,62 @@ div.in a {
 
 .submit {
 	color: #1d1d1d;
+}
+
+/* @content tabs begin */
+.content_tabs:after {
+   content: "."; 
+    display: block; 
+    height: 0; 
+    font-size:0;	
+    clear: both; 
+    visibility:hidden;
+}
+
+
+.content_tabs ul {
+	margin: 0;
+  	padding: 0;
+  	list-style: none;
+}
+
+.content_tabs li {
+	float: left;
+	margin: 0 5px 0 0;
+  	padding: 0;
+	text-align: center;
+}
+
+.content_tabs a {
+	display: block;
+	border-bottom: none !important;
+	padding: 6px 10px 6px 10px;
+	background: #161616;
+}
+
+.content_tabs a:hover {
+	background: #1d1d1d;
+}
+
+.content_tabs .active {
+	float: left;
+	margin: 0 5px 0 0;
+  	padding: 0;
+	text-align: center;
+}
+
+.content_tabs .active a, .content_tabs span {
+	display: block;
+	border-bottom: none !important;
+	padding: 6px 10px 6px 10px;
+	background: #1d1d1d;
+}
+/* @content tabs end */
+
+.center_warning {
+	text-align: center; 
+	vertical-align: middle;
+	top: -50%;
+	
 }
 
