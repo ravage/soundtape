@@ -455,11 +455,14 @@ var FillMap = new Class({
 	* @param {Object} info An object with an identifier to link with the HTML element.
 	*/
 	linkMarker: function(marker, info) {
-		$('link_' + info.id).addEvent('click', function(e) {
-			e.stop();
-			this.mapHelper.map.setCenter(marker.getLatLng(), 8);
-			marker.openInfoWindowHtml(Formatter.get(info));
-		}.bind(this));
+		var link = $('link_' + info.id);
+		if(link) {
+			$('link_' + info.id).addEvent('click', function(e) {
+				e.stop();
+				this.mapHelper.map.setCenter(marker.getLatLng(), 8);
+				marker.openInfoWindowHtml(Formatter.get(info));
+			}.bind(this));
+		}
 	}
 });
 
