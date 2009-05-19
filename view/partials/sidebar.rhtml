@@ -40,16 +40,28 @@
 	</div>
 <% end %>
 
-<div class="block">
+<% if @fan_box  %>
+	<div class="block">
+		<h3><%= _('Fan Box') %></h3>
+		<% if is_fan? %>
+			<p class="im_fan">
+				<a href="<%= UserController.r(:fan_of, @user.id_) %>"><%= _('Like this band!') %></a>
+			</p>
+		<% else %>
+			<p class="not_fan">
+				<a href="<%= UserController.r(:not_fan_of, @user.id_) %>"><%= _("Dont't like this band!") %></a>
+			</p>
+		<% end %>
+	</div>
+<% end %>
+
+<div class="block">	
 	<h3><%= _('Latest Members') %></h3>
 	<% Profile.members.limit(9).each do |u| %>
 	<div class="out_60">
-		<a href="<%== ProfileController.r(:view, u.user_alias) %>"><img style="float: left; padding: 1px;" src="<%== u.avatar_small %>" alt="<%== u.real_name %>" /></a>
+		<a href="<%== ProfileController.r(:view, u.user_alias) %>">
+			<img src="<%== u.avatar_small %>" alt="<%== u.real_name %>" />
+		</a>
 	</div>
 	<% end %>
-</div>
-
-<div class="block">
-	<h3>Another Dummy</h3>
-	bla bla bla
 </div>

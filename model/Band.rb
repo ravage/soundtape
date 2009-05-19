@@ -12,7 +12,10 @@ class Band < User
   end
    
   def track(track_id)
-    return Track[track_id] if Band.eager_graph(:albums => :tracks).where('tracks.id'.lit => track_id.to_i).count == 1
+    return Track[track_id] if Band.eager_graph(:albums => :tracks).where(:tracks__id => track_id.to_i).count == 1
   end
-
+  
+  def fans
+    Profile.join(:user_favs, :user_id => :user_id).filter(:user_favs__band_id => id)
+  end
 end

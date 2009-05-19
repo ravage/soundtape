@@ -145,6 +145,10 @@ class Profile < Sequel::Model(:profiles)
     return id
   end
   
+  def alias
+    return user_alias
+  end
+  
   def to_json
     return {
       :json_class => self.class.name,

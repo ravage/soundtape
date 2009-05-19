@@ -42,14 +42,14 @@
 				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'events', flash[:bottom_tab]) %>"><%= _('Events') %></a>
 			</li>
 		<% end %>
-		<li <%= 'class="active"' if flash[:top_tab] == 'photos' %>>
+		<li <%= 'class="active"' if flash[:top_tab] == 'photos' || @user.is_a?(User) %>>
 			<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'photos', flash[:bottom_tab]) %>"><%= _('Photos') %></a>
 		</li>
 	</ul>
 </div>
 <div class="content">
 	<% if flash[:top_tab] == 'events' %>
-		<% @agenda.upcoming_events.each do |event| %>
+		<% @events.each do |event| %>
 			<div class="event">
 				<div style="float: left; margin-right: 10px;">
 					<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
@@ -66,7 +66,7 @@
 				</ul>
 			</div>
 		<% end %>
-		<% if @agenda.upcoming_events.empty? %>
+		<% if @events.empty? %>
 			<p class="center_warning">
 				<%= _('No events scheduled yet.') %>
 			</p>
@@ -130,10 +130,17 @@
 
 <div class="content">
 	<% if flash[:bottom_tab] == 'fans' %>
-		<% if @fans.nil? %>
+		<% if @fans.empty? %>
 			<p class="center_warning">
 				<%= _('Are we that bad?') %>
 			</p>
+		<% else %>
+			<% @fans.each do |fan| %>
+				<div class="out_60">
+				<a href="<%= ProfileController.r(:view, fan.alias) %>"><img src="<%== fan.avatar_small %>" alt="<%== fan.real_name %>" title="<%== fan.real_name %>" /></a>
+				</div>
+
+			<% end %>
 		<% end %>
 	<% elsif flash[:bottom_tab] == 'shouts' %>
 		<% if @shouts.nil? %>

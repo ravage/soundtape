@@ -38,8 +38,11 @@ class ProfileController < Controller
     
     @events = @user.agenda.upcoming_events if @user.respond_to?(:agenda)
     @albums = @user.albums if @user.respond_to?(:albums)
-    @profile = @user.profile if @user.respond_to?(:profile)
+    @fans = @user.fans if @user.respond_to?(:fans)
+    @profile = @user.profile
     @photos = @user.photos
+    
+    @fan_box = @user.is_a?(Band) && @user.id_ != session[:user_id] && logged_in?
   end
   
   def update_profile
@@ -157,4 +160,10 @@ class ProfileController < Controller
   end
   
   before(:update_profile, :update_avatar, :update_alias, :update_location, :upload_photo) {redirect_referer unless request.post? && logged_in?}
+  
+  private
+  
+  def is_fan?
+    return UserFav[:band_id => @user.id_, :user_id => session[:user_id]].nil?
+  end
 end

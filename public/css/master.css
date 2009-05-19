@@ -149,7 +149,7 @@ textarea {
 }
 
 #content_wrapper a, #footer a {
-	border-bottom: 1px dotted #e64b1b;
+	/*border-bottom: 1px dotted #e64b1b;*/
 	text-decoration: none;
 }
 
@@ -158,7 +158,7 @@ textarea {
 }
 
 #content_wrapper a:hover, #footer a:hover {
-	border-bottom: 1px dotted #ccc;
+	/*border-bottom: 1px dotted #ccc;*/
 }
 
 #sidebar_wrapper, #content_wrapper {
@@ -214,9 +214,12 @@ textarea {
 	color: #ccc;
 }
 
+.profile_nav a {
+	padding: 5px 5px 5px 10px;
+	display: block;
+}
 .profile_nav li {
 	background-color: black;
-	padding: 5px 5px 5px 10px;
 	margin-top: 2px;
 }
 
@@ -256,17 +259,18 @@ body#view .box_profile
 
 
 .out_60 {
-	text-align: center;
 	float: left;
-	border: none;
+	height: 60px;
+	width: 60px;
+	padding: 1px;
 }
 
-.out_60 a {
-	border-bottom: none !important;
+.out_60 a img {
+	border: 1px solid #000;
 }
 
-.out_60:hover {
-	background: #ccc;
+.out_60 a:hover img {
+	border: 1px solid #ccc;
 }
 
 
@@ -495,3 +499,25 @@ div.in a {
 	border: 2px solid #ccc;
 }
 /* @profile map & overlays end */
+
+.im_fan, .not_fan {
+	background: black;
+	padding-left: 5px;
+}
+
+.im_fan a, .not_fan a {
+	display: block;
+	padding: 5px 5px 5px 20px;
+}
+
+.im_fan a:hover, .not_fan a:hover {
+	color: #ccc;
+}
+
+.im_fan a {
+	background: url(/imgs/add.png) no-repeat left;
+}
+
+.not_fan a {
+	background: url(/imgs/delete.png) no-repeat left;
+}
