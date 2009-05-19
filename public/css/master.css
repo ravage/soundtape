@@ -366,26 +366,6 @@ div.in a {
 
 /* @settings events form end */
 
-/* @profile map begin */
-#map_wrapper {
-	height:300px; 
-	border: 2px solid #ccc;
-}
-
-#overlay {
-	position: relative;
-	z-index: 2;
-	background: #333;
-	overflow: hidden;
-	float: left;
-	left: 2px;
-	top: 2px;
-	width: 531px;
-	background: url(/imgs/transparent_pixel.png);
-	height: 20px;
-}
-/* @profile map end */
-
 .album, .event {
 	overflow: auto;
 }
@@ -464,3 +444,54 @@ div.in a {
 	
 }
 /* @content tabs end */
+
+/* @profile map & overlays begin */
+
+#overlay_events {
+	width: 250px;
+}
+
+#overlay_events a {
+	display: block;
+	border-bottom: none !important;
+	padding: 5px;
+	
+}
+
+#overlay_events a:hover {
+	color: #ccc;
+}
+
+#overlay_events li {
+	background: url(/imgs/overlay_menu_pixel.png) 0 0 repeat-x;
+}
+#overlay_events li.last {
+	background: url(/imgs/overlay_round_dark.png) no-repeat bottom right;
+	padding-bottom: 5px;
+}
+
+#overlay_events .last a:hover {
+	color: #ccc;
+}
+
+#overlay {
+	position: relative;
+	z-index: 2;
+	overflow: hidden;
+	float: left;
+	left: 2px;
+	top: 2px;
+	width: 251px;
+	/*background: url(/imgs/transparent_pixel.png);*/
+	height: 30px;
+}
+
+#map_wrapper a {
+	border-bottom: none !important;
+}
+
+#map_wrapper {
+	height:300px; 
+	border: 2px solid #ccc;
+}
+/* @profile map & overlays end */
