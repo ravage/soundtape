@@ -153,17 +153,23 @@
 	</ul>
 </div>
 <div class="content">
+	<% if @user.is_a?(Band) && !@events.empty? %>
 	<div id="overlay">
 		<ul id="overlay_events">
-		<li><a href="#" id="toggle">Open/Close</a></li>
-		<li><a id="link_<%= @profile.id_ %>" href="#"><%=  _('User location') %></a></li>
-		<% if @events = @agenda.upcoming_events %>
+			<li>
+				<a href="#" id="toggle">Open/Close</a>
+			</li>
+			<li>
+				<a id="link_<%= @profile.id_ %>" href="#"><%=  _('User location') %></a>
+			</li>
 			<% @events.each do |event| %>
-				<li<%= " class='last'" if @events.last == event %>><a id="link_<%= event.id_ %>" href="#"><%== event.name %></a></li>
-			<% end if @agenda %>
-		<% end %>
+				<li<%= " class='last'" if @events.last == event %>>
+					<a id="link_<%= event.id_ %>" href="#"><%== event.name %></a>
+				</li>
+			<% end %>
 		</ul>
 	</div>
+	<% end %>
 	<div id="map_wrapper">
 		<noscript>
 			<p class="center_warning">

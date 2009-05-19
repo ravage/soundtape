@@ -36,7 +36,7 @@ class ProfileController < Controller
       flash[:bottom_tab] = 'shouts'
     end
     
-    @agenda = @user.agenda if @user.respond_to?(:agenda)
+    @events = @user.agenda.upcoming_events if @user.respond_to?(:agenda)
     @albums = @user.albums if @user.respond_to?(:albums)
     @profile = @user.profile if @user.respond_to?(:profile)
     @photos = @user.photos
