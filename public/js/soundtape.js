@@ -344,6 +344,13 @@ var MapFormWrapper = new Class({
 	}
 });
 
+/**
+* Utility class to fill a map with the location of a user or events.
+* Allows asynchronous calls to grab information abou locations, with the information,
+* it draws the markers and links them with a click event to a element on the page
+* FIXME: Event and Profile link could collide if they have same id
+* FIXME: Maybe a little coupled with the task in hand. Could be more generic?
+*/
 var FillMap = new Class({
 	Implements: Options,
 	
@@ -351,12 +358,22 @@ var FillMap = new Class({
 
 	},
 	
+	/**
+	* @param {String} mapWrapper div that will hold the map
+	* @param {JSON} options options Currently not used
+	* @constructor
+	*/
 	initialize: function(mapWrapper, options) {
 		this.setOptions(options);
 		this.mapHelper = new GoogleMapsHelper(mapWrapper);
 		
 	},
-
+	
+	/**
+	* Make an asynchronous call expecting to grab location info.
+	* 
+	* @param {String} uri URI to where the request should be made
+	*/
 	mapProfile: function(uri) {
 		var req = new Request.JSON({url: uri,
 			onSuccess: function(profile) {
@@ -369,12 +386,26 @@ var FillMap = new Class({
 		}).get();		
 	},
 	
+	/**
+	* Set a marker at a given latitude and longitude.
+	*
+	* The object passed to the function should contain latitude and longitude atributes.
+	* 
+	* @param {Object} info The object containing the latitude and longitude.
+	*/
 	setMarkerAtLatLng: function(info) {
 		var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(info.latitude, info.longitude));
 		this.mapHelper.addClickEvent(marker, Formatter.get(info));
 		this.linkMarker(marker, info);
 	},
 	
+	/**
+	* Uses geocoding to set a marker at a given address.
+	*
+	* The object passed to the function should contain a location attribute.
+	* 
+	* @param {Object} info The object containing the address to geocode.
+	*/
 	setMarkerAtGeocode: function(info) {
 		this.mapHelper.addEvent('onMapInfo', function(_info, marker){
 			GEvent.clearListeners(marker);
@@ -385,6 +416,13 @@ var FillMap = new Class({
 		this.mapHelper.geocode(info.location);
 	},
 
+	/**
+	* Make an asynchronous call expecting to grab location info.
+	*
+	* The function handles a single object or an array of objects.
+	* 
+	* @param {String} uri URI to where the request should be made.
+	*/
 	mapEvents: function(uri) {
 		var req = new Request.JSON({url: uri,
 			onSuccess: function(events) {
@@ -409,6 +447,13 @@ var FillMap = new Class({
 		}).get();
 	},
 	
+	/**
+	* Helper function to attach a click event to a HTML element.
+	* The element will be attached by a given id.
+	* 
+	* @param {GMarker} marker The marker to which the element will be linked.
+	* @param {Object} info An object with an identifier to link with the HTML element.
+	*/
 	linkMarker: function(marker, info) {
 		$('link_' + info.id).addEvent('click', function(e) {
 			e.stop();
@@ -418,19 +463,35 @@ var FillMap = new Class({
 	}
 });
 
+/**
+* Helper class to handle a URI. Extracts domain and params from a given URI.
+* 
+* Example:
+* <script type="text/javascript" src="/path/to/javascript.js?user=5&action=go"></script>
+*/
 var ParseUri = new Class();
 
+/**
+* Grabs the domain part of a given URI.
+*
+* @param {String} uri The uri from where to get the domain.
+* @return A String containing the domain or domain:port
+*/
 ParseUri.getDomain = function(uri) {
 	var uri = new URI(uri);
 	return uri.get('port') ? uri.get('host') + ':' + uri.get('port') : uri.get('host');
 };
 
+/**
+* Grabs the parameters from a given URI.
+*
+* @param {String} uri The uri from where to get the params.
+* @return An object containing the params parsed.
+*/
 ParseUri.getParams = function(uri) {
 	var params = uri.replace(/^[^\?]+\??/,'').parseQueryString();
 	return params;
 };
-
-
 
 /**
 * Just provides formatters with HTML content for a Google Maps Marker PopUp or whatever
