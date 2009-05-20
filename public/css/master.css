@@ -149,7 +149,7 @@ textarea {
 }
 
 #content_wrapper a, #footer a {
-	/*border-bottom: 1px dotted #e64b1b;*/
+	border-bottom: 1px dotted #e64b1b;
 	text-decoration: none;
 }
 
@@ -158,7 +158,7 @@ textarea {
 }
 
 #content_wrapper a:hover, #footer a:hover {
-	/*border-bottom: 1px dotted #ccc;*/
+	border-bottom: 1px dotted #ccc;
 }
 
 #sidebar_wrapper, #content_wrapper {
@@ -263,6 +263,10 @@ body#view .box_profile
 	height: 60px;
 	width: 60px;
 	padding: 1px;
+}
+
+.out_60 a {
+	border-bottom: none !important;
 }
 
 .out_60 a img {

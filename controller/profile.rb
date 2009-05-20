@@ -17,10 +17,12 @@ class ProfileController < Controller
     case args[1]
     when 'photos'
       flash[:top_tab] = 'photos'
+      @photos = @user.photos
     when 'events'
       flash[:top_tab] = 'events'
     when 'discography'
       flash[:top_tab] = 'discography'
+      @albums = @user.albums if @user.respond_to?(:albums)
     when 'elements'
       flash[:top_tab] = 'elements'
     else
@@ -30,21 +32,18 @@ class ProfileController < Controller
     case args[2]
     when 'fans'
       flash[:bottom_tab] = 'fans'
+      @fans = @user.fans if @user.respond_to?(:fans)
     when 'shouts'
       flash[:bottom_tab] = 'shouts'
     else
       flash[:bottom_tab] = 'shouts'
     end
-    
-    @events = @user.agenda.upcoming_events if @user.respond_to?(:agenda)
-    @albums = @user.albums if @user.respond_to?(:albums)
-    @fans = @user.fans if @user.respond_to?(:fans)
+        
     @profile = @user.profile
-    @photos = @user.photos
-    
+    @events = @user.agenda.upcoming_events if @user.respond_to?(:agenda)
     @fan_box = @user.is_a?(Band) && @user.id_ != session[:user_id] && logged_in?
   end
-  
+
   def update_profile
     @title = _('Update Profile')
     begin

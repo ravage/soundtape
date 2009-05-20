@@ -1,9 +1,12 @@
+<!-- Settings top bar begin -->
 <% if user.id_ == @user.id_ %>
 	<div class="content">
 		<p>Welcome back <%== @profile.real_name %>, you may wish to <a href="<%= SettingsController.r(:profile) %>">change your profile</a>.</p>
 	</div>
 <% end %>
+<!-- Settings top bar end -->
 
+<!-- Main profile zone begin -->
 <div class="content">
 	<div style="float: left;">
 		<p><%= @user.respond_to?(:albums) ? _('Band') : _('User') %>: 
@@ -25,6 +28,7 @@
 		<img src="<%== @user.profile.avatar_big %>" alt="Avatar" />
 	</div>
 </div>
+<!-- Main profile zone end -->
 
 <!-- Top Tab Begin -->
 <div class="content_tabs">
@@ -42,76 +46,24 @@
 				<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'events', flash[:bottom_tab]) %>"><%= _('Events') %></a>
 			</li>
 		<% end %>
-		<li <%= 'class="active"' if flash[:top_tab] == 'photos' || @user.is_a?(User) %>>
+		<li <%= 'class="active"' if flash[:top_tab] == 'photos' || !@user.is_a?(Band) %>>
 			<a href="<%= ProfileController.r(:view, flash[:user] = @user.alias, 'photos', flash[:bottom_tab]) %>"><%= _('Photos') %></a>
 		</li>
 	</ul>
 </div>
-<div class="content">
-	<% if flash[:top_tab] == 'events' %>
-		<% @events.each do |event| %>
-			<div class="event">
-				<div style="float: left; margin-right: 10px;">
-					<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
-				</div>
-				<ul>
-					<li><%= event.name %>
-						<span style="float: right;"><a href="<%= AgendaController.r(:event, @user.alias, event.seo) %>"><%= _('More') %></a></span>
-						<ul>
-							<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
-							<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
-							<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		<% end %>
-		<% if @events.empty? %>
-			<p class="center_warning">
-				<%= _('No events scheduled yet.') %>
-			</p>
-		<% end %>
-	<% elsif flash[:top_tab] == 'photos' %>
-		<% @photos.each do |photo| %>
-			<div class="out">
-				<a href="<%== photo.photo %>"><img src="<%== photo.thumbnail %>" alt="<%= photo.title %>"/></a>
-			</div>
-		<% end %>
-		<% if @photos.empty? %>
-			<p class="center_warning">
-				<%= _('No photos were submitted yet') %>
-			</p>
-		<% end %>
-	<% elsif flash[:top_tab] == 'discography' %>
-		<% @albums.each do |album| %>
-			<div class="album">
-				<div style="margin-right: 10px; float: left;">
-					<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
-				</div>
-				<ul>
-					<li><%== album.title %> (<%== album.category %>)
-						<ul>
-					<% album.tracks.each do |track| %>
-						<li><%== track.title %></li>
-					<% end %>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		<% end %>
-		<% if @albums.empty? %>
-			<p class="center_warning">
-				<%= _('No albums submitted yet') %>
-			</p>
-		<% end %>
-	<% elsif flash[:top_tab] == 'elements' %>
-		<% if @elements.nil? %>
-			<p class="center_warning">
-				<%= _("Hey, it's the invisible man band!") %>
-			</p>
-		<% end %>
-	<% end %>
-</div>
+
+<!-- Content Zone begin -->
+<% if flash[:top_tab] == 'events' %>
+	<%= render_file('view/user/events.rhtml', :events => @events, :user => @user) %>
+<% elsif flash[:top_tab] == 'photos' %>
+	<%= render_file('view/user/photos.rhtml', :photos => @photos) %>
+<% elsif flash[:top_tab] == 'discography' %>
+	<%= render_file('view/user/albums.rhtml', :albums => @albums) %>
+<% elsif flash[:top_tab] == 'elements' %>
+	<%= render_file('view/user/elements.rhtml', :elements => @elements) %>
+<% end %>
+<!-- Content Zone end -->
+
 <!-- Top Tab End -->
 
 <!-- Bottom Tab Begin -->
@@ -128,30 +80,17 @@
 	</ul>
 </div>
 
-<div class="content">
-	<% if flash[:bottom_tab] == 'fans' %>
-		<% if @fans.empty? %>
-			<p class="center_warning">
-				<%= _('Are we that bad?') %>
-			</p>
-		<% else %>
-			<% @fans.each do |fan| %>
-				<div class="out_60">
-				<a href="<%= ProfileController.r(:view, fan.alias) %>"><img src="<%== fan.avatar_small %>" alt="<%== fan.real_name %>" title="<%== fan.real_name %>" /></a>
-				</div>
+<!-- Content zone begin -->
+<% if flash[:bottom_tab] == 'fans' %>
+	<%= render_file('view/user/fans.rhtml', :fans => @fans) %>
+<% elsif flash[:bottom_tab] == 'shouts' %>
+	<%= render_file('view/user/shouts.rhtml', :shouts => @shouts) %>
+<% end %>
+<!-- Content zone begin -->
 
-			<% end %>
-		<% end %>
-	<% elsif flash[:bottom_tab] == 'shouts' %>
-		<% if @shouts.nil? %>
-			<p class="center_warning">
-				<%= _('Come on, scream for us!') %>
-			</p>
-		<% end %>
-	<% end %>
-</div>
 <!-- Bottom Tab End -->
 
+<!-- Location zone begin -->
 <div class="content_tabs">
 	<ul>
 		<li class="active">
@@ -159,6 +98,7 @@
 		</li>
 	</ul>
 </div>
+
 <div class="content">
 	<% if @user.is_a?(Band) && !@events.empty? %>
 	<div id="overlay">
@@ -185,3 +125,4 @@
 		</noscript>
 	</div>
 </div>
+<!-- Location zone end -->

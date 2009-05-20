@@ -1,0 +1,24 @@
+<div class="content">
+	<% @events.each do |event| %>
+		<div class="event">
+			<div style="float: left; margin-right: 10px;">
+				<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
+			</div>
+			<ul>
+				<li><%= event.name %>
+					<span style="float: right;"><a href="<%= AgendaController.r(:event, @user.alias, event.seo) %>"><%= _('More') %></a></span>
+					<ul>
+						<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
+						<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
+						<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	<% end %>
+	<% if @events.empty? %>
+		<p class="center_warning">
+			<%= _('No events scheduled yet.') %>
+		</p>
+	<% end %>
+</div>

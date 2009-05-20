@@ -1,0 +1,14 @@
+<div class="content">
+	<% if @fans.empty? %>
+		<p class="center_warning">
+			<%= _('Are we that bad?') %>
+		</p>
+	<% else %>
+		<% @fans.each do |fan| %>
+			<div class="out_60">
+			<a href="<%= ProfileController.r(:view, fan.alias) %>"><img src="<%== fan.avatar_small %>" alt="<%== fan.real_name %>" title="<%== fan.real_name %>" /></a>
+			</div>
+
+		<% end %>
+	<% end %>
+</div>

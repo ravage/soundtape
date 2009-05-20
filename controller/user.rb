@@ -24,5 +24,45 @@ class UserController < Controller
     end
     redirect_referer
   end
+  
+  def albums(band_id = nil)
+    redirect_referer if band_id.nil?
+    redirect_referer unless @user = Profile.by_id_or_alias(band_id)
+    redirect_referer unless @user.respond_to?(:albums)
+    @albums = @user.albums
+  end
+
+  def elements(band_id = nil)
+    redirect_referer if band_id.nil?
+    redirect_referer unless @user = Profile.by_id_or_alias(band_id)
+    redirect_referer unless @user.respond_to?(:elements)
+    @elements = @user.elements
+  end
+
+  def events(band_id = nil)
+    redirect_referer if band_id.nil?
+    redirect_referer unless @user = Profile.by_id_or_alias(band_id)
+    redirect_referer unless @user.respond_to?(:events)
+    @events = @user.events
+  end
+
+  def photos(user_id = nil)
+    redirect_referer if user_id.nil?
+    redirect_referer unless @user = Profile.by_id_or_alias(user_id)
+    redirect_referer unless @user.respond_to?(:photos)
+    @photos = @user.photos
+  end
+  
+  def fans(band_id = nil)
+    redirect_referer if band_id.nil?
+    redirect_referer unless @user = Profile.by_id_or_alias(band_id)
+    redirect_referer unless @user.respond_to?(:fans)
+    @fans = @user.fans
+  end
+  
+  def shouts(user_id = nil)
+  end
+
+  
   before(:fan_of, :not_fan_of) {redirect_referer unless logged_in?}
 end

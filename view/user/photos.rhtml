@@ -1,0 +1,12 @@
+<div class="content">
+	<% @photos.each do |photo| %>
+		<div class="out">
+			<a href="<%== photo.photo %>"><img src="<%== photo.thumbnail %>" alt="<%= photo.title %>"/></a>
+		</div>
+	<% end %>
+	<% if @photos.empty? %>
+		<p class="center_warning">
+			<%= _('No photos were submitted yet') %>
+		</p>
+	<% end %>
+</div>
