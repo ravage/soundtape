@@ -40,9 +40,11 @@ class AccountController < Controller
       if !user_login(request.params)
         flash[:error] = true;
       else
-        session[:user_id] = user.id_
-        session[:user_alias] = user.profile.user_alias
-        redirect(ProfileController.r(:view, user.profile.user_alias))
+        @profile = user.profile
+        session[:user_id] = @profile.user_id
+        session[:user_alias] = @profile.user_alias
+        session[:user_name] = @profile.real_name
+        redirect(ProfileController.r(:view, @profile.user_alias))
       end
     end
   end

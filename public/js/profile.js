@@ -7,11 +7,11 @@ function initialize() {
 	if(overlay) {
 		$('toggle').addEvent('click', function(e){
 			e.stop();
-			if(overlay.getHeight() <= 30) {
+			if(overlay.getHeight() <= 31) {
 				overlay.morph({height: $('overlay_events').getHeight() + 2});
 			}
 			else {
-				overlay.morph({height: 30});
+				overlay.morph({height: 31});
 			}
 		});
 	}

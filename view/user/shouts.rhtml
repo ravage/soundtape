@@ -1,7 +1,41 @@
 <div class="content">
-	<% if @shouts.nil? %>
-		<p class="center_warning">
-			<%= _('Come on, scream for us!') %>
-		</p>
+	<% if logged_in? %>
+		<div class="shout_form">
+			<form action="<%= ProfileController.r(:shout, @profile.alias) %>" method="post" accept-charset="utf-8">
+				<div class="out_60">
+					<img src="<%= user.profile.avatar_small %>" alt="<%== session[:user_name] %>" />
+				</div>
+				<textarea name="shout_box" id="shout_box" rows="8" cols="10"></textarea>
+				<input class="submit" type="submit" value="Shout" />
+			</form>
+		</div>
 	<% end %>
+	
+	<div class="shouts">
+		<% @shouts.each do |shout| %>
+			<div class="shout clearfix">
+				<span class="avatar">
+					<a href="<%= ProfileController.r(:view, shout.poster.profile.alias) %>">
+						<img src="<%= shout.poster.profile.avatar_small %>" alt="<%== shout.poster.profile.real_name %>" />
+					</a>
+				</span>
+				<div class="info">
+					<p>
+						<%= ('On') %> <%= shout.created %> 
+						<a href="<%= ProfileController.r(:view, shout.poster.profile.alias) %>">
+							<%= shout.poster.profile.real_name %></a> <%= _('wrote') %>:
+					</p>
+				</div>
+				
+				<p class="msg">
+					<%== shout.content %>
+				</p>	
+			</div>
+		<% end %>
+		<% if @shouts.empty? %>
+			<p class="center_warning">
+				<%= _('Come on, scream for us!') %>
+			</p>
+		<% end %>
+	</div>
 </div>

@@ -60,9 +60,5 @@ class UserController < Controller
     @fans = @user.fans
   end
   
-  def shouts(user_id = nil)
-  end
-
-  
   before(:fan_of, :not_fan_of) {redirect_referer unless logged_in?}
 end

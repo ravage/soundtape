@@ -26,7 +26,8 @@ class ProfileController < Controller
     when 'elements'
       flash[:top_tab] = 'elements'
     else
-      flash[:top_tab] = 'elements'
+      flash[:top_tab] = @user.is_a?(Band) ? 'elements' : 'photos'
+      @photos = @user.photos if flash[:top_tab] == 'photos'
     end
     
     case args[2]
@@ -42,6 +43,7 @@ class ProfileController < Controller
     @profile = @user.profile
     @events = @user.agenda.upcoming_events if @user.respond_to?(:agenda)
     @fan_box = @user.is_a?(Band) && @user.id_ != session[:user_id] && logged_in?
+    @shouts = @user.shouts
   end
 
   def update_profile
@@ -158,7 +160,24 @@ class ProfileController < Controller
     redirect_referer
   end
   
-  before(:update_profile, :update_avatar, :update_alias, :update_location, :upload_photo) {redirect_referer unless request.post? && logged_in?}
+  def shout(user_id = nil)
+    redirect_referer if user_id.nil? || !@user = Profile.by_id_or_alias(user_id)
+    shout = Shout.new
+    shout.prepare(request, user)
+    if shout.valid?
+      begin
+        @user.add_shout(shout)
+      rescue Sequel::DatabaseError => e
+        oops(r(:shout), e)
+      end
+    else
+      prepare_flash(:errors => shout.errors, :prefix => 'shout')
+    end
+    pp shout.errors
+    redirect_referer
+  end
+  
+  before(:shout, :update_profile, :update_avatar, :update_alias, :update_location, :upload_photo) {redirect_referer unless request.post? && logged_in?}
   
   private
   

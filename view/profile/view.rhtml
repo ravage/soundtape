@@ -15,12 +15,17 @@
 		<p><%= _('Permalink') %>:
 		<a href="<%= ProfileController.r(:view, @user.id_) %>"><%== @profile.real_name %></a></p>
 
-		<p><%= _('Location') %>:
-		<%== @profile.location %></p>
+		<% unless @profile.location.nil?|| @profile.location.empty? %>
+			<p><%= _('Location') %>: <%== @profile.location %></p>
+		<% end %>
 		
-		<% unless @user.profile.bio %>
-		<p><%= _('Bio') %>:</p>
-		<p><%== @user.profile.bio %></p>
+		<% unless @profile.homepage.nil? || @profile.homepage.empty? %>
+			<p><%= _('Homepage') %>: <%== @profile.homepage %></p>
+		<% end %>
+		
+		<% unless @profile.bio.nil? || @profile.bio.empty? %>
+			<p><%= _('Bio') %>:</p>
+			<p><%== @profile.bio %></p>
 		<% end %>
 	</div>
 	
@@ -84,7 +89,7 @@
 <% if flash[:bottom_tab] == 'fans' %>
 	<%= render_file('view/user/fans.rhtml', :fans => @fans) %>
 <% elsif flash[:bottom_tab] == 'shouts' %>
-	<%= render_file('view/user/shouts.rhtml', :shouts => @shouts) %>
+	<%= render_file('view/user/shouts.rhtml', :shouts => @shouts, :profile => @profile) %>
 <% end %>
 <!-- Content zone begin -->
 

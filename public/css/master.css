@@ -262,21 +262,18 @@ body#view .box_profile
 	float: left;
 	height: 60px;
 	width: 60px;
-	padding: 1px;
+	padding: 2px;
+	background: #000;
+	margin: 1px 0 0 1px;
 }
 
 .out_60 a {
-	border-bottom: none !important;
+	border-bottom: none !important;	
 }
 
-.out_60 a img {
-	border: 1px solid #000;
+.out_60:hover {
+	background: #ccc;
 }
-
-.out_60 a:hover img {
-	border: 1px solid #ccc;
-}
-
 
 /* @settings photos begin */
 .out {
@@ -491,7 +488,7 @@ div.in a {
 	top: 2px;
 	width: 251px;
 	/*background: url(/imgs/transparent_pixel.png);*/
-	height: 30px;
+	height: 31px;
 }
 
 #map_wrapper a {
@@ -504,6 +501,7 @@ div.in a {
 }
 /* @profile map & overlays end */
 
+/* @fan begin */
 .im_fan, .not_fan {
 	background: black;
 	padding-left: 5px;
@@ -525,3 +523,82 @@ div.in a {
 .not_fan a {
 	background: url(/imgs/delete.png) no-repeat left;
 }
+/* @fan begin */
+
+/* @shouts begin */
+.shout_form {
+	padding-bottom: 10px;
+}
+.shout_form textarea {
+	margin-left: 5px;
+	width: 461px;
+}
+
+.shout_form input {
+	float: right;
+	margin-top: 5px;
+}
+
+.shouts {
+	clear: both;
+}
+
+.shout_form:after {
+	content: "."; 
+    display: block; 
+    height: 0; 
+    font-size:0;	
+    clear: both; 
+    visibility:hidden;
+}
+
+.shout {
+	margin-top: 10px;
+}
+
+.shout .avatar {
+	float: left;
+	width: 70px;
+}
+
+.shout .avatar img {
+	background: black;
+	padding: 2px;
+}
+
+.shout .avatar img:hover {
+	background: #ccc;
+}
+
+.shout .avatar a {
+	border-bottom: none !important;
+}
+
+.shout .name {
+	float: left;
+}
+
+.shout .time {
+	float: right;
+}
+
+.shout .info {
+	overflow: auto;
+	border-bottom: 1px solid #363636;
+	padding-bottom: 5px;
+}
+
+.shout .msg {
+	margin-left: 65px;
+	padding: 5px;
+}
+
+.clearfix:after {
+	content: "."; 
+    display: block; 
+    height: 0; 
+    font-size:0;	
+    clear: both; 
+    visibility:hidden;
+}
+/* @shouts end */
