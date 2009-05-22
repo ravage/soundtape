@@ -22,13 +22,13 @@
 			<% @shouts.each do |shout| %>
 				<div class="shout clearfix">
 					<span class="avatar">
-						<a href="<%= ProfileController.r(:view, shout.poster.profile.alias) %>">
-							<img src="<%= shout.poster.profile.avatar_small %>" alt="<%== shout.poster.profile.real_name %>" />
+						<a href="<%= ProfileController.r(:view, shout.poster.alias) %>">
+							<img src="<%= shout.poster.avatar_small %>" alt="<%== shout.poster.real_name %>" />
 						</a>
 					</span>
 					<div class="info">
 						<span class="sender">
-							<%= ('On') %> <%= shout.created %> <a href="<%= ProfileController.r(:view, shout.poster.profile.alias) %>"><%= shout.poster.profile.real_name %></a> <%= _('wrote') %>:
+							<%= ('On') %> <%= shout.created %> <a href="<%= ProfileController.r(:view, shout.poster.alias) %>"><%= shout.poster.real_name %></a> <%= _('wrote') %>:
 						</span>
 					
 						<% if my_profile? || my_shout?(shout) %>

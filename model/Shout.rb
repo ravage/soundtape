@@ -1,8 +1,10 @@
 class Shout < Sequel::Model(:shouts)
-  many_to_one :poster, :join_table => :users, :class => :User, :key => :post_to
-  
   def validate
     validates_presence [:content, :post_by]
+  end
+
+  def poster
+    return Profile[:user_id => post_by]
   end
 
   def prepare(params, user)
