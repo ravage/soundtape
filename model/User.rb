@@ -5,7 +5,7 @@ class User < Sequel::Model(:users)
   one_to_many :profiles, :unique => true, :join_table => :profiles, :class => :Profile
   one_to_many :photos, :join_table => :photos, :class => :Photo
   one_to_many :favs, :join_table => :user_favs, :class => :UserFav
-  one_to_many :shouts, :join_table => :shout, :class => :Shout, :key => :post_to
+  one_to_many :shouts, :join_table => :shout, :class => :Shout, :key => :post_to, :order => :created_at.desc
 
   def validate
     if changed_columns.include?(:email) || new?
@@ -72,6 +72,10 @@ class User < Sequel::Model(:users)
     return nil
   end
   
+  def shout(shout_id, poster_id)
+    return Shout[:post_to => id_, :post_by => poster_id, :id => shout_id]
+  end
+
   def alias
     return profile.user_alias
   end

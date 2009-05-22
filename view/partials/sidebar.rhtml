@@ -57,7 +57,7 @@
 
 <div class="block">	
 	<h3><%= _('Latest Members') %></h3>
-	<% Profile.members.limit(9).each do |u| %>
+	<% Profile.latest_members.each do |u| %>
 	<div class="out_60">
 		<a href="<%== ProfileController.r(:view, u.user_alias) %>">
 			<img src="<%== u.avatar_small %>" alt="<%== u.real_name %>" />

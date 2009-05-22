@@ -76,6 +76,7 @@ CREATE TABLE profiles (
 	location		VARCHAR(100) NULL,
 	gravatar_email	VARCHAR(100) NULL,
 	use_gravatar	BOOLEAN DEFAULT FALSE,
+	created_at		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY		(id),
 	INDEX			(country_id),

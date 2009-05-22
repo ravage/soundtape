@@ -160,26 +160,48 @@ class ProfileController < Controller
     redirect_referer
   end
   
-  def shout(user_id = nil)
-    redirect_referer if user_id.nil? || !@user = Profile.by_id_or_alias(user_id)
-    shout = Shout.new
-    shout.prepare(request, user)
-    if shout.valid?
-      begin
-        @user.add_shout(shout)
-      rescue Sequel::DatabaseError => e
-        oops(r(:shout), e)
-      end
-    else
-      prepare_flash(:errors => shout.errors, :prefix => 'shout')
+  def shout(action = nil, user_id = nil)
+    redirect_referer if user_id.nil? || action !~ /add|delete/ || !@user = Profile.by_id_or_alias(user_id)
+    
+    case action
+    when 'add'
+      add_shout
+    when 'delete'
+      delete_shout
     end
-    pp shout.errors
+    flash[:shout] = true
     redirect_referer
   end
   
   before(:shout, :update_profile, :update_avatar, :update_alias, :update_location, :upload_photo) {redirect_referer unless request.post? && logged_in?}
   
   private
+  
+  def add_shout
+    shout = Shout.new
+    shout.prepare(request, user)
+    if shout.valid?
+      begin
+        @user.add_shout(shout)
+        flash[:message] = _('Shout added')
+      rescue Sequel::DatabaseError => e
+        oops(r(:shout), e)
+      end
+    else
+      flash[:message] = _('Need something to shout about!')
+      prepare_flash(:errors => shout.errors, :prefix => 'shout')
+    end
+  end
+  
+  def delete_shout
+    shout = @user.shout(request[:shout], user.id_)
+    unless shout.nil?
+      shout.delete
+      flash[:message] = _('Shout deleted')
+    else
+      flash[:message] = _('Something went wrong while deleteing your shout')
+    end
+  end
   
   def is_fan?
     return UserFav[:band_id => @user.id_, :user_id => session[:user_id]].nil?

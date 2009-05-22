@@ -45,6 +45,13 @@ module Ramaze
         return path
       end
       
+      def my_profile?
+        return @user.id_ == session[:user_id]
+      end
+      
+      def my_shout?(shout)
+        return shout.post_by == session[:user_id]
+      end
     end
   end
 end

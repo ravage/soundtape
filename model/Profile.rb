@@ -149,6 +149,10 @@ class Profile < Sequel::Model(:profiles)
     return user_alias
   end
   
+  def self.latest_members(max = 9)
+    Profile.members.limit(max).order(:created_at.desc)
+  end
+  
   def to_json
     return {
       :json_class => self.class.name,

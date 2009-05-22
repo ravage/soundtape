@@ -60,5 +60,13 @@ class UserController < Controller
     @fans = @user.fans
   end
   
+  def shouts(user_id = nil)
+    redirect_referer if user_id.nil?
+    redirect_referer unless @user = Profile.by_id_or_alias(user_id)
+    redirect_referer unless @user.respond_to?(:shouts)
+    @shouts = @user.shouts
+    @profile = @user.profile
+  end
+  
   before(:fan_of, :not_fan_of) {redirect_referer unless logged_in?}
 end

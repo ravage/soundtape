@@ -1,41 +1,55 @@
 <div class="content">
-	<% if logged_in? %>
-		<div class="shout_form">
-			<form action="<%= ProfileController.r(:shout, @profile.alias) %>" method="post" accept-charset="utf-8">
-				<div class="out_60">
-					<img src="<%= user.profile.avatar_small %>" alt="<%== session[:user_name] %>" />
+	<div id="shout_wrapper">
+		<% if logged_in? %>
+				<% if flash[:shout] %>
+					<div class="flash_<%= flash[:error] ? 'error' : 'info' %>">
+						<span><%= flash[:message] %></span>
+					</div>
+				<% end %>
+				
+				<div class="shout_form">
+					<form class="clearfix" action="<%= ProfileController.r(:shout, 'add', @profile.alias) %>" method="post" accept-charset="utf-8">
+						<span class="avatar"><img src="<%= user.profile.avatar_small %>" alt="<%== session[:user_name] %>" /></span>
+						<textarea name="shout_box" id="shout_box" rows="8" cols="4"></textarea>
+						<div class="submit">
+							<input type="submit" value="Shout" />
+						</div>
+					</form>
 				</div>
-				<textarea name="shout_box" id="shout_box" rows="8" cols="10"></textarea>
-				<input class="submit" type="submit" value="Shout" />
-			</form>
-		</div>
-	<% end %>
+		<% end %>
 	
-	<div class="shouts">
-		<% @shouts.each do |shout| %>
-			<div class="shout clearfix">
-				<span class="avatar">
-					<a href="<%= ProfileController.r(:view, shout.poster.profile.alias) %>">
-						<img src="<%= shout.poster.profile.avatar_small %>" alt="<%== shout.poster.profile.real_name %>" />
-					</a>
-				</span>
-				<div class="info">
-					<p>
-						<%= ('On') %> <%= shout.created %> 
+		<div class="shouts">
+			<% @shouts.each do |shout| %>
+				<div class="shout clearfix">
+					<span class="avatar">
 						<a href="<%= ProfileController.r(:view, shout.poster.profile.alias) %>">
-							<%= shout.poster.profile.real_name %></a> <%= _('wrote') %>:
+							<img src="<%= shout.poster.profile.avatar_small %>" alt="<%== shout.poster.profile.real_name %>" />
+						</a>
+					</span>
+					<div class="info">
+						<span class="sender">
+							<%= ('On') %> <%= shout.created %> <a href="<%= ProfileController.r(:view, shout.poster.profile.alias) %>"><%= shout.poster.profile.real_name %></a> <%= _('wrote') %>:
+						</span>
+					
+						<% if my_profile? || my_shout?(shout) %>
+						<form class="actions" action="<%= ProfileController.r(:shout, 'delete', @profile.alias) %>" method="post" accept-charset="utf-8">
+							<button type="submit"><img src="/imgs/delete.png" alt="Delete" /></button>
+							<input type="hidden" name="shout" value="<%= shout.id_ %>" />
+						</form>
+						<% end %>
+				
+					</div>
+				
+					<p class="msg">
+						<%== shout.content %>
 					</p>
 				</div>
-				
-				<p class="msg">
-					<%== shout.content %>
-				</p>	
-			</div>
-		<% end %>
-		<% if @shouts.empty? %>
-			<p class="center_warning">
-				<%= _('Come on, scream for us!') %>
-			</p>
-		<% end %>
+			<% end %>
+			<% if @shouts.empty? %>
+				<p class="center_warning">
+					<%= _('Come on, scream for us!') %>
+				</p>
+			<% end %>
+		</div>
 	</div>
 </div>
