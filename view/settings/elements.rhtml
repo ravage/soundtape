@@ -1,0 +1,69 @@
+<div class="content">
+	<form action="<%= SettingsController.r(:elements) %>" method="post" accept-charset="utf-8">
+		<fieldset>
+			<label for="search_user_name"><%= _('Search for existing users? Type in name or e-mail') %></label>
+			<div>
+				<input class="input_big" type="text" name="search_user_name" value="" id="search_user_name" />
+				<button class="button_big" type="submit"><img src="/imgs/search.png" alt="<%= _('Search') %>"/></button>
+			</div>
+			
+		</fieldset>
+	</form>
+</div>
+
+<div class="content">
+	<% if flash[:message] %>
+		<div class="flash_<%= flash[:error] ? 'error' : 'info' %>">
+			<span><%= flash[:message] %></span>
+		</div>
+	<% end %>
+	<form action="<%= BandController.r(:create__element) %>" method="post" accept-charset="utf-8">
+		<fieldset>
+			<legend><%= _('Elements') %></legend>
+			<label for="name"><%= _('Element Name') %> <%= flash[:error_element_real_name] %></label>
+			<input type="text" name="name" value="<%= flash[:element_name] %>" id="name" />
+		
+			<label for="instruments"><%= _('Element Instruments') %></label>
+			<input type="text" name="instruments" value="" id="instruments" />	
+			<div class="buttons">
+				<input type="submit" value="Continue" />
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<% unless @users.nil? %>
+	<div class="content small_user_list">
+		<%= _('No users where found matching your search') if @users.empty? %>
+		<% @users.each do |user| %>
+		<form action="<%= BandController.r(:create__element) %>" method="post" accept-charset="utf-8">
+		<ul class="user_item">
+			<li class="image_border_60">
+				<a href="<%= ProfileController.r(:view, user.alias) %>">
+					<img src="<%= user.avatar_small %>" alt="<%== user.real_name %>" />
+				</a>
+			</li>
+			<li class="user_item_info">
+				<% unless user.real_name.nil? %>
+					<p><%== user.real_name %></p>
+				<% end %>
+				<% unless user.location.nil? %>
+					<p><%== user.location %></p>
+				<% end %>
+				<p><a href="<%= ProfileController.r(:view, user.alias) %>"><%= _('View profile') %></a></p>
+			</li>
+			<li class="user_item_action">
+					<button type="submit"><img src="/imgs/add.png" alt="<%= _('Add') %>" /></button>
+					<input type="hidden" name="user_id" value="<%= user.id_ %>" />
+			</li>
+			<li>
+				<label for="instrument">
+					<%= _('Insert a single, or a comma separated list of instruments this element plays')%>
+				</label>
+				<input type="text" name="instruments" value="" class="instruments" />
+			</li>
+		</ul>
+		</form>
+		<% end %>
+	</div>
+<% end %>	

@@ -115,11 +115,16 @@ CREATE TABLE albums (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE band_elements (
+	id			INT UNSIGNED AUTO_INCREMENT,
 	user_id		INT UNSIGNED NOT NULL,
-	element_id	INT UNSIGNED NOT NULL,
+	element_id	INT UNSIGNED NULL,
+	real_name	VARCHAR(100) NULL,
+	instruments	VARCHAR(255) NOT NULL,
 	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	
-	PRIMARY KEY	(user_id, element_id),
+	PRIMARY KEY	(id),
+	INDEX		(user_id),
+	INDEX		(element_id),
 	FOREIGN	KEY	(user_id) REFERENCES users(id) ON DELETE CASCADE,
 	FOREIGN KEY (element_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -49,6 +49,17 @@ button {
 	border: none;
 	margin: 0;
 	padding: 0;
+	
+}
+
+img {
+	padding: 0 !important;
+	margin: 0 !important;
+	border: none !important;
+}
+
+button:hover {
+	cursor: pointer;
 }
 
 /* @main tags end */
@@ -616,11 +627,11 @@ div.in a {
 	color: #000;
 }
 
-#shout_wrapper .flash_info {
+.flash_info {
 	background: #A4E696;
 }
 
-#shout_wrapper .flash_error {
+.flash_error {
 	background: #E76C6C;
 }
 
@@ -638,3 +649,84 @@ div.in a {
     visibility:hidden;
 }
 /* @shouts end */
+
+.buttons {
+	padding: 10px 0 0 0;
+}
+
+.input_big {
+	font-size: 160%;
+	font-weight: bold;
+	padding: 5px;
+	width: 479px;
+}
+
+.button_big {
+	height: 35px;
+	width: 35px;
+	background: url(/imgs/search_button_bg.png);
+}
+
+.small_user_list {
+	margin-top: 10px;
+}
+
+.small_user_list li:odd {
+	background: #000;
+}
+
+.user_item {
+	position: relative; 
+	padding: 5px; 
+}
+
+.user_item:hover {
+	background: #000;
+}
+
+.user_item_info {
+	position: absolute; 
+	padding: 0 5px 5px 5px; 
+	top: 5px; 
+	left: 70px;
+}
+
+.user_item_action {
+	position: absolute; 
+	right: 0;
+	bottom: 5px;
+	padding-right: 5px;
+}
+
+.image_border_60 {
+	padding: 1px;
+	width: 60px;
+	height: 60px;
+	background: #000;
+}
+
+.image_border_60 a {
+	border: none !important;
+}
+
+.image_border_60:hover {
+	background: #ccc;
+}
+
+input.instruments {
+	width: 95%;
+	font-weight: bold;
+}
+
+.user_item label {
+	margin-top: 5px;
+}
+
+.flash_info, .flash_error {
+	padding: 5px 0 5px 0;
+	text-align: center;
+	font-weight: bold;
+	width: 100%;
+	margin-bottom: 10px;
+	color: #000;
+}

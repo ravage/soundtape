@@ -92,6 +92,9 @@ class SettingsController < Controller
   
   def elements
     @title = _('Elements')
+    if request.post?
+      @users = user.possible_elements(request[:search_user_name])
+    end
   end
   
   def delete
