@@ -71,5 +71,5 @@ class AgendaController < Controller
     redirect SettingsController.r(:agenda)
   end
   
-  before(:update_agenda, :create_event, :update_event) {redirect_referer unless request.post? && logged_in?}
+  before(:update_agenda, :create_event, :update_event) {redirect_referer unless request.post? && logged_in? && user.is_a?(Band)}
 end

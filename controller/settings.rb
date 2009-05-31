@@ -90,11 +90,15 @@ class SettingsController < Controller
     end
   end
   
-  def elements
+  def elements(*actions)
+    flash["#{actions.last}_edit_instruments"] = true if request.path =~ %r|/edit/instruments/[0-9]+$|
+    flash["#{actions.last}_edit_name"] = true if request.path =~ %r|/edit/name/[0-9]+$|
+    
     @title = _('Elements')
     if request.post?
       @users = user.possible_elements(request[:search_user_name])
     end
+    @elements = user.elements
   end
   
   def delete

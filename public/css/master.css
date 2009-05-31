@@ -161,7 +161,6 @@ button:hover {
 }
 
 #content_wrapper a, #footer a {
-	border-bottom: 1px dotted #e64b1b;
 	text-decoration: none;
 }
 
@@ -170,7 +169,7 @@ button:hover {
 }
 
 #content_wrapper a:hover, #footer a:hover {
-	border-bottom: 1px dotted #ccc;
+	color: #ccc;
 }
 
 #sidebar_wrapper, #content_wrapper {
@@ -228,6 +227,7 @@ button:hover {
 
 .profile_nav a {
 	padding: 5px 5px 5px 10px;
+	text-decoration: none;
 	display: block;
 }
 .profile_nav li {
@@ -538,6 +538,10 @@ div.in a {
 /* @fan begin */
 
 /* @shouts begin */
+#shout_wrapper .sender {
+	float: left;
+}
+
 #shout_wrapper .shout_form form {
 	padding-left: 70px;
 	position: relative;
@@ -594,7 +598,6 @@ div.in a {
 #shout_wrapper .shout .info {
 	overflow: auto;
 	border-bottom: 1px solid #363636;
-	padding-bottom: 5px;
 }
 
 #shout_wrapper .shout .msg {
@@ -602,12 +605,12 @@ div.in a {
 	padding: 5px;
 }
 
-#shout_wrapper .shout .actions, .shout .actions a {
+#shout_wrapper .shout .actions, #shout_wrapper .shout .actions a {
 	float: right;
 	border-bottom: none !important;
 }
 
-#shout_wrapper .shout button, .shout form {
+#shout_wrapper .shout button, #shout_wrapper .shout form {
 	background: none;
 	border: none;
 	margin: 0;
@@ -667,42 +670,57 @@ div.in a {
 	background: url(/imgs/search_button_bg.png);
 }
 
+/* @elements setting/profile begin */
 .small_user_list {
 	margin-top: 10px;
 }
 
-.small_user_list li:odd {
+.user_item_profile:hover, .user_item_settings:hover {
 	background: #000;
 }
 
-.user_item {
-	position: relative; 
-	padding: 5px; 
-}
-
-.user_item:hover {
-	background: #000;
+.user_item_settings, .user_item_profile { 
+	padding: 5px 5px 5px 5px;
 }
 
 .user_item_info {
-	position: absolute; 
-	padding: 0 5px 5px 5px; 
-	top: 5px; 
-	left: 70px;
+	padding: 0 5px 5px 70px;
+}
+
+.user_item_profile {
+	width: 257px; 
+	float: left;
 }
 
 .user_item_action {
-	position: absolute; 
-	right: 0;
-	bottom: 5px;
-	padding-right: 5px;
+	clear: both;
+	margin-left: 1px;
 }
 
+.user_item_action button {
+	padding-top: 0.2em;
+}
+
+.user_item_settings input.instruments {
+	width: 94%;
+	font-weight: bold;
+	float: left;
+}
+
+.user_item_settings button.add {
+	float: right;
+}
+
+.user_item_settings .user_item_info label {
+	margin-top: 0px;
+}
+/* @elements setting/profile end */
 .image_border_60 {
 	padding: 1px;
 	width: 60px;
 	height: 60px;
 	background: #000;
+	float: left;
 }
 
 .image_border_60 a {
@@ -713,15 +731,6 @@ div.in a {
 	background: #ccc;
 }
 
-input.instruments {
-	width: 95%;
-	font-weight: bold;
-}
-
-.user_item label {
-	margin-top: 5px;
-}
-
 .flash_info, .flash_error {
 	padding: 5px 0 5px 0;
 	text-align: center;
@@ -729,4 +738,27 @@ input.instruments {
 	width: 100%;
 	margin-bottom: 10px;
 	color: #000;
+}
+
+.center {
+	text-align: center;
+	display: block;
+}
+
+.inline_form {
+	display: inline;
+}
+
+.hide {
+	display: none;
+	visibility: hidden;
+}
+
+.show {
+	display: block;
+	visibility: visible;
+}
+
+.single {
+	padding: 1px 0 1px 0;
 }

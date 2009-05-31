@@ -11,7 +11,34 @@ class BandElement < Sequel::Model(:band_elements)
     self.user_id = user.id_
     self.element_id = params[:user_id]
   end
-
+  
+  def name
+    return (real_name.nil?) ?  self.profile.real_name : real_name
+  end
+  
+  def avatar
+    return (real_name.nil?) ? self.profile.avatar_small : SoundTape.options.Constant.avatar_default_small
+  end
+  
+  def location
+    return (real_name.nil?) ? self.profile.location : nil
+  end
+  
+  def profile
+    return @profile || @profile = Profile[:user_id => element_id]
+  end
+  
+  def update_element(params)
+    if real_name.nil?
+      update(:instruments => params[:instruments])
+    else
+      update(
+        :instruments => params[:instruments] || instruments,
+        :real_name => params[:name] || real_name
+      )
+    end
+  end
+  
   def id_
     return id
   end

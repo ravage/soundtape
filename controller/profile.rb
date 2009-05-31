@@ -25,8 +25,10 @@ class ProfileController < Controller
       @albums = @user.albums if @user.respond_to?(:albums)
     when 'elements'
       flash[:top_tab] = 'elements'
+      @elements = @user.elements
     else
       flash[:top_tab] = @user.is_a?(Band) ? 'elements' : 'photos'
+      @elements = @user.elements if flash[:top_tab] == 'elements'
       @photos = @user.photos if flash[:top_tab] == 'photos'
     end
     

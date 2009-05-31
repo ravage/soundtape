@@ -20,6 +20,10 @@ class Band < User
     Profile.join(:user_favs, :user_id => :user_id).filter(:user_favs__band_id => id)
   end
   
+  def element(element_id)
+    return BandElement.filter(:id => element_id, :user_id => id_).first
+  end
+  
   def possible_elements(search)
     profiles = Array.new
     DB["SELECT DISTINCT p.* 

@@ -1,4 +1,28 @@
 <div class="content">
+	<% @elements.each do |element| %>
+		<ul class="user_item_profile">
+			<li class="image_border_60">
+				<% if element.real_name.nil? %>
+					<a href="<%= ProfileController.r(:view, element.profile.alias) %>">
+						<img src="<%= element.avatar %>" alt="<%== element.name %>" title="<%== element.name %>" />
+					</a>
+				<% else %>
+					<img src="<%= element.avatar %>" alt="<%== element.name %>" title="<%== element.name %>" />
+				<% end %>
+			</li>
+			<li class="user_item_info">
+				<p><%== element.name %></p>
+				
+				<% unless element.instruments.nil? %>
+					<p><%== element.instruments %></p>
+				<% end %>
+				
+				<% if element.real_name.nil? %>
+					<p><a href="<%= ProfileController.r(:view, element.profile.alias) %>"><%= _('View profile') %></a></p>
+				<% end %>
+			</li>
+		</ul>
+	<% end %>
 	<% if @elements.nil? %>
 		<p class="center_warning">
 			<%= _("Hey, it's the invisible man band!") %>

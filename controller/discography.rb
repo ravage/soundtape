@@ -91,5 +91,5 @@ class DiscographyController < Controller
      redirect_referer
    end
   
-  before(:create_album, :create_track, :update_album, :update_track) { redirect :/ unless logged_in? && request.post?}
+  before(:create_album, :create_track, :update_album, :update_track) { redirect :/ unless logged_in? && request.post? && user.is_a?(Band)}
 end

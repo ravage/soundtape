@@ -1,3 +1,4 @@
+<!-- @search box begin -->
 <div class="content">
 	<form action="<%= SettingsController.r(:elements) %>" method="post" accept-charset="utf-8">
 		<fieldset>
@@ -10,7 +11,80 @@
 		</fieldset>
 	</form>
 </div>
+<!-- @search box end -->
 
+<!-- @current elements begin -->
+<div class="content">
+	<% if @elements.empty? %>
+		<span class="center"><%= _("You haven't added any elements yet") %>
+	<% end %>
+	<% @elements.each do |element| %>
+	<div class="user_item_settings clearfix">
+		<ul>
+			<li class="image_border_60">
+				<% if element.real_name.nil? %>
+					<a href="<%= ProfileController.r(:view, element.profile.alias) %>">
+						<img src="<%= element.avatar %>" alt="<%== element.name %>" title="<%== element.name %>" />
+					</a>
+				<% else %>
+					<img src="<%= element.avatar %>" alt="<%== element.name %>" title="<%== element.name %>" />
+				<% end %>
+			</li>
+			<li class="user_item_info">
+				<% unless element.name.nil? %>
+					<% unless element.real_name.nil? %>
+						<form class="single <%= flash["#{element.id_}_edit_name"].nil? ? 'hide' : 'show' %>" action="<%= BandController.r('update/element') %>" method="post" accept-charset="utf-8">
+							<% if flash[:error_uelement_real_name] %>
+								<label for="name"><%= flash[:error_uelement_real_name] %></label>
+							<% end %>
+							<input type="text" name="name" value="<%== element.name %>" />
+							<input type="hidden" name="element_id" value="<%== element.id_ %>" />
+							<input type="submit" value="Save" />
+						</form>
+					<% end %>
+					
+					<p class="<%= flash["#{element.id_}_edit_name"].nil? || element.real_name.nil? ? 'show' : 'hide' %>">
+						<%== element.name %>
+						<% unless element.real_name.nil? %>
+							(<a href="<%= SettingsController.r('elements', 'edit', 'name', element.id_) %>"><%= _('Edit') %></a>)
+						<% end %>
+					</p>
+				<% end %>
+				
+				<% unless element.instruments.nil? %>
+					<form class="single <%= flash["#{element.id_}_edit_instruments"].nil? ? 'hide' : 'show' %>" action="<%= BandController.r('update/element') %>" method="post" accept-charset="utf-8">
+						<% if flash[:error_uelement_instruments] %>
+							<label for="instrument"><%= flash[:error_uelement_instruments] %></label>
+						<% end %>
+						<input type="text" name="instruments" value="<%== element.instruments %>" />
+						<input type="hidden" name="element_id" value="<%== element.id_ %>" />
+						<input type="submit" value="Save" />
+					</form>
+					<p class="<%= flash["#{element.id_}_edit_instruments"].nil? ? 'show' : 'hide' %>">
+						<%== element.instruments %>
+						(<a href="<%= SettingsController.r('elements', 'edit', 'instruments', element.id_) %>"><%= _('Edit') %></a>)
+					</p>
+				<% end %>
+			</li>
+			<li class="user_item_action box">
+
+				<form class="inline_form" action="<%= BandController.r('remove/element') %>" method="post" accept-charset="utf-8">
+					<button type="submit" title="<%= _('Delete') %>"><img src="/imgs/user_delete.png" alt="<%= _('Delete') %>" /></button>
+					<input type="hidden" name="element_id" value="<%= element.id_ %>" />
+				</form>
+				<% if element.real_name.nil? %>
+					<a href="<%= ProfileController.r(:view, element.profile.alias) %>">
+						<img src="/imgs/user_go.png" alt="<%= _('Visit Profile') %>" title="<%= _('Visit Profile') %>" />
+					</a>
+				<% end %>
+			</li>
+		</ul>
+	</div>
+	<% end %>
+</div>
+<!-- @current elements end -->
+
+<!-- @add element begin -->
 <div class="content">
 	<% if flash[:message] %>
 		<div class="flash_<%= flash[:error] ? 'error' : 'info' %>">
@@ -23,24 +97,28 @@
 			<label for="name"><%= _('Element Name') %> <%= flash[:error_element_real_name] %></label>
 			<input type="text" name="name" value="<%= flash[:element_name] %>" id="name" />
 		
-			<label for="instruments"><%= _('Element Instruments') %></label>
-			<input type="text" name="instruments" value="" id="instruments" />	
+			<label for="instruments"><%= _('Element Instruments') %> <%= flash[:error_element_instruments] %></label>
+			<input type="text" name="instruments" value="<%= flash[:element_instruments] %>" id="instruments" />	
 			<div class="buttons">
 				<input type="submit" value="Continue" />
 			</div>
 		</fieldset>
 	</form>
 </div>
+<!-- @add element begin -->
 
+<!-- @search results begin -->
 <% unless @users.nil? %>
 	<div class="content small_user_list">
-		<%= _('No users where found matching your search') if @users.empty? %>
+		<% if @users.empty? %>
+			<span class="center"><%= _('No users where found matching your search') %></span>
+		<% end %>
 		<% @users.each do |user| %>
 		<form action="<%= BandController.r(:create__element) %>" method="post" accept-charset="utf-8">
-		<ul class="user_item">
+		<ul class="user_item_settings clearfix">
 			<li class="image_border_60">
 				<a href="<%= ProfileController.r(:view, user.alias) %>">
-					<img src="<%= user.avatar_small %>" alt="<%== user.real_name %>" />
+					<img src="<%= user.avatar_small %>" alt="<%== user.real_name %>" title="<%== user.real_name %>" />
 				</a>
 			</li>
 			<li class="user_item_info">
@@ -52,18 +130,17 @@
 				<% end %>
 				<p><a href="<%= ProfileController.r(:view, user.alias) %>"><%= _('View profile') %></a></p>
 			</li>
-			<li class="user_item_action">
-					<button type="submit"><img src="/imgs/add.png" alt="<%= _('Add') %>" /></button>
-					<input type="hidden" name="user_id" value="<%= user.id_ %>" />
-			</li>
-			<li>
+			<li class="user_item_action clearfix">
 				<label for="instrument">
 					<%= _('Insert a single, or a comma separated list of instruments this element plays')%>
 				</label>
 				<input type="text" name="instruments" value="" class="instruments" />
+				<button class="add" type="submit"><img src="/imgs/add.png" alt="<%= _('Add') %>" title="<%= _('Add') %>" /></button>
+				<input type="hidden" name="user_id" value="<%= user.id_ %>" />
 			</li>
 		</ul>
 		</form>
 		<% end %>
 	</div>
 <% end %>	
+<!-- @search results end -->
