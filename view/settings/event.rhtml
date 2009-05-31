@@ -6,7 +6,7 @@
 
 <% unless flash[:event_not_found] %>
 <div class="content">
-	<form style="float: left;" id="geocode" action="<%= AgendaController.r(@action) %>" method="post" accept-charset="utf-8" id="event" enctype="multipart/form-data">
+	<form style="float: left;" id="geocode" action="<%= AgendaController.r(@action) %>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 		<fieldset>
 			<legend><%= _('Event Location') %></legend>
 			<label for="name"><%= _('Name') %> <%= flash[:error_event_name] %></label>
@@ -56,10 +56,9 @@
 		</fieldset>
 			<input type="hidden" name="event_id" value="<%= @event.id_ unless @event.nil? %>" />
 			<label class="submit" for="submit">Submit</label>
-			<input type="submit" value="Continue &rarr;">
+			<input type="submit" value="Continue &rarr;" />
 		
 	</form>
-	
 	
 	<img style="float: right" src="<%= @event.thumbnail %>" alt="<%== @event.name %>" />
 	

@@ -25,7 +25,7 @@
 		<ul>
 			<li><%= event.name %>
 				<span style="float: right;">
-					<a href="<%= r(:event, event.id_) %>"><%= _('Edit') %></a>
+					<a href="<%= r(:event, event.slug) %>"><%= _('Edit') %></a>
 					<a href="<%= AgendaController.r(:delete_event, event.id_) %>"><%= _('Delete') %></a>
 				</span>
 				<ul>

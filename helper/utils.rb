@@ -1,6 +1,8 @@
 require "#{File.expand_path(File.dirname(__FILE__))}/upload"
 require "#{File.expand_path(File.dirname(__FILE__))}/image_resize"
 require "#{File.expand_path(File.dirname(__FILE__))}/cleanup"
+
+require 'iconv'
 module Ramaze
   module Helper
     module Utils
@@ -52,6 +54,28 @@ module Ramaze
       def my_shout?(shout)
         return shout.post_by == session[:user_id]
       end
+      
+      def seo(value)
+        #from http://github.com/technoweenie/permalink_fu
+        result = Iconv.iconv('ascii//translit', 'utf-8', value).to_s
+        result.gsub!(/[^\x00-\x7F]+/, '') #Remove anything non-ASCII entirely (e.g. diacritics).
+        result.gsub!(/[^\w_ \-]+/i, '') #Remove unwanted chars.
+        result.gsub!(/[ \-]+/i, '-') #No more than one of the separator in a row.
+        result.gsub!(/^\-|\-$/i, '') #Remove leading/trailing separator.
+        return result.downcase!
+      end
+      
+      def slug_it(model, value)
+        return ' ' if value.empty?
+        slug = seo(value)
+        count = model.filter(:slug.like("#{slug}%")).count.to_i
+        if(count == 0)
+          return slug
+        else
+          return "#{slug}-#{count}"
+        end
+      end
+            
     end
   end
 end

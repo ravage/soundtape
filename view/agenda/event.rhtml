@@ -1,0 +1,25 @@
+<div class="content">
+	<%== @event.name %><br />
+	<%= _('Local:') %> <%== @event.local %> <%= _('in') %> <%== @event.building %><br />
+	<%= _('Date:') %> <%= @event.when.strftime("%d/%m/%Y @ %H:%M") %><br />
+	<%= _('Price:') %> <%= @event.price.to_f %><%= Currency[:ref_id => @event.currency_id].symbol %><br />
+	<%== @event.description %>
+</div>
+
+<div class="content">
+	flyer
+</div>
+
+<div class="content">
+	shouts
+</div>
+
+<div class="content">
+	<div id="map_wrapper">
+		<noscript>
+			<p style="position:relative; top:50%; text-align: center; vertical-align: middle;">
+				<%= _('Enable javascript to get map functionality!') %>
+			</p>
+		</noscript>
+	</div>
+</div>

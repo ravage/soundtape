@@ -1,6 +1,7 @@
 class Event < Sequel::Model(:events)
   include Ramaze::Helper::Utils
   many_to_one :agenda, :join_table => :agendas, :class => :Agenda
+  one_to_many :shouts, :join_table => :event_shouts, :class => EventShouts
   
   def validate
     validates_presence      [:name, :local, :building, :when]
@@ -39,6 +40,7 @@ class Event < Sequel::Model(:events)
     self.flyer_thumb  = thumb || nil
     self.currency_id  = params[:currency]
     self.user_id      = user.id_
+    self.slug         = slug_it(self.class, params[:name])
   end
   
   def upload(file_info, user)
@@ -107,10 +109,6 @@ class Event < Sequel::Model(:events)
   
   def thumbnail
     return link_path(flyer_thumb)
-  end
-  
-  def seo
-    name.gsub(/\s/, '-')
   end
   
   def id_

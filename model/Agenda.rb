@@ -9,7 +9,7 @@ class Agenda < Sequel::Model(:agendas)
   end
   
   def event(event_id)
-    Event.filter({:agenda_id => id, :id => event_id}).first
+    Event.filter({:agenda_id => id} & {:id => event_id, :slug => event_id}.sql_or).first
   end
   
   def upcoming_events

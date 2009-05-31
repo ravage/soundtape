@@ -12,9 +12,6 @@
 		<p><%= @user.respond_to?(:albums) ? _('Band') : _('User') %>: 
 		<%== @profile.real_name %></p>
 
-		<p><%= _('Permalink') %>:
-		<a href="<%= ProfileController.r(:view, @user.id_) %>"><%== @profile.real_name %></a></p>
-
 		<% unless @profile.location.nil?|| @profile.location.empty? %>
 			<p><%= _('Location') %>: <%== @profile.location %></p>
 		<% end %>

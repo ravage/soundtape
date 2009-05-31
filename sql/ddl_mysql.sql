@@ -90,6 +90,7 @@ CREATE TABLE shouts (
 	created_at	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	post_by		INT UNSIGNED NOT NULL,
 	post_to		INT	UNSIGNED NOT NULL,
+	shout_to 	ENUM('profile',  'event',  'album'),
 	
 	PRIMARY KEY	(id),
 	INDEX		(post_by),
@@ -209,7 +210,8 @@ CREATE TABLE events (
 	flyer_path		VARCHAR(100) NULL,
 	flyer_thumb		VARCHAR(100) NULL,
 	currency_id		INT UNSIGNED NOT NULL,
-	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	created_at		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	slug			VARCHAR(110) NOT NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(agenda_id),
