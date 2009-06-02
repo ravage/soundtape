@@ -163,12 +163,27 @@ class ProfileController < Controller
   end
   
   def shout(action = nil, user_id = nil)
-    redirect_referer if user_id.nil? || action !~ /add|delete/ || !@user = Profile.by_id_or_alias(user_id)
+    redirect_referer if user_id.nil? || action !~ /add|delete/
+    
+    case request[:shout_to]
+    when 'event'
+      redirect_referer unless @item = Event.by_id_or_slug(request[:param])
+      @shout = EventShout.new
+    when 'album'
+      redirect_referer unless @item = Album.by_id_or_slug(request[:param])
+      @shout = AlbumShout.new
+    when /view|shouts/
+      redirect_referer unless @item = Profile.by_id_or_alias(user_id)
+      @shout = UserShout.new
+    else
+      redirect_referer
+    end
     
     case action
     when 'add'
       add_shout
     when 'delete'
+      @user = Profile.by_id_or_alias(user_id)
       delete_shout
     end
     flash[:shout] = true
@@ -180,23 +195,27 @@ class ProfileController < Controller
   private
   
   def add_shout
-    shout = Shout.new
-    shout.prepare(request, user)
-    if shout.valid?
+    @shout.prepare(request, user)
+    if @shout.valid?
       begin
-        @user.add_shout(shout)
+        @item.add_shout(@shout)
         flash[:message] = _('Shout added')
       rescue Sequel::DatabaseError => e
         oops(r(:shout), e)
       end
     else
       flash[:message] = _('Need something to shout about!')
-      prepare_flash(:errors => shout.errors, :prefix => 'shout')
+      prepare_flash(:errors => @shout.errors, :prefix => 'shout')
     end
   end
   
   def delete_shout
-    shout = @user.shout(request[:shout], user.id_)
+    if @user.id_ != session[:user_id]
+      shout = @item.shout(request[:shout], session[:user_id])
+    else
+      shout = @item.shout(request[:shout])
+    end
+    
     unless shout.nil?
       shout.delete
       flash[:message] = _('Shout deleted')

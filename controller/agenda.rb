@@ -3,9 +3,10 @@ class AgendaController < Controller
   
   def event(user_id = nil, event_id = nil)
     @title = _('Event')
-    redirect_referer if user_id.nil?
-    redirect_referer unless @event = user.agenda.event(event_id)
+    redirect_referer if user_id.nil? || !@user = Profile.by_id_or_alias(user_id)
+    redirect_referer unless @event = @user.agenda.event(event_id)
     @shouts = @event.shouts
+    @profile = @user.profile
   end
   
   def update_agenda

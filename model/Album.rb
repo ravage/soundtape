@@ -3,6 +3,7 @@ class Album < Sequel::Model(:albums)
   one_to_many :tracks, :join_table => :tracks, :class => :Track
   many_to_one :band, :join_table => :users, :class => :Band
   many_to_one :category, :join_table => :categories, :class => :Category
+  one_to_many :shouts, :join_table => :album_shouts, :class => :AlbumShout, :key => :post_to, :order => :created_at.desc
   
   def validate
     validates_presence [:title, :category_id]
@@ -13,6 +14,7 @@ class Album < Sequel::Model(:albums)
   def prepare(params, user)
     self.title = params[:title]
     self.category_id = params[:category]
+    self.slug = slug_it(params[:title])
 
     if(params[:cover])
       temp_cover = upload(params[:cover], user)
@@ -58,6 +60,10 @@ class Album < Sequel::Model(:albums)
     end
 
     return path
+  end
+  
+  def self.by_id_or_slug(id)
+    return Album.filter({:id => id, :slug => id}.sql_or).first
   end
   
   def to_s

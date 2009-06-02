@@ -10,9 +10,7 @@
 	flyer
 </div>
 
-<div class="content">
-	shouts
-</div>
+<%= render_file('view/user/shouts.rhtml', :profile => @profile, :shouts => @shouts, :user => @user) %>
 
 <div class="content">
 	<div id="map_wrapper">

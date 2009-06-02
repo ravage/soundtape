@@ -11,6 +11,8 @@
 					<form class="clearfix" action="<%= ProfileController.r(:shout, 'add', @profile.alias) %>" method="post" accept-charset="utf-8">
 						<span class="avatar"><img src="<%= user.profile.avatar_small %>" alt="<%== session[:user_name] %>" /></span>
 						<textarea name="shout_box" id="shout_box" rows="8" cols="4"></textarea>
+						<input type="hidden" name="shout_to" value="<%= action.method %>" />
+						<input type="hidden" name="param" value="<%= action.params.last %>" />
 						<div class="submit">
 							<input type="submit" value="Shout" />
 						</div>
@@ -35,6 +37,8 @@
 						<form class="actions" action="<%= ProfileController.r(:shout, 'delete', @profile.alias) %>" method="post" accept-charset="utf-8">
 							<button type="submit"><img src="/imgs/delete.png" alt="Delete" /></button>
 							<input type="hidden" name="shout" value="<%= shout.id_ %>" />
+							<input type="hidden" name="param" value="<%= action.params.last %>" />
+							<input type="hidden" name="shout_to" value="<%= action.method %>" />
 						</form>
 						<% end %>
 				

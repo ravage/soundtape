@@ -1,7 +1,7 @@
 class Event < Sequel::Model(:events)
   include Ramaze::Helper::Utils
   many_to_one :agenda, :join_table => :agendas, :class => :Agenda
-  one_to_many :shouts, :join_table => :event_shouts, :class => EventShouts
+  one_to_many :shouts, :join_table => :event_shouts, :class => :EventShout, :key => :post_to, :order => :created_at.desc
   
   def validate
     validates_presence      [:name, :local, :building, :when]
@@ -107,12 +107,21 @@ class Event < Sequel::Model(:events)
     return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, user_id.to_s, SoundTape.options.Constant.events_path , file)
   end
   
+  def shout(shout_id, poster_id = nil)
+    return EventShout[:post_to => id_, :post_by => poster_id, :id => shout_id] unless poster_id.nil?
+    return EventShout[:post_to => id_, :id => shout_id]
+  end
+  
   def thumbnail
     return link_path(flyer_thumb)
   end
   
   def id_
     return id
+  end
+  
+  def self.by_id_or_slug(id)
+    return Event.filter({:id => id, :slug => id}.sql_or).first
   end
   
   def to_json

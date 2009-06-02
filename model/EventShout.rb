@@ -1,10 +1,10 @@
-class Shout < Sequel::Model(:shouts)
+class EventShout < Sequel::Model(:event_shouts)
   def validate
     validates_presence [:content, :post_by]
   end
 
   def poster
-    return Profile[:user_id => post_by]
+    return @profile || @profile = Profile[:user_id => post_by]
   end
 
   def prepare(params, user)
