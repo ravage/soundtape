@@ -1,7 +1,6 @@
 google.load('maps' , '2');
 
 function initialize() {
-	var g = new GoogleMapsHelper('map_wrapper'); 
 	var overlay = $('overlay');
 	
 	if(overlay) {
@@ -17,8 +16,10 @@ function initialize() {
 	}
 	
 	var fillMap = new FillMap('map_wrapper');
-	fillMap.mapEvents('http://' + ParseUri.getDomain(location.href) + '/api/get_events/' + ParseUri.getParams($('profile_js').src).user + '.json');
-	fillMap.mapProfile('http://' + ParseUri.getDomain(location.href) + '/api/get_user/' + ParseUri.getParams($('profile_js').src).user + '.json');
+	
+	var param = ParseUri.getParams($('profile_js').src).user;
+	fillMap.mapEvents('http://' + ParseUri.getDomain(location.href) + '/api/get_events/' + param + '.json');
+	fillMap.mapProfile('http://' + ParseUri.getDomain(location.href) + '/api/get_user/' + param + '.json');
 }
 
 window.addEvent('domready', function(){

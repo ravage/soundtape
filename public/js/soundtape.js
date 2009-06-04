@@ -12,24 +12,33 @@
 * There is some marker functionality and event attachment.
 */
 var GoogleMapsHelper = new Class({
-	Implements: Events,
+	Implements: [Events, Options],
+	
+	options: {
+		draggable: false,
+		icon: false
+	},
 	
 	/**
 	* @constructor
 	* @param {String} mapHolder ID of the div containing the map
 	*/
-	initialize: function(mapHolder){
+	initialize: function(mapHolder, options){
+		this.setOptions(options);
+		
 		this.mapHolder = $(mapHolder);
 		this.markers = new Array();
 		
 		//get map holder
 		this.map = new GMap2(this.mapHolder);
-
+		
 		//initialize the geocoder
 		this.geocoder = new GClientGeocoder();
 		
 		//give the map an initiali point
 		this.map.setCenter(this.getCurrentLocation(), 8);
+		
+		this.markerManager = new GMarkerManager(this.map);
 	},
 	
 
@@ -53,9 +62,9 @@ var GoogleMapsHelper = new Class({
 	* Geocode from an address
 	* @param {String} address A string representing an address
 	*/
-	geocode: function(address) {
+	geocode: function(address, icon) {
 		//get all possible locations (will only care for one) and send result to addressToMap function
-		this.geocoder.getLocations(address, this.addressToMap.bind(this));
+		this.geocoder.getLocations(address, function(response) {this.addressToMap(response, icon);}.bind(this));
 	},
 
 	/**
@@ -65,7 +74,7 @@ var GoogleMapsHelper = new Class({
 	*
 	* @param {Response} The response obtained from the GeoCoder
 	*/
-	addressToMap: function(response) {
+	addressToMap: function(response, icon) {
 		//clear the map overlays
 		this.map.clearOverlays();
 		//check for a valid response
@@ -74,7 +83,7 @@ var GoogleMapsHelper = new Class({
 			this.fireEvent('onGeocodeFail');
 		} else {
 			var place = response.Placemark[0];
-			var marker = this.addMarker(this.getLatLngFromPoint(place.Point), {draggable: true});
+			var marker = this.addMarker(this.getLatLngFromPoint(place.Point), icon);
 			this.addClickEvent(marker, this.getPlaceMarkAddress(place));
 			marker.openInfoWindowHtml(this.getPlaceMarkAddress(place));
 			this.fireEvent('onMapInfo', [place, marker]);
@@ -89,14 +98,15 @@ var GoogleMapsHelper = new Class({
 	* @returns The created marker instance
 	* @type GMarker
 	*/
-	addMarker: function(point, options) {
-		options = options || {draggable: false};
-		
-		var marker = new GMarker(point, options);
-		this.map.addOverlay(marker);
+	addMarker: function(point, icon) {
+		var markerOptions = {draggable: this.options.draggable, icon: icon};
+		var marker = new GMarker(point, markerOptions);
+		//this.map.addOverlay(marker);
+		this.markerManager.addMarker(marker, 8, 17);
 		this.map.setCenter(point, 8);
 		if(marker.draggable())
 			this.addDragEvents(marker);
+		this.markerManager.refresh();
 		return marker;
 	},
 	
@@ -188,7 +198,6 @@ var GoogleMapsHelper = new Class({
 	getPoint: function(lat, lng) {
 		return new GLatLng(lat, lng);
 	}
-
 });
 
 /**
@@ -230,7 +239,7 @@ var MapFormWrapper = new Class({
 	initialize: function(bindForm, mapWrapper,  options) {
 		this.setOptions(options);
 		this.bindForm = $(bindForm);
-		this.mapHelper = new GoogleMapsHelper(mapWrapper);
+		this.mapHelper = new GoogleMapsHelper(mapWrapper, {draggable : true});
 		this.bindFields();
 		this.addEvents();
 	},
@@ -331,7 +340,7 @@ var MapFormWrapper = new Class({
 					longitude = info.longitude;
 				}
 				if(longitude && latitude) {
-					var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(latitude, longitude), {draggable : true});
+					var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(latitude, longitude));
 					var html = Formatter.get(info);
 					this.mapHelper.addClickEvent(marker, html);
 					marker.openInfoWindowHtml(html);
@@ -367,6 +376,21 @@ var FillMap = new Class({
 		this.setOptions(options);
 		this.mapHelper = new GoogleMapsHelper(mapWrapper);
 		
+		this.icons = new Array();
+
+		var profileIcon = new GIcon();
+		profileIcon.image = '/imgs/gmap_icon_profile.png';
+		profileIcon.iconAnchor = new GPoint(18, 37);
+		profileIcon.infoWindowAnchor = new GPoint(18, 15);
+
+		var eventIcon = new GIcon();
+		eventIcon.image = '/imgs/gmap_icon_event.png';
+		eventIcon.iconAnchor = new GPoint(18, 37);
+		eventIcon.infoWindowAnchor = new GPoint(18, 15);
+
+		this.icons['profile'] = profileIcon;
+		this.icons['event'] = eventIcon;
+		
 	},
 	
 	/**
@@ -378,9 +402,9 @@ var FillMap = new Class({
 		var req = new Request.JSON({url: uri,
 			onSuccess: function(profile) {
 				if(profile.latitude && profile.longitude) {
-					this.setMarkerAtLatLng(profile);
+					this.setMarkerAtLatLng(profile, this.icons['profile']);
 				} else if(profile.location) {
-					this.setMarkerAtGeocode(profile);
+					this.setMarkerAtGeocode(profile, this.icons['profile']);
 				}
 			}.bind(this)
 		}).get();		
@@ -393,8 +417,8 @@ var FillMap = new Class({
 	* 
 	* @param {Object} info The object containing the latitude and longitude.
 	*/
-	setMarkerAtLatLng: function(info) {
-		var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(info.latitude, info.longitude));
+	setMarkerAtLatLng: function(info, icon) {
+		var marker = this.mapHelper.addMarker(this.mapHelper.getPoint(info.latitude, info.longitude), icon);
 		this.mapHelper.addClickEvent(marker, Formatter.get(info));
 		this.linkMarker(marker, info);
 	},
@@ -406,14 +430,14 @@ var FillMap = new Class({
 	* 
 	* @param {Object} info The object containing the address to geocode.
 	*/
-	setMarkerAtGeocode: function(info) {
+	setMarkerAtGeocode: function(info, icon) {
 		this.mapHelper.addEvent('onMapInfo', function(_info, marker){
 			GEvent.clearListeners(marker);
 			this.mapHelper.addClickEvent(marker, Formatter.get(info));
 			this.linkMarker(marker, info);
 			marker.closeInfoWindow();
 		}.bind(this));
-		this.mapHelper.geocode(info.location);
+		this.mapHelper.geocode(info.location, icon);
 	},
 
 	/**
@@ -429,18 +453,18 @@ var FillMap = new Class({
 				if(events instanceof Array) {
 					events.each(function(el){
 						if(el.latitude && el.longitude) {
-							this.setMarkerAtLatLng(el);
+							this.setMarkerAtLatLng(el, this.icons['event']);
 						} else if(el.location) {
-							this.setMarkerAtGeocode(el);
+							this.setMarkerAtGeocode(el, this.icons['event']);
 						}
 
 					}.bind(this));
 				}
 				else {
-					if(el.latitude && el.longitude) {
-						this.setMarkerAtLatLng(events);
+					if(events.latitude && events.longitude) {
+						this.setMarkerAtLatLng(events, this.icons['event']);
 					} else if(events.location) {
-						this.setMarkerAtGeocode(events);
+						this.setMarkerAtGeocode(events, this.icons['event']);
 					}
 				}
 			}.bind(this)
@@ -459,7 +483,7 @@ var FillMap = new Class({
 		if(link) {
 			$('link_' + info.id).addEvent('click', function(e) {
 				e.stop();
-				this.mapHelper.map.setCenter(marker.getLatLng(), 8);
+				this.mapHelper.map.setCenter(marker.getLatLng());
 				marker.openInfoWindowHtml(Formatter.get(info));
 			}.bind(this));
 		}

@@ -13,4 +13,10 @@ class ApiController < Controller
     return  events unless events.nil?
     'failure'
   end
+  
+  def get_event(event_id) 
+    event = Event[:id => event_id] unless event_id.nil?
+    return event unless event.nil?
+    'failure'
+  end
 end

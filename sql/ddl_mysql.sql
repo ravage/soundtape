@@ -229,7 +229,7 @@ CREATE TABLE events (
 	flyer_thumb		VARCHAR(100) NULL,
 	currency_id		INT UNSIGNED NOT NULL,
 	created_at		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	slug			VARCHAR(110) NOT NULL,
+	slug			VARCHAR(255) NOT NULL,
 	
 	PRIMARY KEY		(id),
 	INDEX			(agenda_id),
