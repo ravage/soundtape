@@ -4,16 +4,16 @@ class Band < User
   one_to_many :albums, :join_table => :albums, :class => :Album, :key => :user_id
   one_to_many :elements, :join_table => :band_elements, :class => :BandElement, :key => :user_id
   
+  def album(album_id)
+    return Album.filter({:user_id => id} & {:id => album_id, :slug => album_id}.sql_or).first
+  end
+  
   def agenda
      return agendas.first
   end
    
-  def album(album_id)
-    return Album[:user_id => id, :id => album_id]
-  end
-   
   def track(track_id)
-    return Track[track_id] if Band.eager_graph(:albums => :tracks).where(:tracks__id => track_id.to_i).count == 1
+    return Track.join(:albums, :id => :album_id).filter(:albums__user_id => id_).select(:tracks.*).first
   end
   
   def fans

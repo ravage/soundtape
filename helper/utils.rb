@@ -62,11 +62,11 @@ module Ramaze
         result.gsub!(/[^\w_ \-]+/i, '') #Remove unwanted chars.
         result.gsub!(/[ \-]+/i, '-') #No more than one of the separator in a row.
         result.gsub!(/^\-|\-$/i, '') #Remove leading/trailing separator.
-        return result.downcase!
+        return result.downcase
       end
       
       def slug_it(model, value)
-        return ' ' if value.empty?
+        return Digest::MD5.hexdigest(rand(Time.now + Time.now.usec).to_s) if value.empty?
         slug = seo(value)
         count = model.filter(:slug.like("#{slug}%")).count.to_i
         if(count == 0)

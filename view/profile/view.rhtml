@@ -60,7 +60,7 @@
 <% elsif flash[:top_tab] == 'photos' %>
 	<%= render_file('view/user/photos.rhtml', :photos => @photos) %>
 <% elsif flash[:top_tab] == 'discography' %>
-	<%= render_file('view/user/albums.rhtml', :albums => @albums) %>
+	<%= render_file('view/user/albums.rhtml', :albums => @albums, :user => @user) %>
 <% elsif flash[:top_tab] == 'elements' %>
 	<%= render_file('view/user/elements.rhtml', :elements => @elements) %>
 <% end %>

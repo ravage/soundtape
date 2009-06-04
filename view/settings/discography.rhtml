@@ -7,27 +7,30 @@
 
 
 <% @albums.each do |album| %>
-<div class="content">
-	<div style="margin-right: 10px; float: left;">
+<div class="content box_holder">
+	<div class="left_box column">
 		<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
 	</div>
-	<ul>
-		<li>
-			<%== album.title %> (<%== album.category %>)
-			<span style="float:right;">
-				<a href="<%= r(:album, album.id_) %>"><%= _('Edit') %></a>
-				<a href="<%= DiscographyController.r(:delete_album, album.id_) %>"><%= _('Delete') %></a>
-			</span>
-		<% album.tracks.each do |track| %>
+	<div class="right_box column">
+		<ul>
 			<li>
-				<%== track.title %>
-				<span style="float:right;">
-					<a href="<%= r(:track, track.id_) %>"><%= _('Edit') %></a>
-					<a href="<%= DiscographyController.r(:delete_track, track.id_) %>"><%= _('Delete') %></a>
-				</span>
+				<%== album.title %> (<%== album.tags %>)
+				<a href="<%= r(:album, album.slug) %>"><%= _('Edit') %></a>
+				<a href="<%= DiscographyController.r(:delete_album, album.slug) %>"><%= _('Delete') %></a>
+		
+			<% unless album.tracks.empty? %>
+				<ul>
+				<% album.tracks.each do |track| %>
+					<li>
+						<%== track.title %>
+						<a href="<%= r(:track, track.slug) %>"><%= _('Edit') %></a>
+						<a href="<%= DiscographyController.r(:delete_track, track.slug) %>"><%= _('Delete') %></a>
+					</li>
+				<% end %>
+				</ul>
+			<% end %>
 			</li>
-		</li>
-	<% end %>
-	</ul>
+		</ul>
+	</div>
 </div>
 <% end %>

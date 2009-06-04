@@ -199,7 +199,14 @@ button:hover {
 	background-color: #1d1d1d;
 	padding: 10px;
 	margin-bottom: 10px;
-/*	overflow: auto;*/
+}
+
+.content {
+	max-width: 550px;
+}
+
+.block {
+	max-width: 200px;
 }
 
 .content:after, .block:after {
@@ -715,6 +722,44 @@ div.in a {
 	margin-top: 0px;
 }
 /* @elements setting/profile end */
+
+/* @album track list begin */
+td.album_info {
+	background: red;
+	vertical-align: top;
+	padding: 10px;
+	background: url(/imgs/album_info_grad.png) 0 50% repeat-x;
+}
+
+td span.extra_info {
+	margin-top: 10px;
+}
+
+td.album_thumbnail {
+	width: 100px;
+}
+
+td.track_info {
+	padding: 5px 10px 5px 10px;
+}
+
+td.track_number {
+	width: 5%;
+}
+
+table.track_list {
+	width: 100%;
+}
+
+td.odd {
+	background: #000;
+}
+
+td.even {
+	background: #0F0F0F;
+}
+/* @album track list end */
+
 .image_border_60 {
 	padding: 1px;
 	width: 60px;
@@ -761,4 +806,23 @@ div.in a {
 
 .single {
 	padding: 1px 0 1px 0;
+}
+
+
+.box_holder {
+	position: relative;
+}
+
+.box_holder .column {
+	float: left;
+}
+
+.right_box {
+	width: 420px;
+	padding-left: 10px;
+}
+
+.left_box {
+	width: 100px;
+	height: 100px;
 }

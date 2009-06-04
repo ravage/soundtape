@@ -6,9 +6,14 @@
 			<label for="title"><%= _('Title') %> <%= flash[:error_album_title] %></label>
 			<input type="text" name="title" value="<%= flash[:error] ? flash[:album_title] : @album.title %>" />
 			
-			<label for="category"><%= _('Category') %></label>
-			<%= render_view(action.name, 
-				:category => flash[:album_category] || @album.category_id ) { |action| action.view = 'view/partials/categories.rhtml' } %>
+			<label for="label"><%= _('Label') %> <%= flash[:error_album_label] %></label>
+			<input type="text" name="label" value="<%= flash[:error] ? flash[:albumk_label] : @album.label %>" />
+			
+			<label for="year"><%= _('Year') %> <%= flash[:error_album_year] %></label>
+			<input type="text" name="year" value="<%= flash[:error] ? flash[:album_year] : @album.year %>" />
+			
+			<label for="tags"><%= _('Tags') %> <%= flash[:error_album_tags] %></label>
+			<input type="text" name="tags" value="<%= flash[:error] ? flash[:album_tags] : @album.tags %>" />
 				
 			<label for="cover"><%= _('Cover') %> <%= flash[:error_album_cover] %></label>
 			<input type="file" name="cover" />
@@ -35,10 +40,13 @@
 			
 				<label for="title"><%= _('Title') %> <%= flash[:error_track_title]%></label>
 				<input type="text" name="title" value="<%= flash[:error] ? flash[:track_title] : @track.title %>" />
-			
+				
+				<label for="number"><%= _('Number') %> <%= flash[:error_track_number] %></label>
+				<input type="text" name="number" value="<%= flash[:error] ? flash[:track_number] : @track.number %>" />
+				
 				<label for="lyrics"><%= _('Lyrics') %> <%= flash[:error_track_lyrics] %></label>
 				<textarea name="lyrics" rows="8" cols="40"><%= flash[:track_lyrics] || @track.lyrics %></textarea>
-			
+												
 				<label for="track"><%= _('Track') %> <%= flash[:error_track_track] %></label>
 				<input type="file" name="track" />
 			
@@ -54,8 +62,8 @@
 		<div class="content">
 		<%== track.title %>
 			<span style="float:right">
-				<a href="<%= r(:track, track.id_) %>"><%= _('Edit') %></a>
-				<a href="<%= DiscographyController.r(:delete_track, track.id_) %>"><%= _('Delete') %></a>
+				<a href="<%= r(:track, track.slug) %>"><%= _('Edit') %></a>
+				<a href="<%= DiscographyController.r(:delete_track, track.slug) %>"><%= _('Delete') %></a>
 			</span>
 		</div>
 	<% end %>

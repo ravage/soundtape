@@ -2,19 +2,20 @@ class Album < Sequel::Model(:albums)
   include Ramaze::Helper::Utils
   one_to_many :tracks, :join_table => :tracks, :class => :Track
   many_to_one :band, :join_table => :users, :class => :Band
-  many_to_one :category, :join_table => :categories, :class => :Category
   one_to_many :shouts, :join_table => :album_shouts, :class => :AlbumShout, :key => :post_to, :order => :created_at.desc
   
   def validate
-    validates_presence [:title, :category_id]
+    validates_presence [:title]
     validates_length_range 3..255, :title
     errors.add(:cover, 'not an image') if cover == 'NAI'
   end
 
   def prepare(params, user)
     self.title = params[:title]
-    self.category_id = params[:category]
-    self.slug = slug_it(params[:title])
+    self.slug = slug_it(self.class, params[:title])
+    self.year = params[:year]
+    self.label = params[:label]
+    self.tags = params[:tags]
 
     if(params[:cover])
       temp_cover = upload(params[:cover], user)
@@ -29,6 +30,11 @@ class Album < Sequel::Model(:albums)
 
     self.cover = original || cover
     self.cover_thumb = thumb || cover_thumb
+  end
+
+  def shout(shout_id, poster_id = nil)
+    return AlbumShout[:post_to => id_, :post_by => poster_id, :id => shout_id] unless poster_id.nil?
+    return AlbumShout[:post_to => id_, :id => shout_id]
   end
 
   #FIXME make it DRY... it's over many models

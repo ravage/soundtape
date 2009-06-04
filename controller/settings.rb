@@ -85,7 +85,6 @@ class SettingsController < Controller
     else
       @action = 'update_track'
       @track = user.track(track_id)
-      
       redirect r(:discography) if @track.nil?
     end
   end

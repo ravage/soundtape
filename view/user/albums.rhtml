@@ -5,7 +5,8 @@
 				<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
 			</div>
 			<ul>
-				<li><%== album.title %> (<%== album.category %>)
+				<li><span style="float: left;"><%== album.title %> (<%== album.tags %>)</span>
+					<span style="float: right;"><a href="<%== DiscographyController.r(:album, @user.alias, album.slug) %>"><%= _('More') %></a></span>
 					<ul>
 				<% album.tracks.each do |track| %>
 					<li><%== track.title %></li>

@@ -103,17 +103,18 @@ CREATE TABLE albums (
 	id			INT UNSIGNED AUTO_INCREMENT,
 	title		VARCHAR(255) NOT NULL,
 	user_id		INT UNSIGNED NOT NULL,
-	category_id	INT UNSIGNED NOT NULL,
 	cover		VARCHAR(60) NULL,
 	cover_thumb	VARCHAR(60) NULL,
 	slug		VARCHAR(255) NOT NULL,
 	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	year		SMALLINT NULL,
+	label		VARCHAR(100) NULL,
+	tags		VARCHAR(255),
 	
 	PRIMARY KEY	(id),
 	INDEX		(user_id),
 	INDEX		(category_id),
 	FOREIGN KEY	(user_id) REFERENCES users(id) ON DELETE CASCADE,
-	FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE album_shouts (
@@ -162,7 +163,9 @@ CREATE TABLE tracks (
 	lyrics		TEXT NULL,
 	track_path	VARCHAR(100) NOT NULL,
 	album_id	INT UNSIGNED NOT NULL,
+	slug		VARCHAR(255) NOT NULL,
 	created_at	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	number		INT(4) NOT NULL,		
 	
 	PRIMARY KEY	(id),
 	INDEX		(album_id),

@@ -1,5 +1,15 @@
 class DiscographyController < Controller
   helper :utils, :user
+  
+  def album(user_id = nil, event_id = nil)
+    @title = _('Album')
+    redirect_referer if user_id.nil? || !@user = Profile.by_id_or_alias(user_id)
+    redirect_referer unless @album = @user.album(event_id)
+    @shouts = @album.shouts
+    @profile = @user.profile
+    @tracks = @album.tracks
+  end
+  
   def create_album
     @title = _('Create Album')
     album = Album.new
@@ -29,7 +39,7 @@ class DiscographyController < Controller
       rescue Sequel::DatabaseError => e
         oops(r(:update_album), e)
       end
-      redirect SettingsController(:discography)
+      redirect SettingsController.r(:discography)
     else
       prepare_flash(:errors => album.errors, :prefix => 'album')
       redirect_referer

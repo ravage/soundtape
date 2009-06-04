@@ -10,8 +10,11 @@
 			<label for="title"><%= _('Title') %> <%= flash[:error_track_title]%></label>
 			<input type="text" name="title" value="<%= flash[:error] ? flash[:track_title] : @track.title %>" />
 			
+			<label for="number"><%= _('Number') %> <%= flash[:error_track_number] %></label>
+			<input type="text" name="number" value="<%= flash[:error] ? flash[:track_number] : @track.number %>" />
+			
 			<label for="lyrics"><%= _('Lyrics') %> <%= flash[:error_track_lyrics] %></label>
-			<textarea name="lyrics" rows="8" cols="40"><%= flash[:track_lyrics] || @track.lyrics %></textarea>
+			<textarea name="lyrics" rows="8" cols="40"><%= flash[:track_lyrics] || @track.lyrics %></textarea>			
 			
 			<label for="track"><%= _('Track') %> <%= flash[:error_track_track] %></label>
 			<input type="file" name="track" />

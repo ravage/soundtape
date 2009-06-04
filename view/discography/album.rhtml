@@ -1,0 +1,44 @@
+<!-- Banda, Album, Músicas, Tags(Categoria), Capa -->
+
+<div class="content">
+	<table class="track_list" cellspacing="0" cellpadding="0" summary="Track listing for album <%== @album.title %>">
+		<thead>
+			<tr>
+				<td class="album_info">
+					<h1><%= _('Band') %>: <%== @profile.real_name %></h1>
+					<h1><%= _('Album') %>: <%== @album.title %></h1>
+					<div class="extra_info">
+						<h2><%= _('Published') %>: <%== @album.year %></h2>
+						<h2><%= _('Label') %>: <%== @album.label %></h2>
+						<h2><%= _('Tags') %>: <%== @album.tags %></h2>
+					</div>
+				</td>
+				<td class="album_thumbnail album_info">
+					<img src="<%= @album.thumbnail %>" alt="<%== @album.title %>" title="<%== @album.title %>" />
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="2">
+					<table class="track_list" cellspacing="0" cellpadding="0" summary="Track listing for album <%== @album.title %>">
+						<tbody>
+							<% @tracks.each_index do |index| %>
+								<tr>
+									<td class="track_info track_number <%= (index & 1 == 0) ? 'odd' : 'even' %>">
+										<%= @tracks[index].number %>
+									</td>
+									<td class="track_info odd">
+										<%== @tracks[index].title %>
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<%= render_file('view/user/shouts.rhtml', :profile => @profile, :shouts => @shouts, :user => @user) %>
