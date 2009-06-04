@@ -4,6 +4,7 @@
 			<legend><%= _('Add Tracks') %></legend>
 			
 			<label for="Album"><%= _('Album') %></label>
+			<% Ramaze::Log.warn "Album ID: " + @track.album_id.to_s %>
 			<%= render_view(action.name, 
 				:album => flash[:track_album] || @track.album_id ) { |action| action.view = 'view/partials/albums.rhtml' } %>
 			

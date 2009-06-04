@@ -31,6 +31,10 @@ class Album < Sequel::Model(:albums)
     self.cover = original || cover
     self.cover_thumb = thumb || cover_thumb
   end
+  
+  def number_of_tracks
+    return Track.filter(:album_id => id_).count
+  end
 
   def shout(shout_id, poster_id = nil)
     return AlbumShout[:post_to => id_, :post_by => poster_id, :id => shout_id] unless poster_id.nil?

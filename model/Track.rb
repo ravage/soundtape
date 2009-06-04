@@ -8,7 +8,6 @@ class Track < Sequel::Model(:tracks)
   end
   
   def prepare(params, user)
-    pp params
     self.slug = slug_it(self.class, params[:title])
     self.title = params[:title]
     self.lyrics = params[:lyrics]

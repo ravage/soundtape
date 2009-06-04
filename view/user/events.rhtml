@@ -5,8 +5,7 @@
 				<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
 			</div>
 			<ul>
-				<li><%= event.name %>
-					<span style="float: right;"><a href="<%== AgendaController.r(:event, @user.alias, event.slug) %>"><%= _('More') %></a></span>
+				<li><a href="<%== AgendaController.r(:event, @user.alias, event.slug) %>"><%= event.name %></a>
 					<ul>
 						<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
 						<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>

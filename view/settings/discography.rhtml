@@ -14,7 +14,7 @@
 	<div class="right_box column">
 		<ul>
 			<li>
-				<%== album.title %> (<%== album.tags %>)
+				<a href="<%== DiscographyController.r(:album, @profile.alias, album.slug) %>"><%== album.title %></a> (<%== album.tags %>)
 				<a href="<%= r(:album, album.slug) %>"><%= _('Edit') %></a>
 				<a href="<%= DiscographyController.r(:delete_album, album.slug) %>"><%= _('Delete') %></a>
 		
@@ -22,7 +22,7 @@
 				<ul>
 				<% album.tracks.each do |track| %>
 					<li>
-						<%== track.title %>
+						<a href="<%== DiscographyController.r(:track, @profile.alias, track.slug) %>"><%== track.title %></a>
 						<a href="<%= r(:track, track.slug) %>"><%= _('Edit') %></a>
 						<a href="<%= DiscographyController.r(:delete_track, track.slug) %>"><%= _('Delete') %></a>
 					</li>

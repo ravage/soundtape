@@ -60,7 +60,7 @@
 	
 	<% @album.tracks.each do |track| %>
 		<div class="content">
-		<%== track.title %>
+			<span style="float: left"><%== track.title %></span>
 			<span style="float:right">
 				<a href="<%= r(:track, track.slug) %>"><%= _('Edit') %></a>
 				<a href="<%= DiscographyController.r(:delete_track, track.slug) %>"><%= _('Delete') %></a>

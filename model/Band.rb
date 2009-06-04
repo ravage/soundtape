@@ -13,7 +13,7 @@ class Band < User
   end
    
   def track(track_id)
-    return Track.join(:albums, :id => :album_id).filter(:albums__user_id => id_).select(:tracks.*).first
+    return Track.join(:albums, :id => :album_id).filter({:albums__user_id => id_} & {:tracks__id => track_id, :tracks__slug => track_id}.sql_or).select(:tracks.*).first
   end
   
   def fans

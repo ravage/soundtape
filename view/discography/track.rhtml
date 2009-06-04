@@ -1,0 +1,9 @@
+<div class="content">
+	<h1><%= @track.album.title %> - <%= @track.number %>. <%== @track.title %></h1>
+	<p><%= _('Lyrics') %></p>
+	<% unless @track.lyrics.empty? %>
+		<p><%== @track.lyrics %></p>
+	<% else %>
+		<p><%= _('No lyrics submitted for this track') %></p>
+	<% end %>
+</div>

@@ -4,21 +4,18 @@
 			<div style="margin-right: 10px; float: left;">
 				<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
 			</div>
-			<ul>
-				<li><span style="float: left;"><%== album.title %> (<%== album.tags %>)</span>
-					<span style="float: right;"><a href="<%== DiscographyController.r(:album, @user.alias, album.slug) %>"><%= _('More') %></a></span>
-					<ul>
-				<% album.tracks.each do |track| %>
-					<li><%== track.title %></li>
-				<% end %>
-					</ul>
-				</li>
-			</ul>
+			<h1><a href="<%== DiscographyController.r(:album, @user.alias, album.slug) %>"><%== album.title %></a></h1>
+			<div class="extra_info">
+				<p><%= _('Tracks') %>: <%== album.number_of_tracks %></p>
+				<p><%= _('Published') %>: <%== album.year %></p>
+				<p><%= _('Label') %>: <%== album.label %></p>
+				<p><%= _('Tags') %>: <%== album.tags %></p>
+			</div>
 		</div>
 	<% end %>
 	<% if @albums.empty? %>
-		<p class="center_warning">
-			<%= _('No albums submitted yet') %>
-		</p>
+	<p class="center_warning">
+		<%= _('No albums submitted yet') %>
+	</p>
 	<% end %>
 </div>

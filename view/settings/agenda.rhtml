@@ -23,12 +23,13 @@
 			<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
 		</div>
 		<ul>
-			<li><%= event.name %>
+			<li>
+				<span style="float: left;"><a href="<%== AgendaController.r(:event, @profile.alias, event.slug) %>"><%= event.name %></a></span>
 				<span style="float: right;">
 					<a href="<%= r(:event, event.slug) %>"><%= _('Edit') %></a>
-					<a href="<%= AgendaController.r(:delete_event, event.id_) %>"><%= _('Delete') %></a>
+					<a href="<%= AgendaController.r(:delete_event, event.slug) %>"><%= _('Delete') %></a>
 				</span>
-				<ul>
+				<ul style="clear:right;">
 					<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
 					<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
 					<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>

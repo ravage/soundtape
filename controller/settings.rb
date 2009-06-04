@@ -43,6 +43,7 @@ class SettingsController < Controller
     @title = _('Agenda')
     @agenda = user.agenda
     @events = user.agenda.events
+    @profile = Profile[session[:user_id]]
   end
   
   def event(event_id = nil)
@@ -62,6 +63,7 @@ class SettingsController < Controller
   def discography
     @title = _('Discography')
     @albums = user.albums
+    @profile = @profile = Profile[session[:user_id]]
   end
   
   def album(album_id = nil)
@@ -85,6 +87,7 @@ class SettingsController < Controller
     else
       @action = 'update_track'
       @track = user.track(track_id)
+      pp @track
       redirect r(:discography) if @track.nil?
     end
   end

@@ -1,13 +1,19 @@
 class DiscographyController < Controller
   helper :utils, :user
   
-  def album(user_id = nil, event_id = nil)
+  def album(user_id = nil, album_id = nil)
     @title = _('Album')
     redirect_referer if user_id.nil? || !@user = Profile.by_id_or_alias(user_id)
-    redirect_referer unless @album = @user.album(event_id)
+    redirect_referer unless @album = @user.album(album_id)
     @shouts = @album.shouts
     @profile = @user.profile
     @tracks = @album.tracks
+  end
+  
+  def track(user_id = nil, track_id = nil)
+    @title = _('Track')
+    redirect_referer if user_id.nil? || !@user = Profile.by_id_or_alias(user_id)
+    redirect_referer unless @track = @user.track(track_id)
   end
   
   def create_album
