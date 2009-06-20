@@ -46,7 +46,7 @@
 	<script src="/js/mootools-1.2.2.2-more.js" type="text/javascript"></script>
 	<script src="/js/soundtape.js" type="text/javascript"></script>
 	
-	<% if actions.first.name == 'view' %>
+<!--<% if actions.first.name == 'view' %>
 	<script type="text/javascript"  src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hRb4M3c0FaL2mmPX8y3utMpVmobshSrG7V522W8K3oBTyzrdWNyn-WKvA"></script>
 	<script id="profile_js" type="text/javascript" charset="utf-8" src="/js/profile.js?user=<%= @user.id_ %>"></script>
 	<% end %>
@@ -59,7 +59,7 @@
 	<% if actions.first.name == 'location' || (actions.first.name == 'event' && actions.first.instance.is_a?(SettingsController)) %>
 	<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hRb4M3c0FaL2mmPX8y3utMpVmobshSrG7V522W8K3oBTyzrdWNyn-WKvA"></script>
 	<script id="location_js" type="text/javascript" charset="utf-8" src="/js/location.js?grab=<%= (actions.first.params.empty? && actions.first.name != 'location') ? 'no' : 'yes' %>"></script>
-	<% end %>
+	<% end %>-->
 	<!-- javascript end-->
 </body>
 </html>

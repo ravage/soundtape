@@ -91,6 +91,24 @@ class AccountController < Controller
     end
   end
   
+  def reset
+    if request.post?
+      @user = ::User.by_email(request[:email])
+      unless @user.nil?
+        @password = @user.reset
+        if @user.valid?
+          send_reset_email unless @user.nil?
+          @user.save_changes
+          flash[:message] = _('Check your e-mail for details about resetting the password.')
+        else
+          flash[:message] = _('There was a problem while resetting your passsword.')
+        end
+      else
+        flash[:message] = _('E-Mail invalid, perhaps misspelled?')
+      end
+    end
+  end
+  
   private
   
   def send_activation_mail(userds)
@@ -104,7 +122,21 @@ class AccountController < Controller
       end
     end
   end
-  
+
+  def send_reset_email
+    msg = _("You or someone requested a new password.")
+    msg += _("\n\nYour new password: ")
+    msg += @password
+    msg += "\n\nhttp://www.soundtape.net/account/login"
+    Ramaze.defer do
+      begin
+        Ramaze::EmailHelper.send(@user.email, _('Password Reset'), msg)
+      rescue Exception => e
+        oops('user/send_reset_email', e)
+      end
+    end
+  end
+
   def get_klass(type)
     return Kernel.const_get(SoundTape.options.Constant.user_types[type.to_sym])
   end

@@ -56,8 +56,19 @@
 <% end %>
 
 <div class="block">	
-	<h3><%= _('Latest Members') %></h3>
-	<% Profile.latest_members.each do |u| %>
+	<h3><%= _('Latest Users') %></h3>
+	<% Profile.latest_users.each do |u| %>
+	<div class="out_60">
+		<a href="<%== ProfileController.r(:view, u.user_alias) %>">
+			<img src="<%== u.avatar_small %>" alt="<%== u.real_name %>" />
+		</a>
+	</div>
+	<% end %>
+</div>
+
+<div class="block">	
+	<h3><%= _('Latest Bands') %></h3>
+	<% Profile.latest_bands.each do |u| %>
 	<div class="out_60">
 		<a href="<%== ProfileController.r(:view, u.user_alias) %>">
 			<img src="<%== u.avatar_small %>" alt="<%== u.real_name %>" />

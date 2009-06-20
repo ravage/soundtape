@@ -149,8 +149,12 @@ class Profile < Sequel::Model(:profiles)
     return user_alias
   end
   
-  def self.latest_members(max = 9)
-    Profile.members.limit(max).order(:created_at.desc)
+  def self.latest_users(max = 9)
+    Profile.join(:users, :id => :user_id).filter(:users__active => TRUE, :user_type => 'User').select('profiles.*'.lit).limit(max).order(:created_at.desc)
+  end
+  
+  def self.latest_bands(max = 9)
+    Profile.join(:users, :id => :user_id).filter(:users__active => TRUE, :user_type => 'Band').select('profiles.*'.lit).limit(max).order(:created_at.desc)
   end
   
   def to_json

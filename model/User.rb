@@ -65,6 +65,20 @@ class User < Sequel::Model(:users)
       AND active = ?",
       true, key, false].update(0) == 1
   end
+  
+  def self.by_email(email)
+    params = DB['SELECT * FROM users WHERE email = ?', email].first
+    return self.factory(:key => params[:id], :type => params[:user_type]) unless params.nil?
+  end
+  
+  def reset
+    temp = Array.new(4) { rand(256) }.pack('C*').unpack('H*').first
+    self.password = encrypt(temp)
+    self.password_confirmation = encrypt(temp)
+    # update(:password => encrypt(temp))
+    #     pp errors
+    return temp
+  end
 
   def self.factory(params)
     return Band[:id => params[:key]] if params[:type] == SoundTape.options.Constant.user_types[:band]
