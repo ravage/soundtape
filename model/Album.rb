@@ -1,7 +1,7 @@
 class Album < Sequel::Model(:albums)
   include Ramaze::Helper::Utils
   one_to_many :tracks, :join_table => :tracks, :class => :Track
-  many_to_one :band, :join_table => :users, :class => :Band
+  many_to_one :band, :join_table => :users, :class => :Band, :key => :user_id
   one_to_many :shouts, :join_table => :album_shouts, :class => :AlbumShout, :key => :post_to, :order => :created_at.desc
   
   def validate
@@ -86,6 +86,10 @@ class Album < Sequel::Model(:albums)
   
   def thumbnail
     return link_path(cover_thumb)
+  end
+  
+  def image
+    return link_path(cover)
   end
   
   def link_path(file)

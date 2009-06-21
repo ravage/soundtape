@@ -20,6 +20,10 @@ class Band < User
     Profile.join(:user_favs, :user_id => :user_id).filter(:user_favs__band_id => id)
   end
   
+  def tracks
+    Track.eager_graph(:album => :band).filter(:band__id => id_)
+  end
+  
   def element(element_id)
     return BandElement.filter(:id => element_id, :user_id => id_).first
   end
@@ -42,5 +46,9 @@ class Band < User
     ) 
     ORDER BY p.real_name LIMIT ?", "%#{search}%", "%#{search}%", 'User', id, 5].each { |row| profiles << Profile.load(row) }
     return profiles
+  end
+  
+  def to_s
+    return name
   end
 end

@@ -66,7 +66,7 @@ button:hover {
 
 /* @main structure begin */
 #wrapper {
-	width: 800px;
+	width: 900px;
 	background-color: #0a0a0a;
 	margin: 10px auto;
 }
@@ -178,7 +178,7 @@ button:hover {
 }
 
 #sidebar_wrapper {
-	width: 215px;
+	width: 315px;
 	float: right;
 	margin-right: 10px;
 }
@@ -206,7 +206,7 @@ button:hover {
 }
 
 .block {
-	max-width: 200px;
+	max-width: 300px;
 }
 
 .content:after, .block:after {

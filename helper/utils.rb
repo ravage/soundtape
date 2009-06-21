@@ -47,6 +47,12 @@ module Ramaze
         return path
       end
       
+      def get_or_create_track_dir(user_id)
+        path = File.join(SoundTape.options.Constant.upload_path, user_id.to_s, 'tracks')
+        FileUtils.mkdir_p(path) unless File.exist?(path)
+        return path
+      end
+      
       def my_profile?
         return @user.id_ == session[:user_id]
       end

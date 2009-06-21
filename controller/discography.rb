@@ -95,7 +95,7 @@ class DiscographyController < Controller
     @title = _('Delete Track')
     redirect SettingsController.r(:discography) if track_id.nil?
     track = user.track(track_id)
-    track.delete
+    track.sane_delete
     redirect_referer
   end
   

@@ -64,8 +64,6 @@ Ramaze::acquire 'model/*'
 # any other working path
 $LOAD_PATH.unshift(__DIR__)
 
-Ramaze::Log.warn Ramaze.options.mode
-
 Rack::RouteExceptions.route(/.*/, '/lost') if Ramaze.options.mode == :live
 Ramaze.start :adapter => :webrick, :port => 7000
 
