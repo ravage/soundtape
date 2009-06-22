@@ -138,7 +138,7 @@ class Profile < Sequel::Model(:profiles)
   end
   
   def delete_old_avatar
-     SoundTape::Helper.remove_files(absolute_path(@old_avatar_big), absolute_path(@old_avatar_small))
+     SoundTape::Helper.remove_files(absolute_path(@old_avatar_big), absolute_path(@old_avatar_small)) unless @old_avatar_big.nil?
    end
   
   def id_
