@@ -3,10 +3,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 	<link rel="stylesheet" href="/css/master.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	<link rel="stylesheet" href="/css/slimbox.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	<script src="/js/mootools-1.2.2-core-yc.js" type="text/javascript"></script>
+	<script src="/js/mootools-1.2.2.2-more.js" type="text/javascript"></script>
+	<script src="/js/slimbox.js" type="text/javascript"></script>
+	<script src="/js/soundtape.js" type="text/javascript"></script>
 	
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>SoundTape :: <%= @title %></title>
 </head>
 <body id="<%= actions.first.name %><%= '_band' if (/register\/band/) =~ request.request_uri %><%= '_user' if (/register\/user/) =~ request.request_uri %>">
@@ -42,9 +47,6 @@
 	</div>
 	
 	<!-- javascript begin -->
-	<script src="/js/mootools-1.2.2-core-yc.js" type="text/javascript"></script>
-	<script src="/js/mootools-1.2.2.2-more.js" type="text/javascript"></script>
-	<script src="/js/soundtape.js" type="text/javascript"></script>
 	
 <!--<% if actions.first.name == 'view' %>
 	<script type="text/javascript"  src="http://www.google.com/jsapi?key=ABQIAAAAflhq-wFxwgZJ8KnRVd363hRb4M3c0FaL2mmPX8y3utMpVmobshSrG7V522W8K3oBTyzrdWNyn-WKvA"></script>
