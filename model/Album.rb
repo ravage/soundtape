@@ -35,7 +35,7 @@ class Album < Sequel::Model(:albums)
   def self.weighted_tags
     htags = Hash.new(0)
     Album.select(:tags).each do |tag| 
-      tag.tags.split(',').each { |t| htags[t.capitalize] += 1 }
+      tag.tags.split(',').each { |t| htags[t.strip.capitalize] += 1 }
     end
     return htags
   end
