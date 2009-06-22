@@ -58,7 +58,7 @@ module SoundTape
       def move_to(path)
         begin
           FileUtils.cp(tempfile.path, path)
-          FileUtils.chmod(644, path)
+          FileUtils.chmod(0644, path)
         rescue Exception => e 
           raise UploadException, e
         ensure
