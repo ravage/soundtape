@@ -1,0 +1,18 @@
+<% unless flash[:message] %>
+<div class="content">
+	<form action="<%= AccountController.r(:reset) %>" method="post" accept-charset="utf-8">
+		<fieldset id="" class="">
+			<legend><%= _('Reset') %></legend>
+			<label for="email">E-Mail</label>
+			<input type="text" name="email" value="" id="email">
+		</fieldset>
+		
+		<p><input type="submit" value="Continue &rarr;"></p>
+	</form>
+</div>
+<% else %>
+<div class="content">
+	<%= flash[:message] %>
+</div>
+<% end %>
+

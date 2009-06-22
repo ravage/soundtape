@@ -1,0 +1,12 @@
+<% @tracks.each do |track| %>
+	<% unless track.track.nil? %>
+	<track>
+		<location><%= "http://#{request.env['HTTP_HOST']}#{track.track}" %></location>
+		<creator><%== track.album.band %></creator>
+		<album><%== track.album %></album>
+		<title><%== track.title %></title>
+		<image><%= "http://#{request.env['HTTP_HOST']}#{track.album.image}" %></image>
+		<info>http://example.com</info>
+	</track>
+	<% end %>
+<% end %>
