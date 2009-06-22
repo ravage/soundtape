@@ -47,7 +47,6 @@ class Track < Sequel::Model(:tracks)
   end
   
   def link_path(file)
-    pp album
     return File.join(File::SEPARATOR, SoundTape.options.Constant.relative_path, album.user_id.to_s, SoundTape.options.Constant.tracks_path, file)
   end
   

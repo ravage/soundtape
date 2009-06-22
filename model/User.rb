@@ -75,8 +75,6 @@ class User < Sequel::Model(:users)
     temp = Array.new(4) { rand(256) }.pack('C*').unpack('H*').first
     self.password = encrypt(temp)
     self.password_confirmation = encrypt(temp)
-    # update(:password => encrypt(temp))
-    #     pp errors
     return temp
   end
 

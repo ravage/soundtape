@@ -1,7 +1,5 @@
 <select name="album">
-	
 	<% user.albums.each do |album| %>
-		<% Ramaze::Log.warn "#{@album} - #{album.id_}"%>
 		<option value="<%= album.id_ %>" <%= 'selected' if @album.to_i == album.id_ %>><%= album %></option>
 	<% end %>
 </select>

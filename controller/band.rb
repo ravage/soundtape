@@ -13,7 +13,6 @@ class BandController < Controller
     else
       prepare_flash(:errors => band_element.errors, :prefix => 'element')
       flash[:message] = _('There was an error adding the element. Please make sure you mentioned your element name and instruments')
-      pp flash
     end 
     redirect_referer
   end

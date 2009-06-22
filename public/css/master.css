@@ -826,3 +826,37 @@ td.even {
 	width: 100px;
 	height: 100px;
 }
+
+.news {
+	margin-top: 5px;
+}
+
+.first_news {
+	margin-top: 0px;
+}
+
+.news p, .news h1 {
+	padding-left: 112px;
+}
+
+#index .news h1, #index .event h1, #index .album h1 {
+	font-size: 120%;
+	letter-spacing: 2px;
+	font-family: Georgia;
+	line-height: 20px;
+	color: #e64b1b;
+}
+
+.img_150 {
+	float: left;
+	padding: 2px;
+	height: 100px;
+	width: 100px;
+	background: #000;
+}
+
+.content_title {
+	font-size: 160%;
+	letter-spacing: 2px;
+	line-height: 25px;
+}

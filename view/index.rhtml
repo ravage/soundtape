@@ -1,9 +1,65 @@
-
-
+<h1 class="content_title"><%= _('News') %></h1>
 <div class="content">
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis <a href="#">nostrud</a> exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	<% 0.upto(2) do |index| %>
+	<div class="news clearfix <%= 'first_news' if index == 0 %>">
+		<div class="img_150">
+			<img src="http://www.frequenciamaxima.com/wp-content/themes/arthemia/scripts/timthumb.php?src=<%= @entries[index].content.match(/<img.+?src=([\´"])([^\1]+?)\1/)[2] %>&amp;w=100&amp;h=100&amp;zc=1&amp;q=100" />	
+		</div>
+	
+		<h1><a href="<%= @entries[index].url %>"><%= @entries[index].title %></a></h1>
+		<p class="example"><%= @entries[index].published.strftime("%d/%m/%Y") %></p>
+		<p>
+			<%= @entries[index].summary[0, @entries[index].summary.index('.') + 1] %>
+		</p>
+	</div>
+	<% end %>
 </div>
 
+<h1 class="content_title"><%= _('Events') %></h1>
 <div class="content">
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	<% @events.each do |event| %>
+		<div class="event">
+			<div style="float: left; margin-right: 10px;">
+				<img src="<%== event.thumbnail %>" alt="<%= event.name %>" />
+			</div>
+			<ul>
+				<li><h1><a href="<%== AgendaController.r(:event, event.agenda.user.alias, event.slug) %>"><%= event.name %></a></h1>
+					<ul>
+						<li><%= _('Local:') %> <%== event.local %> <%= _('in') %> <%== event.building %></li>
+						<li><%= _('Date:') %> <%= event.when.strftime("%d/%m/%Y @ %H:%M") %></li>
+						<li><%= _('Price:') %> <%= event.price.to_f %><%= Currency[:ref_id => event.currency_id].symbol %></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	<% end %>
+	<% if @events.empty? %>
+		<p class="center_warning">
+			<%= _('No events scheduled yet.') %>
+		</p>
+	<% end %>
+</div>
+
+<h1 class="content_title"><%= _('Albums') %></h1>
+<div class="content">
+	<% @albums.each do |album| %>
+		<div class="album">
+			<div style="margin-right: 10px; float: left;">
+				<img src="<%= album.link_path(album.cover_thumb) %>" alt="<%== album.title %> " />
+			</div>
+			<h1><a href="<%== DiscographyController.r(:album, album.band.alias, album.slug) %>"><%== album.title %></a></h1>
+			<div class="extra_info">
+				<p><%= _('Band') %>: <%== album.band %></p>
+				<p><%= _('Tracks') %>: <%== album.number_of_tracks %></p>
+				<p><%= _('Published') %>: <%== album.year %></p>
+				<p><%= _('Label') %>: <%== album.label %></p>
+				<p><%= _('Tags') %>: <%== album.tags %></p>
+			</div>
+		</div>
+	<% end %>
+	<% if @albums.empty? %>
+	<p class="center_warning">
+		<%= _('No albums submitted yet') %>
+	</p>
+	<% end %>
 </div>

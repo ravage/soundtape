@@ -83,3 +83,10 @@
 	</div>
 	<% end %>
 </div>
+
+<div class="block">	
+	<h3><%= _('Genre Tags') %></h3>
+	<% Album.weighted_tags.each do |key, value| %>
+	<span><%== key %></span>
+	<% end %>
+</div>

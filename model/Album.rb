@@ -32,6 +32,14 @@ class Album < Sequel::Model(:albums)
     self.cover_thumb = thumb || cover_thumb
   end
   
+  def self.weighted_tags
+    htags = Hash.new(0)
+    Album.select(:tags).each do |tag| 
+      tag.tags.split(',').each { |t| htags[t.capitalize] += 1 }
+    end
+    return htags
+  end
+  
   def number_of_tracks
     return Track.filter(:album_id => id_).count
   end
