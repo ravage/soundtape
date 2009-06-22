@@ -64,6 +64,7 @@
 
 <div class="block">	
 	<h3><%= _('Latest Users') %></h3>
+	<div class="user_block clearfix">
 	<% Profile.latest_users.each do |u| %>
 	<div class="out_60">
 		<a href="<%== ProfileController.r(:view, u.user_alias) %>">
@@ -71,10 +72,12 @@
 		</a>
 	</div>
 	<% end %>
+	</div>
 </div>
 
 <div class="block">	
 	<h3><%= _('Latest Bands') %></h3>
+	<div class="band_block clearfix">
 	<% Profile.latest_bands.each do |u| %>
 	<div class="out_60">
 		<a href="<%== ProfileController.r(:view, u.user_alias) %>">
@@ -82,6 +85,7 @@
 		</a>
 	</div>
 	<% end %>
+	</div>
 </div>
 
 <div class="block">	

@@ -854,3 +854,8 @@ td.even {
 	letter-spacing: 2px;
 	line-height: 25px;
 }
+
+.user_block, .band_block {
+	width: 260px; 
+	margin: 0 auto;
+}
