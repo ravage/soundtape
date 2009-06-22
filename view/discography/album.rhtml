@@ -29,7 +29,7 @@
 										<%= @tracks[index].number %>
 									</td>
 									<td class="track_info <%= (index & 1 == 0) ? 'odd' : 'even' %>"">
-										<a href="<%== DiscographyController.r(:track, @profile.alias, @tracks[index].title) %>"><%== @tracks[index].title %></a>
+										<a href="<%== DiscographyController.r(:track, @profile.alias, @tracks[index].slug) %>"><%== @tracks[index].title %></a>
 									</td>
 								</tr>
 							<% end %>
