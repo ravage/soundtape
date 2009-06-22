@@ -3,7 +3,6 @@ class Band < User
   one_to_many :events, :join_table => :events, :class => :Event, :key => :user_id
   one_to_many :albums, :join_table => :albums, :class => :Album, :key => :user_id
   one_to_many :elements, :join_table => :band_elements, :class => :BandElement, :key => :user_id
-  
   def album(album_id)
     return Album.filter({:user_id => id} & {:id => album_id, :slug => album_id}.sql_or).first
   end
@@ -49,6 +48,6 @@ class Band < User
   end
   
   def to_s
-    return name
+    return profile.real_name
   end
 end

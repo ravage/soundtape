@@ -97,9 +97,9 @@ class User < Sequel::Model(:users)
     return profiles.first
   end
   
-  def name
-    return profile.real_name
-  end
+  #def real_name
+  #  return profile.real_name
+  #end
   
   def photo(photo_id)
     return Photo[:user_id => id, :id => photo_id]
