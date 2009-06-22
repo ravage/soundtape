@@ -1,7 +1,7 @@
 class Track < Sequel::Model(:tracks)
   include Ramaze::Helper::Utils
   many_to_one :album, :class => :Album
-  
+  self.set_dataset(dataset.order(:number))
   def validate
     validates_presence      [:title, :album_id, :number]
     validates_length_range  3..255, :title
