@@ -37,6 +37,10 @@ class Track < Sequel::Model(:tracks)
     return link_path(track_path) unless track_path.nil? || track_path.empty?
   end
   
+  def self.random(max = 10)
+    Track.eager_graph(:album => :band).order('RAND()'.lit).limit(max)
+  end
+  
   def sane_delete
     SoundTape::Helper.remove_files(absolute_path(track_path))
     delete

@@ -24,7 +24,14 @@ class ApiController < Controller
   end
   
   def get_tracks(band_id = nil)
-    @tracks = Band[:id => band_id].tracks.all
-    #@band = Band[:id => band_id]
+    case band_id
+    when 'random'
+      @tracks = Track.random.all
+    when %r{^[0-9]+}
+      band = Band[:id => band_id]
+      @tracks = band.tracks.all unless band.nil?
+      @tracks = Track.random.all if @tracks.nil?
+    end
+    
   end
 end
