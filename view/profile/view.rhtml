@@ -17,7 +17,7 @@
 		<% end %>
 		
 		<% unless @profile.homepage.nil? || @profile.homepage.empty? %>
-			<p><%= _('Homepage') %>: <%== @profile.homepage %></p>
+			<p><%= _('Homepage') %>: <a href="<%== @profile.homepage %>"><%== @profile.homepage %></a></p>
 		<% end %>
 		
 		<% unless @profile.bio.nil? || @profile.bio.empty? %>

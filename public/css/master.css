@@ -859,3 +859,11 @@ td.even {
 	width: 260px; 
 	margin: 0 auto;
 }
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}

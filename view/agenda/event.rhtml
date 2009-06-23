@@ -1,5 +1,6 @@
 <div class="content">
 	<%== @event.name %><br />
+	<%= _('Band:') %> <%== @user.profile.real_name %><br />
 	<%= _('Local:') %> <%== @event.local %> <%= _('in') %> <%== @event.building %><br />
 	<%= _('Date:') %> <%= @event.when.strftime("%d/%m/%Y @ %H:%M") %><br />
 	<%= _('Price:') %> <%= @event.price.to_f %><%= Currency[:ref_id => @event.currency_id].symbol %><br />
