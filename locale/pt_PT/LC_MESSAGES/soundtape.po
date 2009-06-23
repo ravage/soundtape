@@ -3,542 +3,565 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Rui Miguel <ravage@fragmentized.net>, 2009.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 2009-06-23 12:54+0100\n"
-"PO-Revision-Date: 2009-06-23 12:54+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2009-06-23 12:58+0100\n"
+"Last-Translator: Rui Miguel <>\n"
+"Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../controller/account.rb:5
 msgid "Register"
-msgstr ""
+msgstr "Registar"
 
 #: ../controller/account.rb:11
 msgid "Create"
-msgstr ""
+msgstr "Criar"
 
 #: ../controller/account.rb:27
-msgid "successfully created account. A message containing information on how to \n        activate your account was sent to the email address you provided when registering.\n        After the activation process is complete, you may login into your account."
-msgstr ""
+msgid ""
+"successfully created account. A message containing information on how to \n"
+"        activate your account was sent to the email address you provided "
+"when registering.\n"
+"        After the activation process is complete, you may login into your "
+"account."
+msgstr "Conta criada com sucesso. Foi enviada uma mensagem para o e-mail fornecido com instruçoes de activação. Após completar o processo de activação pode fazer login."
 
 #: ../controller/account.rb:38 ../view/account/activate.rhtml:4
 msgid "Login"
-msgstr ""
+msgstr "Entrar"
 
 #: ../controller/account.rb:53 ../view/partials/sidebar.rhtml:16
 msgid "Logout"
-msgstr ""
+msgstr "Sair"
 
 #: ../controller/account.rb:60
 msgid "Update Password"
-msgstr ""
+msgstr "Actualizar Password"
 
 #: ../controller/account.rb:78
 msgid "Account"
-msgstr ""
+msgstr "Conta"
 
 #: ../controller/account.rb:85
 msgid "Activate"
-msgstr ""
+msgstr "Activar"
 
 #: ../controller/account.rb:102
 msgid "Check your e-mail for details about resetting the password."
-msgstr ""
+msgstr "Verifique o seu e-mail para instruções como obter nova password."
 
 #: ../controller/account.rb:104
 msgid "There was a problem while resetting your passsword."
-msgstr ""
+msgstr "Surgiram problemas durante o processo de criação de nova password."
 
 #: ../controller/account.rb:107
 msgid "E-Mail invalid, perhaps misspelled?"
-msgstr ""
+msgstr "E-Mail inválido, verifique."
 
 #: ../controller/account.rb:115
 msgid "Please activate your account"
-msgstr ""
+msgstr "Por favor, active a sua conta"
 
 #: ../controller/account.rb:119
 msgid "Account Activation"
-msgstr ""
+msgstr "Activação de Conta"
 
 #: ../controller/account.rb:127
 msgid "You or someone requested a new password."
-msgstr ""
+msgstr "Você, ou alguém realizou um pedido de alteração de password."
 
 #: ../controller/account.rb:128
-msgid "\n\nYour new password: "
-msgstr ""
+msgid ""
+"\n"
+"\n"
+"Your new password: "
+msgstr "A sua nova password: "
 
 #: ../controller/account.rb:133
 msgid "Password Reset"
-msgstr ""
+msgstr "Nova Password"
 
 #: ../controller/agenda.rb:5 ../controller/settings.rb:50
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: ../controller/agenda.rb:13
 msgid "Update Agenda"
-msgstr ""
+msgstr "Actualizar Agenda"
 
 #: ../controller/agenda.rb:32
 msgid "Update Event"
-msgstr ""
+msgstr "Actualizar Evento"
 
 #: ../controller/agenda.rb:53
 msgid "Create Event"
-msgstr ""
+msgstr "Criar Evento"
 
 #: ../controller/agenda.rb:70
 msgid "Delete Event"
-msgstr ""
+msgstr "Apagar Evento"
 
 #: ../controller/band.rb:9
 msgid "Element added"
-msgstr ""
+msgstr "Elemento Adicionado"
 
 #: ../controller/band.rb:15
-msgid "There was an error adding the element. Please make sure you mentioned your element name and instruments"
-msgstr ""
+msgid ""
+"There was an error adding the element. Please make sure you mentioned your "
+"element name and instruments"
+msgstr "Ocorreu um erro ao adicionar um elemento. Verifique se forneceu o nome do elemento e os respectivos instrumentos."
 
 #: ../controller/band.rb:23
 msgid "Element removed"
-msgstr ""
+msgstr "Elemento removido"
 
 #: ../controller/band.rb:27
 msgid "There was a problem removing the element"
-msgstr ""
+msgstr "Surgiu um problema ao remover o elemento"
 
 #: ../controller/band.rb:37
 msgid "Element updated successfully"
-msgstr ""
+msgstr "Elemento actualizado com sucesso"
 
 #: ../controller/band.rb:44
 msgid "An error was encountered while submitting your request"
-msgstr ""
+msgstr "Surgiu um erro ao submeter o seu pedido"
 
-#: ../controller/discography.rb:5 ../controller/settings.rb:70 ../view/discography/album.rhtml:9
-#: ../view/settings/album.rhtml:4 ../view/settings/track.rhtml:6
+#: ../controller/discography.rb:5 ../controller/settings.rb:70
+#: ../view/discography/album.rhtml:9 ../view/settings/album.rhtml:4
+#: ../view/settings/track.rhtml:6
 msgid "Album"
-msgstr ""
+msgstr "Álbum"
 
-#: ../controller/discography.rb:14 ../controller/settings.rb:83 ../view/settings/album.rhtml:50
-#: ../view/settings/track.rhtml:19
+#: ../controller/discography.rb:14 ../controller/settings.rb:83
+#: ../view/settings/album.rhtml:50 ../view/settings/track.rhtml:19
 msgid "Track"
-msgstr ""
+msgstr "Pista"
 
 #: ../controller/discography.rb:20
 msgid "Create Album"
-msgstr ""
+msgstr "Criar Álbum"
 
 #: ../controller/discography.rb:37
 msgid "Update Album"
-msgstr ""
+msgstr "Actualiza Álbum"
 
 #: ../controller/discography.rb:56
 msgid "Create Track"
-msgstr ""
+msgstr "Criar Pista"
 
 #: ../controller/discography.rb:76
 msgid "Update Track"
-msgstr ""
+msgstr "Actualizar Pista"
 
 #: ../controller/discography.rb:95
 msgid "Delete Track"
-msgstr ""
+msgstr "Apagar Pista"
 
 #: ../controller/discography.rb:103
 msgid "Delete Album"
-msgstr ""
+msgstr "Apagar Álbum"
 
 #: ../controller/main.rb:5 ../layout/master.rhtml:43
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 #: ../controller/main.rb:15
 msgid "Unexpected Error"
-msgstr ""
+msgstr "Erro Inesperado"
 
 #: ../controller/main.rb:17
 msgid "An unexpected error ocurred please try again"
-msgstr ""
+msgstr "Ocorreu um erro inesperado, tente novamente por favor."
 
 #: ../controller/main.rb:21
 msgid "Feedback"
-msgstr ""
+msgstr "Feedback"
 
 #: ../controller/main.rb:34
 msgid "Thank you for taking the time to give us some feedback!"
-msgstr ""
+msgstr "Agradecemos o tempo despendido para nos fornecer feedback!"
 
 #: ../controller/profile.rb:7 ../controller/settings.rb:12
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: ../controller/profile.rb:52
 msgid "Update Profile"
-msgstr ""
+msgstr "Actualizar Perfil"
 
 #: ../controller/profile.rb:71
 msgid "Update Avatar"
-msgstr ""
+msgstr "Actualizar Avatar"
 
 #: ../controller/profile.rb:90
 msgid "Update Alias"
-msgstr ""
+msgstr "Actualizar Alias"
 
 #: ../controller/profile.rb:107
 msgid "Update Location"
-msgstr ""
+msgstr "Actualizar Localização"
 
 #: ../controller/profile.rb:124
 msgid "Upload Photo"
-msgstr ""
+msgstr "Enviar Foto"
 
 #: ../controller/profile.rb:142
 msgid "Update Photo"
-msgstr ""
+msgstr "Actualizar Foto"
 
 #: ../controller/profile.rb:156
 msgid "Delete Photo"
-msgstr ""
+msgstr "Apagar Foto"
 
 #: ../controller/profile.rb:202
 msgid "Shout added"
-msgstr ""
+msgstr "Comentário adicionado"
 
 #: ../controller/profile.rb:207
 msgid "Need something to shout about!"
-msgstr ""
+msgstr "Se pretende deixar um comentário, deve escrever algo!"
 
 #: ../controller/profile.rb:221
 msgid "Shout deleted"
-msgstr ""
+msgstr "Comentário apagado"
 
 #: ../controller/profile.rb:223
 msgid "Something went wrong while deleteing your shout"
-msgstr ""
+msgstr "Foram encontrados problemas ao apagar comentário"
 
 #: ../controller/settings.rb:7 ../view/partials/sidebar.rhtml:15
 msgid "Settings"
-msgstr ""
+msgstr "Definições"
 
 #: ../controller/settings.rb:18 ../view/partials/sidebar.rhtml:33
 msgid "Avatar"
-msgstr ""
+msgstr "Avatar"
 
 #: ../controller/settings.rb:23 ../view/partials/form_login.rhtml:6
-#: ../view/partials/form_register.rhtml:9 ../view/partials/sidebar.rhtml:34 ../view/settings/password.rhtml:5
+#: ../view/partials/form_register.rhtml:9 ../view/partials/sidebar.rhtml:34
+#: ../view/settings/password.rhtml:5
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: ../controller/settings.rb:28
 msgid "Notifications"
-msgstr ""
+msgstr "Notificações"
 
 #: ../controller/settings.rb:33 ../view/partials/sidebar.rhtml:36
 msgid "URL Alias"
-msgstr ""
+msgstr "URL Alias"
 
-#: ../controller/settings.rb:38 ../view/partials/sidebar.rhtml:37 ../view/profile/view.rhtml:16
-#: ../view/profile/view.rhtml:99 ../view/settings/location.rhtml:4
+#: ../controller/settings.rb:38 ../view/partials/sidebar.rhtml:37
+#: ../view/profile/view.rhtml:16 ../view/profile/view.rhtml:99
+#: ../view/settings/location.rhtml:4
 msgid "Location"
-msgstr ""
+msgstr "Localização"
 
 #: ../controller/settings.rb:43 ../view/partials/sidebar.rhtml:40
 msgid "Agenda"
-msgstr ""
+msgstr "Agenda"
 
-#: ../controller/settings.rb:64 ../view/partials/sidebar.rhtml:41 ../view/profile/view.rhtml:44
+#: ../controller/settings.rb:64 ../view/partials/sidebar.rhtml:41
+#: ../view/profile/view.rhtml:44
 msgid "Discography"
-msgstr ""
+msgstr "Discografia"
 
-#: ../controller/settings.rb:98 ../view/partials/sidebar.rhtml:42 ../view/profile/view.rhtml:40
-#: ../view/settings/elements.rhtml:96
+#: ../controller/settings.rb:98 ../view/partials/sidebar.rhtml:42
+#: ../view/profile/view.rhtml:40 ../view/settings/elements.rhtml:96
 msgid "Elements"
-msgstr ""
+msgstr "Elementos"
 
-#: ../controller/settings.rb:106 ../view/settings/agenda.rhtml:30 ../view/settings/album.rhtml:66
-#: ../view/settings/discography.rhtml:19 ../view/settings/discography.rhtml:27
-#: ../view/settings/elements.rhtml:72
+#: ../controller/settings.rb:106 ../view/settings/agenda.rhtml:30
+#: ../view/settings/album.rhtml:66 ../view/settings/discography.rhtml:19
+#: ../view/settings/discography.rhtml:27 ../view/settings/elements.rhtml:72
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
-#: ../controller/settings.rb:110 ../view/partials/sidebar.rhtml:38 ../view/profile/view.rhtml:52
+#: ../controller/settings.rb:110 ../view/partials/sidebar.rhtml:38
+#: ../view/profile/view.rhtml:52
 msgid "Photos"
-msgstr ""
+msgstr "Fotos"
 
-#: ../controller/settings.rb:115 ../view/settings/avatar.rhtml:13 ../view/settings/photos.rhtml:6
+#: ../controller/settings.rb:115 ../view/settings/avatar.rhtml:13
+#: ../view/settings/photos.rhtml:6
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: ../layout/master.rhtml:44
 msgid "About"
-msgstr ""
+msgstr "Sobre"
 
-#: ../layout/master.rhtml:45 ../view/index.rhtml:18 ../view/profile/view.rhtml:48
+#: ../layout/master.rhtml:45 ../view/index.rhtml:18
+#: ../view/profile/view.rhtml:48
 msgid "Events"
-msgstr ""
+msgstr "Eventos"
 
-#: ../layout/master.rhtml:46 ../view/settings/elements.rhtml:8 ../view/settings/event.rhtml:18
-#: ../view/settings/location.rhtml:12
+#: ../layout/master.rhtml:46 ../view/settings/elements.rhtml:8
+#: ../view/settings/event.rhtml:18 ../view/settings/location.rhtml:12
 msgid "Search"
-msgstr ""
+msgstr "Pesquisa"
 
 #: ../layout/master.rhtml:47
 msgid "Bands"
-msgstr ""
+msgstr "Bandas"
 
 #: ../layout/master.rhtml:48
 msgid "Users"
-msgstr ""
+msgstr "Utilizadores"
 
 #: ../view/about.rhtml:1
 msgid "About The Project"
-msgstr ""
+msgstr "Sobre o Projecto"
 
 #: ../view/account/activate.rhtml:2
 msgid "Invalid account activation key!"
-msgstr ""
+msgstr "Chave de activação inválida!"
 
 #: ../view/account/activate.rhtml:4
 msgid "Activation successfull, "
-msgstr ""
+msgstr "A sua conta está agora activada, "
 
 #: ../view/account/login.rhtml:5
 msgid "Check your login and user name"
-msgstr ""
+msgstr "Verifique o seu email ou password"
 
 #: ../view/account/login.rhtml:6
 msgid "Is your account activated?"
-msgstr ""
+msgstr "A sua conta encontra-se activa?"
 
 #: ../view/account/reset.rhtml:5 ../view/partials/form_login.rhtml:12
 msgid "Reset"
-msgstr ""
+msgstr "Nova password"
 
 #: ../view/agenda/event.rhtml:3 ../view/index.rhtml:25
 msgid "Band:"
-msgstr ""
+msgstr "Banda"
 
-#: ../view/agenda/event.rhtml:4 ../view/index.rhtml:26 ../view/settings/agenda.rhtml:33
-#: ../view/user/events.rhtml:10
+#: ../view/agenda/event.rhtml:4 ../view/index.rhtml:26
+#: ../view/settings/agenda.rhtml:33 ../view/user/events.rhtml:10
 msgid "Local:"
-msgstr ""
+msgstr "Local:"
 
-#: ../view/agenda/event.rhtml:4 ../view/index.rhtml:26 ../view/settings/agenda.rhtml:33
-#: ../view/user/events.rhtml:10
+#: ../view/agenda/event.rhtml:4 ../view/index.rhtml:26
+#: ../view/settings/agenda.rhtml:33 ../view/user/events.rhtml:10
 msgid "in"
-msgstr ""
+msgstr "em"
 
-#: ../view/agenda/event.rhtml:5 ../view/index.rhtml:27 ../view/settings/agenda.rhtml:34
-#: ../view/user/events.rhtml:11
+#: ../view/agenda/event.rhtml:5 ../view/index.rhtml:27
+#: ../view/settings/agenda.rhtml:34 ../view/user/events.rhtml:11
 msgid "Date:"
-msgstr ""
+msgstr "Data:"
 
-#: ../view/agenda/event.rhtml:6 ../view/index.rhtml:28 ../view/settings/agenda.rhtml:35
-#: ../view/user/events.rhtml:12
+#: ../view/agenda/event.rhtml:6 ../view/index.rhtml:28
+#: ../view/settings/agenda.rhtml:35 ../view/user/events.rhtml:12
 msgid "Price:"
-msgstr ""
+msgstr "Preço:"
 
-#: ../view/agenda/event.rhtml:20 ../view/profile/view.rhtml:125 ../view/settings/event.rhtml:71
-#: ../view/settings/location.rhtml:21
+#: ../view/agenda/event.rhtml:20 ../view/profile/view.rhtml:125
+#: ../view/settings/event.rhtml:71 ../view/settings/location.rhtml:21
 msgid "Enable javascript to get map functionality!"
-msgstr ""
+msgstr "Active JavaScript no seu browser para obter funcionalidade do mapa!"
 
-#: ../view/discography/album.rhtml:8 ../view/index.rhtml:50 ../view/profile/view.rhtml:12
+#: ../view/discography/album.rhtml:8 ../view/index.rhtml:50
+#: ../view/profile/view.rhtml:12
 msgid "Band"
-msgstr ""
+msgstr "Banda"
 
-#: ../view/discography/album.rhtml:11 ../view/index.rhtml:52 ../view/user/albums.rhtml:10
+#: ../view/discography/album.rhtml:11 ../view/index.rhtml:52
+#: ../view/user/albums.rhtml:10
 msgid "Published"
-msgstr ""
+msgstr "Publicado"
 
-#: ../view/discography/album.rhtml:12 ../view/index.rhtml:53 ../view/settings/album.rhtml:9
-#: ../view/user/albums.rhtml:11
+#: ../view/discography/album.rhtml:12 ../view/index.rhtml:53
+#: ../view/settings/album.rhtml:9 ../view/user/albums.rhtml:11
 msgid "Label"
-msgstr ""
+msgstr "Editora"
 
-#: ../view/discography/album.rhtml:13 ../view/index.rhtml:54 ../view/settings/album.rhtml:15
-#: ../view/user/albums.rhtml:12
+#: ../view/discography/album.rhtml:13 ../view/index.rhtml:54
+#: ../view/settings/album.rhtml:15 ../view/user/albums.rhtml:12
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
-#: ../view/discography/track.rhtml:3 ../view/settings/album.rhtml:47 ../view/settings/track.rhtml:16
+#: ../view/discography/track.rhtml:3 ../view/settings/album.rhtml:47
+#: ../view/settings/track.rhtml:16
 msgid "Lyrics"
-msgstr ""
+msgstr "Letra"
 
 #: ../view/discography/track.rhtml:7
 msgid "No lyrics submitted for this track"
-msgstr ""
+msgstr "A letra da música não foi submetida"
 
-#: ../view/feedback.rhtml:11 ../view/settings/event.rhtml:12 ../view/settings/profile.rhtml:5
+#: ../view/feedback.rhtml:11 ../view/settings/event.rhtml:12
+#: ../view/settings/profile.rhtml:5
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: ../view/feedback.rhtml:14 ../view/partials/form_login.rhtml:3
 #: ../view/partials/form_register.rhtml:6 ../view/settings/profile.rhtml:8
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
 #: ../view/feedback.rhtml:21
 msgid "Send"
-msgstr ""
+msgstr "Enviar"
 
 #: ../view/feedback.rhtml:27
 msgid "Found a bug?"
-msgstr ""
+msgstr "Encontrou um bug?"
 
 #: ../view/feedback.rhtml:28
 msgid "Got any issue?"
-msgstr ""
+msgstr "Encontrou um problema?"
 
 #: ../view/feedback.rhtml:29
 msgid "A suggestion?"
-msgstr ""
+msgstr "Uma sugestão?"
 
 #: ../view/feedback.rhtml:30
 msgid "Think we suck?"
-msgstr ""
+msgstr "Acha o site uma porcaria?"
 
 #: ../view/feedback.rhtml:33
-msgid "Just tell us all about it! We won't even bother you with form validations... Well, at least for now."
-msgstr ""
+msgid ""
+"Just tell us all about it! We won't even bother you with form validations... "
+"Well, at least for now."
+msgstr "Envie-nos informação sobre a situação, logo que possível tentaremos resolver."
 
 #: ../view/index.rhtml:1
 msgid "News"
-msgstr ""
+msgstr "Notícias"
 
 #: ../view/index.rhtml:36 ../view/user/events.rhtml:20
 msgid "No events scheduled yet."
-msgstr ""
+msgstr "Sem eventos marcados."
 
 #: ../view/index.rhtml:41
 msgid "Albums"
-msgstr ""
+msgstr "Álbuns"
 
 #: ../view/index.rhtml:51 ../view/user/albums.rhtml:9
 msgid "Tracks"
-msgstr ""
+msgstr "Pistas"
 
 #: ../view/index.rhtml:60 ../view/user/albums.rhtml:18
 msgid "No albums submitted yet"
-msgstr ""
+msgstr "Não foram submetidos quaisquer álbuns"
 
-#: ../view/partials/form_login.rhtml:10 ../view/partials/form_register.rhtml:16
+#: ../view/partials/form_login.rhtml:10
+#: ../view/partials/form_register.rhtml:16
 msgid "Continue"
-msgstr ""
+msgstr "Continuar"
 
 #: ../view/partials/form_login.rhtml:12
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Esqueceu-se da password?"
 
 #: ../view/partials/form_register.rhtml:3
 msgid "Real Name"
-msgstr ""
+msgstr "Nome Próprio"
 
 #: ../view/partials/form_register.rhtml:3
 msgid "Band Name"
-msgstr ""
+msgstr "Nome da Banda"
 
 #: ../view/partials/form_register.rhtml:12
 msgid "Confirm Password"
-msgstr ""
+msgstr "Confirmar Password"
 
 #: ../view/partials/sidebar.rhtml:3
 msgid "Welcome"
-msgstr ""
+msgstr "Bem-Vindo"
 
 #: ../view/partials/sidebar.rhtml:6
 msgid "Register a Band"
-msgstr ""
+msgstr "Registar Uma Banda"
 
 #: ../view/partials/sidebar.rhtml:7
 msgid "Register a User"
-msgstr ""
+msgstr "Registar Um Utilizador"
 
 #: ../view/partials/sidebar.rhtml:14
 msgid "Your Profile"
-msgstr ""
+msgstr "Perfil Pessoal"
 
 #: ../view/partials/sidebar.rhtml:30
 msgid "Profile Menu"
-msgstr ""
+msgstr "Menu Perfil"
 
 #: ../view/partials/sidebar.rhtml:32
 msgid "Personal Info"
-msgstr ""
+msgstr "Informação Pessoal"
 
 #: ../view/partials/sidebar.rhtml:35
 msgid "Notification"
-msgstr ""
+msgstr "Notificações"
 
 #: ../view/partials/sidebar.rhtml:45
 msgid "Delete Account"
-msgstr ""
+msgstr "Apagar Conta"
 
 #: ../view/partials/sidebar.rhtml:52
 msgid "Fan Box"
-msgstr ""
+msgstr "Fãs"
 
 #: ../view/partials/sidebar.rhtml:55
 msgid "Like this band!"
-msgstr ""
+msgstr "Gosto desta banda!"
 
 #: ../view/partials/sidebar.rhtml:59
 msgid "Dont't like this band!"
-msgstr ""
+msgstr "Não gosto desta banda!"
 
 #: ../view/partials/sidebar.rhtml:66
 msgid "Latest Users"
-msgstr ""
+msgstr "Últimos Utilizadores"
 
 #: ../view/partials/sidebar.rhtml:79
 msgid "Latest Bands"
-msgstr ""
+msgstr "Últimas Bandas"
 
 #: ../view/partials/sidebar.rhtml:92
 msgid "Genre Tags"
-msgstr ""
+msgstr "Tags de Género"
 
 #: ../view/profile/view.rhtml:12
 msgid "User"
-msgstr ""
+msgstr "Utilizador"
 
 #: ../view/profile/view.rhtml:20 ../view/settings/profile.rhtml:11
 msgid "Homepage"
-msgstr ""
+msgstr "Homepage"
 
 #: ../view/profile/view.rhtml:24 ../view/settings/profile.rhtml:14
 msgid "Bio"
-msgstr ""
+msgstr "Biografia"
 
 #: ../view/profile/view.rhtml:75
 msgid "Shouts"
-msgstr ""
+msgstr "Comentários"
 
 #: ../view/profile/view.rhtml:79
 msgid "Fans"
-msgstr ""
+msgstr "Fãs"
 
 #: ../view/profile/view.rhtml:112
 msgid "User location"
-msgstr ""
+msgstr "Localização utilizador"
 
 #: ../view/settings/agenda.rhtml:2
 msgid "Add Event"
-msgstr ""
+msgstr "Adicionar Evento"
 
 #: ../view/settings/agenda.rhtml:9 ../view/settings/event.rhtml:54
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: ../view/settings/agenda.rhtml:11
 msgid "Ex: My Uber band events"
@@ -548,76 +571,79 @@ msgstr ""
 #: ../view/settings/discography.rhtml:18 ../view/settings/discography.rhtml:26
 #: ../view/settings/elements.rhtml:49 ../view/settings/elements.rhtml:65
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
-#: ../view/settings/album.rhtml:6 ../view/settings/album.rhtml:41 ../view/settings/photo.rhtml:3
-#: ../view/settings/photos.rhtml:3 ../view/settings/track.rhtml:10
+#: ../view/settings/album.rhtml:6 ../view/settings/album.rhtml:41
+#: ../view/settings/photo.rhtml:3 ../view/settings/photos.rhtml:3
+#: ../view/settings/track.rhtml:10
 msgid "Title"
-msgstr ""
+msgstr "Titúlo"
 
 #: ../view/settings/album.rhtml:12
 msgid "Year"
-msgstr ""
+msgstr "Ano"
 
 #: ../view/settings/album.rhtml:18
 msgid "Cover"
-msgstr ""
+msgstr "Capa"
 
-#: ../view/settings/album.rhtml:39 ../view/settings/discography.rhtml:4 ../view/settings/track.rhtml:4
+#: ../view/settings/album.rhtml:39 ../view/settings/discography.rhtml:4
+#: ../view/settings/track.rhtml:4
 msgid "Add Tracks"
-msgstr ""
+msgstr "Adicionar Pistas"
 
 #: ../view/settings/album.rhtml:44 ../view/settings/track.rhtml:13
 msgid "Number"
-msgstr ""
+msgstr "Número"
 
 #: ../view/settings/avatar.rhtml:6
 msgid "Use Gravatar"
-msgstr ""
+msgstr "Utilizar Gravatar"
 
 #: ../view/settings/discography.rhtml:2
 msgid "Add Albums"
-msgstr ""
+msgstr "Adicionar Álbuns"
 
 #: ../view/settings/elements.rhtml:5
 msgid "Search for existing users? Type in name or e-mail"
-msgstr ""
+msgstr "Procurar por utilizadores existentes? Introduza nome ou e-mail"
 
 #: ../view/settings/elements.rhtml:19
 msgid "You haven't added any elements yet"
-msgstr ""
+msgstr "Não foram adicionados quaisquer elementos"
 
 #: ../view/settings/elements.rhtml:77
 msgid "Visit Profile"
-msgstr ""
+msgstr "Visitar Perfil"
 
 #: ../view/settings/elements.rhtml:97
 msgid "Element Name"
-msgstr ""
+msgstr "Nome Elemento"
 
 #: ../view/settings/elements.rhtml:100
 msgid "Element Instruments"
-msgstr ""
+msgstr "Instrumentos"
 
 #: ../view/settings/elements.rhtml:114
 msgid "No users where found matching your search"
-msgstr ""
+msgstr "A sua pesquisa não devolveu quaisquer resultados"
 
 #: ../view/settings/elements.rhtml:131 ../view/user/elements.rhtml:21
 msgid "View profile"
-msgstr ""
+msgstr "Ver Perfil"
 
 #: ../view/settings/elements.rhtml:135
-msgid "Insert a single, or a comma separated list of instruments this element plays"
-msgstr ""
+msgid ""
+"Insert a single, or a comma separated list of instruments this element plays"
+msgstr "Introduza um instrumento ou vários separados por vírgula"
 
 #: ../view/settings/elements.rhtml:138
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: ../view/settings/event.rhtml:11
 msgid "Event Location"
-msgstr ""
+msgstr "Localização do Evento"
 
 #: ../view/settings/event.rhtml:14
 msgid "Ex: Concert to myself"
@@ -625,7 +651,7 @@ msgstr ""
 
 #: ../view/settings/event.rhtml:16
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: ../view/settings/event.rhtml:19
 msgid "Ex: 500 E Cesar Chavez St, Austin, Texas"
@@ -633,7 +659,7 @@ msgstr ""
 
 #: ../view/settings/event.rhtml:24
 msgid "Building"
-msgstr ""
+msgstr "Edifício"
 
 #: ../view/settings/event.rhtml:26
 msgid "Ex: Austin Convention Center"
@@ -641,15 +667,15 @@ msgstr ""
 
 #: ../view/settings/event.rhtml:30
 msgid "Time and Price"
-msgstr ""
+msgstr "Hora e Preço"
 
 #: ../view/settings/event.rhtml:31
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: ../view/settings/event.rhtml:42
 msgid "Price"
-msgstr ""
+msgstr "Preço"
 
 #: ../view/settings/event.rhtml:46
 msgid "Ex: 15.5"
@@ -657,48 +683,48 @@ msgstr ""
 
 #: ../view/settings/event.rhtml:50
 msgid "Extra Info"
-msgstr ""
+msgstr "Informação Adicional"
 
 #: ../view/settings/event.rhtml:51
 msgid "Flyer"
-msgstr ""
+msgstr "Folheto"
 
 #: ../view/settings/location.rhtml:11
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: ../view/settings/password.rhtml:4
 msgid "Change Password"
-msgstr ""
+msgstr "Alterar Password"
 
 #: ../view/settings/password.rhtml:8
 msgid "Password Confirmation"
-msgstr ""
+msgstr "Confirmação de Password"
 
 #: ../view/settings/profile.rhtml:4
 msgid "Profile Settings"
-msgstr ""
+msgstr "Definições do Perfil"
 
 #: ../view/settings/url_alias.rhtml:4
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: ../view/user/elements.rhtml:28
 msgid "Hey, it's the invisible man band!"
-msgstr ""
+msgstr "Ainda não foram adicionados elementos!"
 
 #: ../view/user/fans.rhtml:4
 msgid "Are we that bad?"
-msgstr ""
+msgstr "Ainda não foram adicionados comentários!"
 
 #: ../view/user/photos.rhtml:9
 msgid "No photos were submitted yet"
-msgstr ""
+msgstr "Ainda não foram adicionadas fotos!"
 
 #: ../view/user/shouts.rhtml:33
 msgid "wrote"
-msgstr ""
+msgstr "escreveu"
 
 #: ../view/user/shouts.rhtml:54
 msgid "Come on, scream for us!"
-msgstr ""
+msgstr "Deixe-nos um comentário!"

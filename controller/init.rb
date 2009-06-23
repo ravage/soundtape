@@ -2,10 +2,12 @@
 # controllers
 
 class Controller < Ramaze::Controller
+  helper :aspect
   layout :master
   map_layouts '/'
   engine :Erubis
-  #layout(:master){|path, wish| wish !~ /rss|atom/ }
+  
+
   def self.action_missing(path)
     try_resolve('/lost')
   end

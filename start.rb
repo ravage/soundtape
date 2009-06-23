@@ -2,15 +2,21 @@ require 'rubygems'
 require 'ramaze'
 require 'sequel'
 require 'logger'
-require 'gettext'
+require 'fast_gettext'
 require 'digest/sha1'
 require 'ramaze/contrib/email'
 require 'image_science'
 require 'json/ext'
 require 'vendor/rfc822'
 require 'feedzirra'
+require 'middleware/locale'
 
-include GetText
+FastGettext.add_text_domain('soundtape', :path => 'locale')
+
+FastGettext.text_domain = 'soundtape'
+FastGettext.available_locales = ['en', 'pt_PT']
+
+include FastGettext::Translation
 #bindtextdomain('soundtape', :path => 'locale')
 #Locale.clear_all
 #Locale.default = "en"
@@ -64,6 +70,25 @@ Ramaze::acquire 'model/*'
 # Add directory start.rb is in to the load path, so you can run the app from
 # any other working path
 $LOAD_PATH.unshift(__DIR__)
+
+Ramaze.middleware! :dev do |m|
+ m.use Rack::Lint
+ m.use Rack::CommonLogger, Ramaze::Log
+ m.use Rack::ShowExceptions
+ m.use Rack::ShowStatus
+ m.use Rack::RouteExceptions
+ m.use Rack::ContentLength
+ m.use Rack::ConditionalGet
+ m.use Rack::ETag
+ m.use Rack::Head
+ m.use Ramaze::Reloader
+ m.use Rack::Session::Cookie, :expire_after => 2678400
+ m.use Locale
+ m.run Ramaze::AppMap
+end
+
+
+
 
 Rack::RouteExceptions.route(/.*/, '/lost') if Ramaze.options.mode == :live
 Ramaze.start :adapter => :webrick, :port => 7000

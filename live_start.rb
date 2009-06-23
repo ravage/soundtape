@@ -2,7 +2,7 @@ require 'rubygems'
 require 'ramaze'
 require 'sequel'
 require 'logger'
-require 'gettext'
+require 'fast_gettext'
 require 'digest/sha1'
 require 'ramaze/contrib/email'
 require 'image_science'
@@ -10,10 +10,28 @@ require 'json/ext'
 require 'vendor/rfc822'
 require 'feedzirra'
 
-include GetText
+FastGettext.add_text_domain('soundtape', :path => 'locale')
+
+FastGettext.text_domain = 'soundtape'
+FastGettext.available_locales = ['en', 'pt_PT']
+
+include FastGettext::Translation
 #bindtextdomain('soundtape', :path => 'locale')
 #Locale.clear_all
 #Locale.default = "en"
+
+Ramaze.middleware! :live do |m|
+  m.use Rack::CommonLogger, Ramaze::Log
+  m.use Rack::RouteExceptions
+  m.use Rack::ShowStatus
+  m.use Rack::ContentLength
+  m.use Rack::ConditionalGet
+  m.use Rack::ETag
+  m.use Rack::Head
+  m.use Rack::Session::Cookie, :expire_after => 2678400
+  m.use Locale
+  m.run Ramaze::AppMap
+end
 
 Ramaze.options.cache.default = Ramaze::Cache::MemCache
 Ramaze.options.session.ttl = 86400;
@@ -32,7 +50,6 @@ DB = Sequel.mysql(SoundTape.options.Database.name,
   :socket   => SoundTape.options.Database.socket, 
   :charset  => SoundTape.options.Database.charset)
 
-Ramaze::Log.warn SoundTape.options.Email.host
 Ramaze::EmailHelper.trait(
   :smtp_server      => SoundTape.options.Email.host,
   :smtp_helo_domain => SoundTape.options.Email.hello,

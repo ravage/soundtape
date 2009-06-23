@@ -81,7 +81,6 @@ module Ramaze
           return "#{slug}-#{count}"
         end
       end
-            
     end
   end
 end
