@@ -13,7 +13,7 @@ class Agenda < Sequel::Model(:agendas)
   end
   
   def upcoming_events
-    Event.filter((:when >= Time.now)).all
+    Event.filter(:when >= Time.now, :agenda_id => :id).all
   end
   
   def id_

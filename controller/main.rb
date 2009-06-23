@@ -5,6 +5,8 @@ class MainController < Controller
     @title = _('Home')
     @feed = Feedzirra::Feed.fetch_and_parse("http://www.frequenciamaxima.com/feed/atom/")
     @entries = @feed.entries
+    #@feed_events = Feedzirra::Feed.fetch_and_parse("http://palcoprincipal.sapo.pt/eventosBandas/RSS")
+    #@generic_events = @feed_events.entries
     @events = Event.eager_graph(:agenda => :user).filter(:when >= Time.now).limit(3).all
     @albums = Album.eager_graph(:band).limit(3).all
   end
