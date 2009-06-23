@@ -37,11 +37,11 @@
 	<div id="wrapper">
 		<div id="header">
 			<img class="alpha" src="/imgs/alpha.png" alt="Alpha Version" title="Alpha Version" />
-			<% if request.env['rack.session'][:locale].downcase == 'pt_pt' %>
+			<% if session[:locale].downcase == 'pt_pt' %>
 				<span class="flag"><a href="?locale=en">
 					<img src="/imgs/en.png" alt="English" /></a>
 				</span>
-			<% elsif request.env['rack.session'][:locale].downcase == 'en' %>
+			<% elsif session[:locale].downcase == 'en' %>
 				<span class="flag"><a href="?locale=pt_pt"><img src="/imgs/pt_pt.png" alt="Português" /></a></span>
 			<% end %>
 		</div>

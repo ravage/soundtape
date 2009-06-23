@@ -15,6 +15,13 @@ class Controller < Ramaze::Controller
   def lost
     render_view(action.name){|action| action.view = 'view/lost.rhtml' }
   end
+  
+  def set_locale
+    session[:locale] = request[:locale] || session[:locale] || FastGettext.locale
+    FastGettext.locale =  session[:locale]
+  end
+  
+  before_all {set_locale}
 end
 
 # Here go your requires for subclasses of Controller:

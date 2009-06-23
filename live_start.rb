@@ -9,6 +9,7 @@ require 'image_science'
 require 'json/ext'
 require 'vendor/rfc822'
 require 'feedzirra'
+require 'middleware/locale'
 
 FastGettext.add_text_domain('soundtape', :path => 'locale')
 
@@ -16,9 +17,7 @@ FastGettext.text_domain = 'soundtape'
 FastGettext.available_locales = ['en', 'pt_PT']
 
 include FastGettext::Translation
-#bindtextdomain('soundtape', :path => 'locale')
-#Locale.clear_all
-#Locale.default = "en"
+
 
 Ramaze.middleware! :live do |m|
   m.use Rack::CommonLogger, Ramaze::Log
@@ -28,7 +27,6 @@ Ramaze.middleware! :live do |m|
   m.use Rack::ConditionalGet
   m.use Rack::ETag
   m.use Rack::Head
-  m.use Rack::Session::Cookie, :expire_after => 2678400
   m.use Locale
   m.run Ramaze::AppMap
 end

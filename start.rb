@@ -82,7 +82,6 @@ Ramaze.middleware! :dev do |m|
  m.use Rack::ETag
  m.use Rack::Head
  m.use Ramaze::Reloader
- m.use Rack::Session::Cookie, :expire_after => 2678400
  m.use Locale
  m.run Ramaze::AppMap
 end
