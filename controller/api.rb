@@ -12,7 +12,7 @@ class ApiController < Controller
   end
   
   def get_events(user_id)
-    events = Event.filter(:user_id => user_id).all unless user_id.nil?
+    events = Event.filter({:user_id => user_id} & (:when >= Time.now)).all unless user_id.nil?
     return  events unless events.nil?
     'failure'
   end

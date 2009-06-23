@@ -12,10 +12,6 @@ class Agenda < Sequel::Model(:agendas)
     Event.filter({:agenda_id => id} & {:id => event_id, :slug => event_id}.sql_or).first
   end
   
-  def upcoming_events
-    Event.filter(:when >= Time.now, :agenda_id => :id).all
-  end
-  
   def id_
     return id
   end

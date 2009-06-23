@@ -43,7 +43,7 @@ class ProfileController < Controller
     end
         
     @profile = @user.profile
-    @events = @user.agenda.upcoming_events if @user.respond_to?(:agenda)
+    @events = Event.filter({:user_id => @user.id_} & (:when >= Time.now)).all if @user.respond_to?(:agenda)
     @fan_box = @user.is_a?(Band) && @user.id_ != session[:user_id] && logged_in?
     @shouts = @user.shouts
   end
