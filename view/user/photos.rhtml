@@ -1,7 +1,7 @@
 <div class="content">
 	<% @photos.each do |photo| %>
 		<div class="out">
-			<a href="<%== photo.photo %>" rel="lightbox"><img src="<%== photo.thumbnail %>" alt="<%= photo.title %>" /></a>
+			<a href="<%== photo.photo %>" rel="milkbox:profile"><img src="<%== photo.thumbnail %>" alt="<%= photo.title || 'Profile' %>" /></a>
 		</div>
 	<% end %>
 	<% if @photos.empty? %>

@@ -18,7 +18,7 @@
 <h1 class="content_title"><%= _('Events') %></h1>
 <div class="content">
 	<% @events.each_with_index do |event, index| %>
-		<div class="event <%= index & 1 == 1 ? 'left' : 'right' %>">
+		<div class="event <%= index & 1 == 0 ? 'left' : 'right' %>">
 			<ul>
 				<li><h1><a href="<%== AgendaController.r(:event, event.agenda.user.alias, event.slug) %>"><%= event.name %></a></h1>
 					<ul>

@@ -867,3 +867,11 @@ td.even {
 .right {
 	float: right;
 }
+
+#index .event:hover, #index .album:hover, #index .news:hover {
+    background: #000;
+}
+
+#index .event, #index .album, #index .news {
+    padding: 5px;
+}
